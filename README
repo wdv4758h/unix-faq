@@ -1,75 +1,75 @@
 <<<< Last Modified 3/1/99>>>>
 
-Ãö©ó FAQ ¤¤¤åª©:
-Å²©ó  tw.bbs.comp.unix ¤¤¤@¦A¥X²{­«ÂĞªº°İÃD
-§Ú­Ì({chenjl,freedom,jjyang}@csie.nctu.edu.tw)±N comp.unix.questions ªº FAQs 
-Â½Ä¶¬°¤¤¤å
-§Æ±æ¹ï³oºØ±¡ªpªº§ïµ½¯à¦³©Ò§U¯q
-¦¹ faq ¤¤¤åª©¸m©ó ftp://ftp.csie.nctu.edu.tw/pub/CSIE/contrib/cfaq/unix ¤U
-¥ç¥i¥Ñ 
-gopher://gopher.csie.nctu.edu.tw:70/11/NCTU/CSIE/center/ccfaq/unix-faq Æ[¤§
+é—œæ–¼ FAQ ä¸­æ–‡ç‰ˆ:
+é‘‘æ–¼  tw.bbs.comp.unix ä¸­ä¸€å†å‡ºç¾é‡è¦†çš„å•é¡Œ
+æˆ‘å€‘({chenjl,freedom,jjyang}@csie.nctu.edu.tw)å°‡ comp.unix.questions çš„ FAQs 
+ç¿»è­¯ç‚ºä¸­æ–‡
+å¸Œæœ›å°é€™ç¨®æƒ…æ³çš„æ”¹å–„èƒ½æœ‰æ‰€åŠ©ç›Š
+æ­¤ faq ä¸­æ–‡ç‰ˆç½®æ–¼ ftp://ftp.csie.nctu.edu.tw/pub/CSIE/contrib/cfaq/unix ä¸‹
+äº¦å¯ç”± 
+gopher://gopher.csie.nctu.edu.tw:70/11/NCTU/CSIE/center/ccfaq/unix-faq è§€ä¹‹
 
-HTML ª©¦b http://www.csie.nctu.edu.tw/document/unixfaq/ «Y¥Ñ LaTeX + CJK +
-LaTeX2HTML Âà¥X¨Óªº¡C
+HTML ç‰ˆåœ¨ http://www.csie.nctu.edu.tw/document/unixfaq/ ä¿‚ç”± LaTeX + CJK +
+LaTeX2HTML è½‰å‡ºä¾†çš„ã€‚
 
-¦¹ FAQ ­ì¦³ 7 ­Ó part
-§Ú­Ì¥uÄ¶¤F«e 6 ­Ó
-¦]¬° part 7 ªº¤º®e¬O RCS »P SCCS ªº¤ñ¸û
-³o¨â®M source code version control ªº³nÅé ¥xÆW¥Îªº¤H¥»´N¤£¦h
-¦Ó FAQ ¤¤ªº¤º®e¤S³£¬O¤@­±¤§µü
-FAQ ªººûÅ@¤H Ted Timar ¤]¦³·N­n§â¥¦®³±¼, Timar ¥ı¥Í»¡:
+æ­¤ FAQ åŸæœ‰ 7 å€‹ part
+æˆ‘å€‘åªè­¯äº†å‰ 6 å€‹
+å› ç‚º part 7 çš„å…§å®¹æ˜¯ RCS èˆ‡ SCCS çš„æ¯”è¼ƒ
+é€™å…©å¥— source code version control çš„è»Ÿé«” å°ç£ç”¨çš„äººæœ¬å°±ä¸å¤š
+è€Œ FAQ ä¸­çš„å…§å®¹åˆéƒ½æ˜¯ä¸€é¢ä¹‹è©
+FAQ çš„ç¶­è­·äºº Ted Timar ä¹Ÿæœ‰æ„è¦æŠŠå®ƒæ‹¿æ‰, Timar å…ˆç”Ÿèªª:
    I will probably take out part7 soon, since it is very biased, and nobody
    has bothered to give the other side of the picture.
-¬G¹êµLÂ½Ä¶¤§¥²­n
+æ•…å¯¦ç„¡ç¿»è­¯ä¹‹å¿…è¦
 
 
-¨ä¥¦¬ÛÃöªº¤¤¤å½u¤W¸ê°T:
+å…¶å®ƒç›¸é—œçš„ä¸­æ–‡ç·šä¸Šè³‡è¨Š:
 
 1. gopher://gopher.csie.nctu.edu.tw:70/00/NCTU/CSIE/center/ccfaq/csiefaq
 
-        ¥D­n¬O±q csie.help ¦¹ newsgroup ¤¤, §ä¥X±`¨£ªº°İÃD¤Î¸Ñµª, 
-        ¦A¥[¤W¤¤¤ß§U±Ğªº¸É¥R¦Ó¦¨. ©Ò¥H¦b¦¹¤å¥ó¤¤, ©Ò¦³ªº³]©w³£¬O
-        ¥H¥æ¤j¸ê¤u¨t­p¤¤¬°¥D. 
+        ä¸»è¦æ˜¯å¾ csie.help æ­¤ newsgroup ä¸­, æ‰¾å‡ºå¸¸è¦‹çš„å•é¡ŒåŠè§£ç­”, 
+        å†åŠ ä¸Šä¸­å¿ƒåŠ©æ•™çš„è£œå……è€Œæˆ. æ‰€ä»¥åœ¨æ­¤æ–‡ä»¶ä¸­, æ‰€æœ‰çš„è¨­å®šéƒ½æ˜¯
+        ä»¥äº¤å¤§è³‡å·¥ç³»è¨ˆä¸­ç‚ºä¸». 
 
 2. gopher://gopher.csie.nctu.edu.tw:70/11/NCTU/CSIE/center/user_guide
-        ¥æ¤j¸ê¤u¨t­p¤¤µ¹·s¥Í¬İªº¹q¸£¤u§@¯¸°ò¥»¾Ş§@¤â¥U
+        äº¤å¤§è³‡å·¥ç³»è¨ˆä¸­çµ¦æ–°ç”Ÿçœ‹çš„é›»è…¦å·¥ä½œç«™åŸºæœ¬æ“ä½œæ‰‹å†Š
 
 3. ftp://phi.sinica.edu.tw/pub/aspac/doc/
-        ¦³¤£¤Ö¤¤¥¡¬ã¨s°|­pºâ¤¤¤ßASPAC­p¹º©Ò¥Í²£¥X¨Ó»P UNIX ¬ÛÃöªº¤¤¤å¤å¥ó
+        æœ‰ä¸å°‘ä¸­å¤®ç ”ç©¶é™¢è¨ˆç®—ä¸­å¿ƒASPACè¨ˆåŠƒæ‰€ç”Ÿç”¢å‡ºä¾†èˆ‡ UNIX ç›¸é—œçš„ä¸­æ–‡æ–‡ä»¶
 
 4. ftp://ftp.csie.nctu.edu.tw/pub/Documents/UNIX-Guide
    ftp://moers2.edu.tw/chinese-pub/documents/UNIX-Guide/V2.4E
 
-        ¤u¬ã°|¹q³q©Ò·¨´ºµ¾¥ı¥Í<js@v0sun11.ccl.itri.org.tw>©Ò¼gªº
-        "UNIXªì¾ÇªÌ¨Ï¥Î¤â¥U", ¤w¸g¥Ñ²Ä¤Tªi¥Xª©ªÀ¥Xª©
-        µLªk¦Û Internet ¨ú±o
-        ©ÎÁöµM®³±o¨ì«oµLªk¦C¦L Postscript ÀÉ®×ªº¤H¥i¥H¦Û¦æ¦b¦U¤j®Ñ§½¶R¨ì¡C
+        å·¥ç ”é™¢é›»é€šæ‰€æ¥Šæ™¯ç¿”å…ˆç”Ÿ<js@v0sun11.ccl.itri.org.tw>æ‰€å¯«çš„
+        "UNIXåˆå­¸è€…ä½¿ç”¨æ‰‹å†Š", å·²ç¶“ç”±ç¬¬ä¸‰æ³¢å‡ºç‰ˆç¤¾å‡ºç‰ˆ
+        ç„¡æ³•è‡ª Internet å–å¾—
+        æˆ–é›–ç„¶æ‹¿å¾—åˆ°å»ç„¡æ³•åˆ—å° Postscript æª”æ¡ˆçš„äººå¯ä»¥è‡ªè¡Œåœ¨å„å¤§æ›¸å±€è²·åˆ°ã€‚
 
 5. ftp://ftp.edu.tw//Chinese/YuanInfo/ 
 
-	¦³¤£¤Ö´¿·ç·½¥ı¥ÍÃö©ó Internet, UNIX, Linux ªº®Ñ, ¤å³¹
+	æœ‰ä¸å°‘æ›¾ç‘æºå…ˆç”Ÿé—œæ–¼ Internet, UNIX, Linux çš„æ›¸, æ–‡ç« 
 
-6. TANet ¦U¤j BBS ªººëµØ°ÏÀ³¸Ó³£¦³¾ã²z¤@¨ÇªF¦è
+6. TANet å„å¤§ BBS çš„ç²¾è¯å€æ‡‰è©²éƒ½æœ‰æ•´ç†ä¸€äº›æ±è¥¿
 
 7. ftp://ftp.csie.nctu.edu.tw/pub/FAQ/alt/answers/chinese-text/big5-faq.gz
-        ³¯¾å¶§¥H«e¬° alt.chinese.big5 ¼gªº¤@¥÷ Big5 Àô¹Ò FAQ
-        ¦³ÂIÂÂ¤S¬O¥Î­^¤å¼gªº, ¤£¹L¦h¼Æ¸ê°TÁÙ¯à¥Î
-       (ylhuang@csie.nctu.edu.tw ¥¿¥H¤¤¤å­«¼g¤@¥÷ BIG5 ¤¤¤åÀô¹Òªº FAQ
-        Åwªï»P¦oÁpµ¸´£¨Ñ·N¨£)
+        é™³æ›‰é™½ä»¥å‰ç‚º alt.chinese.big5 å¯«çš„ä¸€ä»½ Big5 ç’°å¢ƒ FAQ
+        æœ‰é»èˆŠåˆæ˜¯ç”¨è‹±æ–‡å¯«çš„, ä¸éå¤šæ•¸è³‡è¨Šé‚„èƒ½ç”¨
+       (ylhuang@csie.nctu.edu.tw æ­£ä»¥ä¸­æ–‡é‡å¯«ä¸€ä»½ BIG5 ä¸­æ–‡ç’°å¢ƒçš„ FAQ
+        æ­¡è¿èˆ‡å¥¹è¯çµ¡æä¾›æ„è¦‹)
 
-¤¤¤å Unix ®ÑÄy:
-(Åwªï¤j®a´£¨Ñ®Ñ¥Ø)
+ä¸­æ–‡ Unix æ›¸ç±:
+(æ­¡è¿å¤§å®¶æä¾›æ›¸ç›®)
 
-1. UNIX»PInternet¹ê¥Î¤â¥U, ¥Õ®Ê·½¡N³¯¾å¶§, ­Ê¤Ñ¸ê°TªÑ¥÷¦³­­¤½¥q¥Xª©
+1. UNIXèˆ‡Internetå¯¦ç”¨æ‰‹å†Š, ç™½æ™‰æºï¹‘é™³æ›‰é™½, å€šå¤©è³‡è¨Šè‚¡ä»½æœ‰é™å…¬å¸å‡ºç‰ˆ
 
-	¹ï TANet ªº©l¥ÎªÌ¦Ó¨¥³o¬O¥»µ´¨Îªº¤Jªù®Ñ
+	å° TANet çš„å§‹ç”¨è€…è€Œè¨€é€™æ˜¯æœ¬çµ•ä½³çš„å…¥é–€æ›¸
     
-2. ©MºÓ¦³¤@¨t¦Cªº Unix ¤¤¤å®Ñ, ¥Ñ²L¨ì²`³£¦³, ¤£¹L«~½è°Ñ®t¤£»ô, ¦³´X¥»
-   ªº¤º®e»P¥xÆW±`¥Îªº Unix Àô¹Ò®t¶Z¤Ó¤j, ­n¶R±o§ä­ÓÀ´ Unix ªº¤H³­§A¬D
-   ¿ï
+2. å’Œç¢©æœ‰ä¸€ç³»åˆ—çš„ Unix ä¸­æ–‡æ›¸, ç”±æ·ºåˆ°æ·±éƒ½æœ‰, ä¸éå“è³ªåƒå·®ä¸é½Š, æœ‰å¹¾æœ¬
+   çš„å…§å®¹èˆ‡å°ç£å¸¸ç”¨çš„ Unix ç’°å¢ƒå·®è·å¤ªå¤§, è¦è²·å¾—æ‰¾å€‹æ‡‚ Unix çš„äººé™ªä½ æŒ‘
+   é¸
 
-3. UNIX ¤§ Q&A ¤Jªù½g, ³\§Ó©ú½sµÛ, ¾§ªL¹Ï®Ñ¦³­­¤½¥q¥Xª© 
+3. UNIX ä¹‹ Q&A å…¥é–€ç¯‡, è¨±å¿—æ˜ç·¨è‘—, å„’æ—åœ–æ›¸æœ‰é™å…¬å¸å‡ºç‰ˆ 
         
-       ¬O¤£¿ùªº UNIX ¤Jªù®Ñ, ¦pªG®Õ¹ï®É¥Î¤ß¤@ÂI´N§ó¦n¤F
+       æ˜¯ä¸éŒ¯çš„ UNIX å…¥é–€æ›¸, å¦‚æœæ ¡å°æ™‚ç”¨å¿ƒä¸€é»å°±æ›´å¥½äº†
 
 						Tan Koan-Sin

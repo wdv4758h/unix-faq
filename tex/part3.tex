@@ -4,9 +4,9 @@
 
 \begin{document}
 \begin{CJK*}{Bg5}{ming} 
-�o�C�g�峹�]�t�@�Ǧb~comp.unix.questions �M~comp.unix.shell �`���쪺��
-�D�C�Ф��n�A�ݳo�ǰ��D�A�]���o�ǰ��D�w�g�^���L�Ӧh���F�C���]�Ф��n�]��
-���H�ݳo�ǰ��D�ӵo���A�]���L�̥i��|��Ū�L�o�Ǥ峹�C
+這七篇文章包含一些在~comp.unix.questions 和~comp.unix.shell 常見到的問
+題。請不要再問這些問題，因為這些問題已經回答過太多次了。但也請不要因為
+有人問這些問題而發火，因為他們可能尚未讀過這些文章。
 
 This collection of documents is Copyright (c) 1994, Ted Timar, except 
 Part 6, which is Copyright (c) 1994, Pierre Lewis and Ted Timar.
@@ -20,134 +20,134 @@ Other requests for distribution will be considered.
 
 All reasonable requests will be granted.
 
-����½Ķ~by \url{{chenjl,freedom,jjyang}@csie.nctu.edu.tw}
-�Y�z�襤��½Ķ������N���еo~e-mail ��~\url{cfaq@csie.nctu.edu.tw}
+中文翻譯~by \url{{chenjl,freedom,jjyang}@csie.nctu.edu.tw}
+若您對中文翻譯有任何意見請發~e-mail 給~\url{cfaq@csie.nctu.edu.tw}
 
-�ڭ̧Ʊ�o�Ǥ�󤤪���T���A�������U�M���O�ä��O���O���T���C�Y�o�ͷl
-�`�Цۦ�t�d�C
+我們希望這些文件中的資訊能對你有所幫助﹐但是並不保証是正確的。若發生損
+害請自行負責。
 
-�z�i�H�b~rtfm.mit.edu ��~pub/usenet/news.answers ���]�A�����b����
-�\�h~FAQ�C �b���ؿ��U��~FAQ ���W�r�i�b�峹�����ݪ�~"Archive-Name:" 
-���@����C\footnote{ �b�x�W�Х�~\url{ftp://NCTUCCA.edu.tw/USENET/FAQ}�A
-�Y�z�H�b��j���� ~\url{ftp://ftp.csie.nctu.edu.tw/pub/Documents/FAQ} �O�q
-~CCCA mirror  �Ӫ�}
+您可以在~rtfm.mit.edu 的~pub/usenet/news.answers 找到包括此文件在內的
+許多~FAQ。 在此目錄下的~FAQ 的名字可在文章的頂端的~"Archive-Name:" 
+那一行找到。\footnote{ 在台灣請用~\url{ftp://NCTUCCA.edu.tw/USENET/FAQ}，
+若您人在交大的話 ~\url{ftp://ftp.csie.nctu.edu.tw/pub/Documents/FAQ} 是從
+~CCCA mirror  來的}
 
-���@~FAQ �O�H~"unix-faq/faq/part[1-7]" ���W�C
+此一~FAQ 是以~"unix-faq/faq/part[1-7]" 為名。
 
-�o�Ǥ峹�j�������G
+這些文章大約分成：
 \begin{quote} 
-      1.*�^�@��ʪ����D \newline
-      2.*�^��Ǫ̥i��|�ݪ��򥻰��D \newline
-      3.*) ���Ū����D \newline
-      4.*) �ۥH���w�g���D�Ҧ����ת��H�i��|�ݪ����Ű��D \newline
-      5.*) ����U��~shell �����D \newline
-      6.*) �U���U�˪�~Unix \newline
+      1.*）一般性的問題 \newline
+      2.*）初學者可能會問的基本問題 \newline
+      3.*) 中級的問題 \newline
+      4.*) 自以為已經知道所有答案的人可能會問的高級問題 \newline
+      5.*) 關於各種~shell 的問題 \newline
+      6.*) 各式各樣的~Unix \newline
       7.*) An comparison of configuration management systems (RCS, SCCS).
 \end{quote}
-�o�g�峹�^���F�H�U���D�G
+這篇文章回答了以下問題：
 \tableofcontents
 
-�]���o�ǳ��O�����X�z�����D, �ҥH�b \url{comp.unix.questions} �άO 
-\url{comp.unix.shell} ���C�C�j�@�}�l, �N�|���o�ǰ��D�P���ץX�{, �򱵵۴N�|
-���H��P�˰��D�@�A�X�{�o�c�̡C����~UNIX �N��ԣ�O? �аѦҨC�� post �b 
-\url{news.announce.newusers} ���W��~"Answers to Frequently Asked Questions" 
-���峹�C
+因為這些都是正當合理的問題, 所以在 \url{comp.unix.questions} 或是 
+\url{comp.unix.shell} 中。每隔一陣子, 就會有這些問題與答案出現, 緊接著就會
+有人對同樣問題一再出現發牢騷。關於~UNIX 代表啥呢? 請參考每月 post 在 
+\url{news.announce.newusers} 中名為~"Answers to Frequently Asked Questions" 
+的文章。
 
-�]��~Unix ���Ӧh���P�������F, �ҥH�����O�Ҧ����Ҵ��Ѫ����ץ��M�|��
-�ΡC�b���ե���󴣨Ѫ��@�k�e, �Х�ŪŪ�A�ҨϥΨt�Ϊ���U�C�Y�A�ﵪ��
-�������ĳ�Χ�, �аe~email �� tmtaimar@isgtec.com.
+因為~Unix 有太多不同的種類了, 所以很難保證此文件所提供的答案必然會有
+用。在嘗試本文件提供的作法前, 請先讀讀你所使用系統的手冊。若你對答案
+有任何建議或更正, 請送~email 給 tmtaimar@isgtec.com.
 
 \setcounter{section}{2}
-\section{���Ū����D}
-\subsection{�ڭn�p��o���@���ɮ׫إߪ��ɶ��H}
+\section{中級的問題}
+\subsection{我要如何得知一個檔案建立的時間？}
 
-	�ܿ�ѡA�]���ɮ׫إߪ��ɶ��å��x�s�b����a��A�ҥH���׬O�L�k�o���C
-	����@���ɮקA�u��d��̫�ק諸�ɶ��]"ls -l")�A�̫�Ū�����ɶ�
-        ("ls -lu") �P~inode ���ܪ��϶��C���@��~man pages �N�̫�@�Ӯɶ���
-        ���O�إߪ��ɶ��A�o�ػ��k�O�����C�]��~mv�Bln�Bchmod�Bchmod�Bchown�B
-        chgrp ���ʧ@���|���ܳo�Ӯɶ��C
+	很遺憾，因為檔案建立的時間並未儲存在任何地方，所以答案是無法得知。
+	關於一個檔案你只能查到最後修改的時間（"ls -l")，最後讀取的時間
+        ("ls -lu") 與~inode 改變的使間。有一些~man pages 將最後一個時間當
+        成是建立的時間，這種說法是錯的。因為~mv、ln、chmod、chmod、chown、
+        chgrp 等動作都會改變這個時間。
 
-	�Y�ݧ�Ժɪ������i�Ѧ�~"stat(2)" ��~man page.
+	若需更詳盡的說明可參考~"stat(2)" 的~man page.
 
-\subsection{�b����~rsh ���ɭԭn��ˤ~�ण����������O���浲���N�^��~shell�H
-        (����ڭ̩ҰQ�ת�~rsh,�аѾ\���D~2.7)}
+\subsection{在執行~rsh 的時候要怎樣才能不必等遠方指令執行結束就回到~shell？
+        (關於我們所討論的~rsh,請參閱問題~2.7)}
 
-	�H�U�o�Ǿ̪�ı�Q�쪺���׳��F����o�ӮĪG�G
+	以下這些憑直覺想到的答案都達不到這個效果：
 \begin{verbatim}
 		rsh machine command &
 \end{verbatim}
-	��	
+	或	
 \begin{verbatim}
 		rsh machine 'command &'
 \end{verbatim}
-	�Ҧp, ����~rsh machine 'sleep 60 \&' �o�өR�O�ɡA�ڭ̥i�H�[���Grsh ��
-	���|�ߨ赲���A�ӬO���컷�誺~sleep �R�O�����H��~�����A�Y�ϧڭ̦b��
-	��ϥέI���覡���榹�R�O�C�ҥH�n��ˤ~����~rsh �b~sleep �R�O�Ұʫ��
-	�赲���O�H
+	例如, 執行~rsh machine 'sleep 60 \&' 這個命令時，我們可以觀察到：rsh 並
+	不會立刻結束，而是等到遠方的~sleep 命令完成以後才結束，即使我們在遠
+	方使用背景方式執行此命令。所以要怎樣才能讓~rsh 在~sleep 命令啟動後立
+	刻結束呢？
 
-	���צp�U��
+	答案如下－
 
-	�p�G�z�b���ݨϥ�csh:
+	如果您在遠端使用csh:
 \begin{verbatim}
 		rsh machine -n 'command >&/dev/null </dev/null &'
 \end{verbatim}
 
-	�p�G�z�b���ݨϥ� sh:
+	如果您在遠端使用 sh:
 \begin{verbatim}
 		rsh machine -n 'command >/dev/null 2>&1 </dev/null &'
 \end{verbatim}
 
-	������O�H�]��~"-n" �|��~rsh ��~stdin ����~/dev/null�A�]���z�i�H�b���a
-	�����H�I���覡������~rsh �R�O�C���ެO�ϥ�~-n �ﶵ�Ϊ̦b���O������
-	��~"/dev/null"�A��ĪG���O�@�˪��C���~,�b���ݾ����ϥΪ���X�J��V�]�g
-	�b��޸����������^�|��~rsh �{�w�����s�u�i�w�浲���]�]���w�L��L��
-	�J��ơ^�C
+	為什麼呢？因為~"-n" 會把~rsh 的~stdin 接到~/dev/null，因此您可以在本地
+	機器以背景方式執行整個~rsh 命令。不管是使用~-n 選項或者在指令結尾使
+	用~"/dev/null"，其效果都是一樣的。此外,在遠端機器使用的輸出入轉向（寫
+	在單引號內的部份）會讓~rsh 認定此次連線可逕行結束（因為已無其他輸
+	入資料）。
 
-	����: �����ɮ׳��i�H�Ω󻷺ݾ�������X�J��V�A�Ӥ��ȭ���~/dev/null�C
+	附註: 任何檔案都可以用於遠端機器的輸出入轉向，而不僅限於~/dev/null。
 
-	�b�\�h���p�U�A�o�ӽ������R�O�������ܦh�������O�D���n���C
+	在許多狀況下，這個複雜的命令當中有很多部份都是非必要的。
 
-\subsection{�n��ˤ~��I�_�@���ɮ�?}
+\subsection{要怎樣才能截斷一個檔案?}
 
-	BSD �����~ftruncate() �i�H�]�w�ɮת����סC���O�ä��O�C�@�ت������ʧ@
-        ���@�ˡC��L~UNIX ���ܺئ��G�]���䴩��L�������I�_�\��C
+	BSD 的函數~ftruncate() 可以設定檔案的長度。但是並不是每一種版本的動作
+        都一樣。其他~UNIX 的變種似乎也都支援其他版本的截斷功能。
 
-	�䴩~ftruncate ��ƪ��t�Φh�b�i�k�����H�U�T�ءG
+	支援~ftruncate 函數的系統多半可歸類為以下三種：
 
 	BSD 4.2 - Ultrix, SGI, LynxOS
-		-�L�k�ϥκI�_�\��ӼW�[�ɮת���
-		-����I�_�ʧ@���|�����ɮ׫���
+		-無法使用截斷功能來增加檔案長度
+		-執行截斷動作不會移動檔案指標
 
 	BSD 4.3 - SunOS, Solaris, OSF/1, HP/UX, Amiga
-		-�i�H�κI�_�\��ӼW�[�ɮת���
-		-����I�_�ʧ@���|�����ɮ׫���
+		-可以用截斷功能來增加檔案長度
+		-執行截斷動作不會移動檔案指標
 
 	Cray - UniCOS 7, UniCOS 8
-		-�L�k�ϥκI�_�\��ӼW�[�ɮת���
-		-����I�_�ʧ@�|�����ɮ׫���
+		-無法使用截斷功能來增加檔案長度
+		-執行截斷動作會移動檔案指標
 
-	��L�t�Ϋh�i��b�H�U�|�Ӧa��P�����P:
+	其他系統則可能在以下四個地方與眾不同:
 
-	F\_CHSIZE - �u�b~SCO �W
-		-���Ǩt�Ωw�q�F~F\_CHSIZE ���èS���u���䴩���\��
-		-�ʧ@����~BSD 4.3
+	F\_CHSIZE - 只在~SCO 上
+		-有些系統定義了~F\_CHSIZE 但並沒有真的支援此功能
+		-動作類似~BSD 4.3
 
-	F\_FREESP - �u�b~Interative Unix �W
-		-���Ǩt��(�p~Interactive Unix)�w�q�F~F\_FREESP ���èS���u���䴩��
-		 �\��
-		-�ʧ@����~BSD 4.3
+	F\_FREESP - 只在~Interative Unix 上
+		-有些系統(如~Interactive Unix)定義了~F\_FREESP 但並沒有真的支援此
+		 功能
+		-動作類似~BSD 4.3
 
 	chsize() - QNX and SCO
-		-���Ǩt��(�p~Interactive Unix)��~chsize() ��Ʀ��èS���u���䴩
-                 ���\��
-		-�ʧ@����~BSD 4.3
+		-有些系統(如~Interactive Unix)有~chsize() 函數但並沒有真的支援
+                 此功能
+		-動作類似~BSD 4.3
 
-	�u�ŪŦp�]�v-�ثe�䤣��o�بt��
-		-�]�\�|���t�Χ������䴩~truncate�\��
+	「空空如也」-目前找不到這種系統
+		-也許會有系統完全不支援~truncate功能
 
-	FAQ ���@�̪�����:�H�U�O�ڦb�X�~�e�q������쪺�{���A��@�̤w���i�ҡA
-                         ���L~S.Spencer Sun <spencer@ncd.com> �]�^�m�F�@��
-                         ~F\_FREESP���\��C
+	FAQ 維護者的註解:以下是我在幾年前從網路抓到的程式，原作者已不可考，
+                         不過~S.Spencer Sun <spencer@ncd.com> 也貢獻了一份
+                         ~F\_FREESP的功能。
 \small
 \begin{verbatim}
 	      functions for each non-native ftruncate follow
@@ -227,96 +227,96 @@ All reasonable requests will be granted.
 \end{verbatim}
 \normalsize
 
-\subsection{���������~find �ɩҨϥΪ�~{} �Ÿ��L�k�F��ڹw�������G?}
+\subsection{為什麼執行~find 時所使用的~{} 符號無法達到我預期的結果?}
 
-	Find ���O���@��~-exec ���ﶵ�|�w��C�@�ӧ�쪺�ɮװ���@�ӯS��
-        �����O�C~Find �|��X�{~{}���a��m�����ثe��쪺�ɮצW�١C�]���A
-        �]�\���@�ѱz�|�ϥ�~find ���O��C�@���ɮװ���Y�ӫ��O�A�Ϊ̹�
-        �@�ӥؿ�����Y�ӫ��O�C
+	Find 指令有一個~-exec 的選項會針對每一個找到的檔案執行一個特殊
+        的指令。~Find 會把出現~{}的地方置換成目前找到的檔案名稱。因此，
+        也許有一天您會使用~find 指令對每一個檔案執行某個指令，或者對
+        一個目錄執行某個指令。
 \begin{verbatim}
 	        find /path -type d -exec command {}/\* \;
 \end{verbatim}
-	�Ʊ�~find ��̧ǰ���H�U���O:
+	希望~find 能依序執行以下指令:
 \begin{verbatim}
 	        command directory1/*
 	        command directory2/*
 	        ...
 \end{verbatim}
-	%�������O�Afind �u�|�i�}�ۦ��@�骺 ~\{\} token�F�p�G~\{\} ���L�r���۳s
-        %���ܡ]�p�G\{\}/*�^�A����find�N���|�H�z�ҷQ���覡�i�}~\{\}, �ӬO�ഫ���H
-        %�U�R�O
+	%不幸的是，find 只會展開自成一體的 ~\{\} token；如果~\{\} 跟其他字元相連
+        %的話（如：\{\}/*），那麼find將不會以您所想的方式展開~\{\}, 而是轉換為以
+        %下命令
 \begin{verbatim}
 	        command {}/*
 	        command {}/*
 	        ...
 \end{verbatim}
-	�]�\�z�i�H�⥦����~bug, �]�i�H�⥦�ݦ��O�G�N�]�p���S���\��C���ڭ�
-	�i���@�Q�ثe�o�ӯS���\��z�Z�C�ҥH�n����קK�o�Ӱ��D�O�H�䤤�@�ذ�
-	�k�O�g�@�Ӥp�p��~shell script�A�W�ٴN�s��~./doit �n�F�A�䤺�e�p�U�G
+	也許您可以把它當成~bug, 也可以把它看成是故意設計的特異功能。但我們
+	可不願被目前這個特異功能干擾。所以要怎樣避免這個問題呢？其中一種做
+	法是寫一個小小的~shell script，名稱就叫做~./doit 好了，其內容如下：
 \begin{verbatim}
 		command "$1"/*
 \end{verbatim}
-	����z�N�i�H���Ӫ��R�O���g��
+	那麼您就可以把原來的命令行改寫為
 \begin{verbatim}
 		find /path -type d -exec ./doit {} \;
 \end{verbatim}
-	�p�G�z�Q�ٱ� ./doit �o�� shell script, �i�H�o��g�G
+	如果您想省掉 ./doit 這個 shell script, 可以這麼寫：
 \begin{verbatim}
 		find /path -type d -exec sh -c 'command $0/*' {} \;
 \end{verbatim}
-	(�o�ؼg�k�i�檺��]�O~"sh -c 'command' A B C ..."���O�����A\$0�|�i�}��
-	A, \$1�|�i�}��B, �̦�����)
+	(這種寫法可行的原因是~"sh -c 'command' A B C ..."指令當中，\$0會展開為
+	A, \$1會展開為B, 依此類推)
 
-	�Ϊ̱z�]�i�H���I�p�p�ϥ�~sed �ӳy�X�z�Q���檺���O��G
+	或者您也可以略施小計使用~sed 來造出您想執行的指令行：
 \begin{verbatim}
 		find /path -type d -print | sed 's:.*:command &/*:' | sh
 \end{verbatim}
-	�p�G�z�Q���~command �����榸�ơA�z�i�H���ˬd�ݬݨt�Τ����S�� 
-	~xargs �o�ӫ��O,~xargs�|�q�зǿ�J�@��Ū���@��A�åB��o��Ū�J�����
-	�X�֦ܤ@�өR�O�椺�C�z�i�H�g���H�U�R�O��G
+	如果您想減少~command 的執行次數，您可以先檢查看看系統中有沒有 
+	~xargs 這個指令,~xargs會從標準輸入一次讀取一行，並且把這些讀入的資料
+	合併至一個命令行內。您可以寫成以下命令行：
 \begin{verbatim}
 		find /path -print | xargs command
 \end{verbatim}
-	�o�˷|�ϥH�U���O����@���Φh���G
+	這樣會使以下指令執行一次或多次：
 \begin{verbatim}
 	        command file1 file2 file3 file4 dir1/file1 dir1/file2
 \end{verbatim}
-	�ܤ����a�A�o�ä��O�����L�ʩΪ̸U�L�@�����Ѫk�A��J~xargs ����r��
-	�����H����r�������A�ҥH���ɮצW�ٷ������_�Ǫ��r���]�p����r���^�ɡA
-	~xargs �N�|�]���ӲV�c�C
+	很不幸地，這並不是完美無缺或者萬無一失的解法，輸入~xargs 的文字行
+	必須以換行字元結尾，所以當檔案名稱當中有奇怪的字元（如換行字元）時，
+	~xargs 就會因此而混淆。
 
-\subsection{�ڭn�p����ܤ@��~symbolic link ��~permission �O�H}
+\subsection{我要如何改變一個~symbolic link 的~permission 呢？}
 
-	�o�Ӱ��D�S���N�q�A�]��~symbolic link��~permission �ڥ����N������C
-	����~link �ҫ��L�h���ɮת�~permission �~���N�q�C
+	這個問題沒有意義，因為~symbolic link的~permission 根本不代表什麼。
+	那個~link 所指過去的檔案的~permission 才有意義。
 
-\subsection{�ڭn�p��~"undelete" �@���ɮסH}
+\subsection{我要如何~"undelete" 一個檔案？}
 
-	�Y�~�Y�몺�Y�@�ѡA�n�R��~"*.foo" �o�@���p�ߥ����F~"rm * .foo"�A
-	���G�o�{����~"*" ���R���F�C�u���O�����L�\�ڡI�i�O�A�]�u�n��o����
-	�O�������N���F�C
+	某年某月的某一天，要刪除~"*.foo" 卻一不小心打成了~"rm * .foo"，
+	結果發現竟把~"*" 都刪除了。真的是欲哭無淚啊！可是你也只好把這當成
+	是成長的代價了。
 
-	���M�@�Ӻ�¾���t�κ޲z�������|�w�����ƥ��C���ݤ@�ݧA���t�κ޲z����
-	�A���p�ߧR�����ɮ׬O���O���ƥ��_�ӡC�p�G�S�����ܡA��A�~�򩹤U�ݧa�I
+	當然一個稱職的系統管理員應當會定期做備份。先問一問你的系統管理員看
+	你不小心刪除的檔案是不是有備份起來。如果沒有的話，嗯，繼續往下看吧！
 
-	���ާA�O���O�u���n�R���@���ɮסA���A�U�F~"rm" �H��A�ɮ״N�����F�C
-	�b�A~"rm" �@���ɮסA�t�δN���A�O�o�A���ɮ׬O�ΤF�w�Ф�������~block 
-	�F�C���V�|���O�A���t�έn�Ψ��h���w�ЪŶ��ɡA�N�u�����γo�ǭ��X
-	�Ӫ�~block�C���L�ѩ��U�S�����i�઺�ơC�z�פW���A�Y�A�b�U�F~"rm" ��A
-	���W��t��~shutdown�A��ƬO�N�o�^�Ӫ��C���L�A�A�o��@�ӹ�t�ΫD�`
-	���x�B�֪�O�Ƥp�ɦܼƤѪ��ɶ������A���o��ƪ��M�a�~��C
-	���A���p��~"rm" �F�@���ɮ׫�A�Ĥ@�Ӥ����γ\�O�����򤣥Τ@��~alias 
-	�Φb~sh ����~function �N~"rm"  ���N���A���A�U~"rm" �u���ɮ׷h��@��
-	�U�����������a��O�H���p�G���p�߱����ɮ״N�i�H���ϡA�u�O�n�w���M�@
-	�M�U�����N�n�F�C����Ӳz�ѡC�Ĥ@�A�j�h�ƪ��H���{���o�O�@�Ӧn�����k�C
-	�o�򰵪��ܧA�|�Ө̿�A��~"rm"�A���@�Ѩ�F�@�ӥ��`���t�Τ��⥿�`�� 
-	~"rm" �����A��~"rm" �ӥΡA���i��|���o�ܺG�C�ĤG�A�A�|�o�{�A��O�F
-	�\�h�����n���ɶ��b�B�z�U�����̪��F��C�ҥH��@�Ӫ�Ǫ̦Ө��O�A�� 
-	~"rm" �� ~-i�ﶵ���ӴN���F�C
+	不管你是不是真的要刪除一個檔案，當你下了~"rm" 以後，檔案就不見了。
+	在你~"rm" 一個檔案，系統就不再記得你的檔案是用了硬碟中的哪些~block 
+	了。更糟糕的是，當系統要用到更多的硬碟空間時，就優先取用這些剛放出
+	來的~block。不過天底下沒有不可能的事。理論上說，若你在下了~"rm" 後，
+	馬上把系統~shutdown，資料是就得回來的。不過，你得找一個對系統非常
+	熟悉且肯花費數小時至數天的時間來幫你做這件事的專家才行。
+	當你不小心~"rm" 了一個檔案後，第一個反應或許是為什麼不用一個~alias 
+	或在~sh 中的~function 將~"rm"  取代掉，當你下~"rm" 只把檔案搬到一個
+	垃圾桶之類的地方呢？那如果不小心殺錯檔案就可以挽救，只是要定期清一
+	清垃圾桶就好了。有兩個理由。第一，大多數的人不認為這是一個好的做法。
+	這麼做的話你會太依賴你的~"rm"，有一天到了一個正常的系統中把正常的 
+	~"rm" 當成你的~"rm" 來用，那可能會死得很慘。第二，你會發現你花費了
+	許多不必要的時間在處理垃圾桶裡的東西。所以對一個初學者而言呢，用 
+	~"rm" 的 ~-i選項應該就夠了。
 
-	�p�G�A���j�L�Ȫ��믫���ܡA���n�a�A�N���A��²�檺���סC�g�@�ӦW�� 
-	~"can" �����O�A�\�άO�N�ɮײ���U�����̡C�b~csh(1) ���A�N�H�U���F��
-	��i~".login" ��:
+	如果你有大無畏的精神的話，那好吧，就給你個簡單的答案。寫一個名為 
+	~"can" 的指令，功用是將檔案移到垃圾桶裡。在~csh(1) 中，將以下的東西
+	放進~".login" 裡:
 \footnotesize
 \begin{verbatim}
         alias can       'mv \!* ~/.trashcan'       # junk file(s) to trashcan
@@ -324,46 +324,46 @@ All reasonable requests will be granted.
         if ( ! -d ~/.trashcan ) mkdir ~/.trashcan  # ensure trashcan exists
 \end{verbatim}
 \normalsize
-	�p�G�A�Q�n�C��~logout �ɳ���U�����M���b�A���N��
+	如果你想要每次~logout 時都把垃圾桶清乾淨，那就把
 \begin{verbatim}
         rm -f ~/.trashcan/*
 \end{verbatim}
 
-	�i~".logout" �̡C�Y�A�Ϊ��O~sh �άO~ksh�A���ۤv�ոյۼg�g�ݧa�I
+	進~".logout" 裡。若你用的是~sh 或是~ksh，那自己試試著寫寫看吧！
 
-	MIT ������R�p�e�@�X�F�@�M�� 
-        ~delete/undelete/expunge/purge ���n��C�o�M�n��i�H�������N~"rm" 
-	�ӤS����~undelete ���\��C�o�ӳn�鴿~post �b~comp.sources.misc
-	(volume 17, issue 023-025)�C
+	MIT 的雅典娜計畫作出了一套有 
+        ~delete/undelete/expunge/purge 的軟體。這套軟體可以完全取代~"rm" 
+	而又提供~undelete 的功能。這個軟體曾~post 在~comp.sources.misc
+	(volume 17, issue 023-025)。
 
-\subsection{�@��~process �n��˰����X�ۤv�O�_�b�I�����A����?}
+\subsection{一個~process 要怎樣偵測出自己是否在背景狀態執行?}
 
-	����,�z�O�_�Q���D�z�ۤv�O�b�I�����A�U����A�Ϊ̦b��ͪ��A�U����H�p�G
-	�z�u�O�Q�Ǧ��M�w�O�_�Ӧb�׺ݾ��W�L�X���ܲŸ��������T���A�����X�A����
-	�k���ӬO�ˬd�z���зǿ�J�O�_���׺ݾ�:
+	首先,您是否想知道您自己是在背景狀態下執行，或者在交談狀態下執行？如果
+	您只是想藉此決定是否該在終端機上印出提示符號之類的訊息，那麼更合適的做
+	法應該是檢查您的標準輸入是否為終端機:
 
             sh: if [ -t 0 ]; then ... fi
             C: if(isatty(0)) { ... }
 
-	�@��ӻ��A�z�L�k�o���ۤv�O�_�b�I�����A�U����C���D���ڥ��b�󤣦P��~shell 
-	�P���P��~UNIX �������u�e���v�P�u�I���v���w�q�i�঳�Ҥ��P�C�ӥB�b��
-	�`�����t�ΤW�A�e���P�I���������n���w�q�A�{���Ʀܥi�H�b�I���P�e��������
-	�N�����I
+	一般來說，您無法得知自己是否在背景狀態下執行。問題的根本在於不同的~shell 
+	與不同的~UNIX 版本對於「前景」與「背景」的定義可能有所不同。而且在最
+	常見的系統上，前景與背景都有較好的定義，程式甚至可以在背景與前景之間任
+	意切換！
 
-	�b�S��~job control ��~UNIX�t�ΤW�A�Y�n��~process ��J�I�����A�q�`�O�� 
-	~SIGINT �P~SIGQUIT �������A�åB��зǿ�J�ର~"/dev/null"�A�o�O��
-	~shell�B�z���C
+	在沒有~job control 的~UNIX系統上，若要把~process 放入背景狀態通常是把 
+	~SIGINT 與~SIGQUIT 忽略掉，並且把標準輸入轉為~"/dev/null"，這是由
+	~shell處理的。
 
-	�b�㦳 job control �\�઺ UNIX �t�ΡA�Yshell�䴩 job control �\��A����shell
-	�u�n�� process group ID �]���� terminal ���ݪ� PGID ���P�Y�i�� process ��
-	���ܭI�����A�F�p�G�n�� process ���^�e�����A�A�u�n�⦹ process �� PGID �]
-	����ثe terminal ���ݪ� PGID �Y�i�C�p�G shell ���䴩 job control �\��A�h
-	����UNIX �t�άO�_�䴩 job control ���\��Ashell �� process ���B�z�ʧ@��
-	�O�@�˪��]�]�N�O����SIGINT �P SIGQUIT�A�åB��зǿ�J�ର"/dev/null"�^�C
+	在具有 job control 功能的 UNIX 系統，若shell支援 job control 功能，那麼shell
+	只要把 process group ID 設成跟 terminal 所屬的 PGID 不同即可把 process 切
+	換至背景狀態；如果要把 process 切回前景狀態，只要把此 process 的 PGID 設
+	成跟目前 terminal 所屬的 PGID 即可。如果 shell 不支援 job control 功能，則
+	不管UNIX 系統是否支援 job control 的功能，shell 對 process 的處理動作都
+	是一樣的（也就是忽略SIGINT 與 SIGQUIT，並且把標準輸入轉為"/dev/null"）。
 
-\subsection{������b~Bourne shell �����A��j�骺��X�J��V�L�k�F��w�����ĪG�H}
+\subsection{為什麼在~Bourne shell 當中，對迴圈的輸出入轉向無法達到預期的效果？}
 
-	�|�ӨҤl�ӻ��n�F�G
+	舉個例子來說好了：
 \begin{verbatim}
 		foo=bar
 		while read line
@@ -374,18 +374,18 @@ All reasonable requests will be granted.
 
 		echo "foo is now: $foo"
 \end{verbatim}
-	����~"foo=bletch" �w�g�]�w�F~foo ���ȡA�M�Ӧb�h�بt�Ϊ�~Bourne shell 
-        �W���榹~script ���ɭԤ��|�L�X~"foo is now: bar"�C������O�H�]���@��
-        ���v�]���A�b~Bourne shell �����A�@�ӱ���c�]�p�@�Ӱj��A�Ϊ̤@�� 
-        ~"if" �ԭz�^�����ɦV�|�y�X�@�ӷs��~subshell�A�ҥH�աA�b�� subshell ��
-        �ҳ]�w���ܼƷ��M���|�v�T�ثe~shell ���ܼơC
+	儘管~"foo=bletch" 已經設定了~foo 的值，然而在多種系統的~Bourne shell 
+        上執行此~script 的時候仍會印出~"foo is now: bar"。為什麼呢？因為一些
+        歷史因素，在~Bourne shell 當中，一個控制結構（如一個迴圈，或者一個 
+        ~"if" 敘述）的重導向會造出一個新的~subshell，所以啦，在此 subshell 內
+        所設定的變數當然不會影響目前~shell 的變數。
 
-	POSIX 1003.2 Shell and Tools Interface ���зǩe���|�w����W�z�����D�A
-        �]�N�O�W�z���Ҥl�b���`~P1003.2 �зǪ�~Bourne shells�����|�L�X 
-        "foo is now: bletch"�C
+	POSIX 1003.2 Shell and Tools Interface 的標準委員會已防止上述的問題，
+        也就是上述的例子在遵循~P1003.2 標準的~Bourne shells當中會印出 
+        "foo is now: bletch"。
 
-	�b�@�Ǹ��j�Ѫ� (�H�ο��`~P1003.2 �зǪ�)~Bourne shell �����A�z�i�H��
-        �ΥH�U�ޥ����קK����V�����D�G
+	在一些較古老的 (以及遵循~P1003.2 標準的)~Bourne shell 當中，您可以使
+        用以下技巧來避免重轉向的問題：
 \begin{verbatim}
 		foo=bar
 		# make file descriptor 9 a duplicate of file descriptor 0 stdin);
@@ -404,8 +404,8 @@ All reasonable requests will be granted.
 		exec 0<&9 9<&-
 		echo "foo is now: $foo"
 \end{verbatim}
-	�o�ˤl���ަb����~Bourne shell ���ӳ��|�L�X~"foo is now: bletch"�C
-	���U�ӡA�ݬݥH�U�o�ӨҤl�G
+	這樣子不管在哪種~Bourne shell 應該都會印出~"foo is now: bletch"。
+	接下來，看看以下這個例子：
 \begin{verbatim}
 	        foo=bar
 
@@ -413,23 +413,23 @@ All reasonable requests will be granted.
 
 	        echo "foo is now: $foo"
 \end{verbatim}
-	�o�ӨҤl�b�\�h~Bourne shell �����|�L�X "foo is now: bar"�A���ǫh�|
-        �L�X~"foo is now: bletch"�C������O�H�@�뻡�ӡA�@��~pipeline �̭�
-        ���C�@�ӳ������O�b�@��~subshell ������C���O���Ǩt�Ϊ���~pipeline 
-        ���̫�@�Ӧp�G�O�p~"read" �o�������ث��O�A�ä��|�t�~�y�X�@�� 
-        ~subshell�C
+	這個例子在許多~Bourne shell 內都會印出 "foo is now: bar"，有些則會
+        印出~"foo is now: bletch"。為什麼呢？一般說來，一個~pipeline 裡面
+        的每一個部份都是在一個~subshell 中執行。但是有些系統的裡~pipeline 
+        的最後一個如果是如~"read" 這類的內建指令，並不會另外造出一個 
+        ~subshell。
 
-	~POSIX 1003.2~��o��ا@�k�èS���w�ʳW�w�n�έ��@�ءC�ҥH�p�G�Q�g
-	�@��~portable~��~shell script~�����Ө̿�o��ا@�k�䤤���@�ءC
+	~POSIX 1003.2~對這兩種作法並沒有硬性規定要用哪一種。所以如果想寫
+	一個~portable~的~shell script~不應該依賴這兩種作法其中的一種。
 
-\subsection{�ڭn���b�@��~shell script ���Φb�I������
-	~'ftp' 'telnet' 'tip' �� ~interactive ���{���O�H}
+\subsection{我要怎麼在一個~shell script 中或在背景執行
+	~'ftp' 'telnet' 'tip' 等 ~interactive 的程式呢？}
 
-	�o�ǵ{���ݭn�@�� terminal interface�C�o�Oshell �ҵL�k���Ѫ��C�ҥH�o��
-	�L�k�b shell script �̦۰ʰ���o�ǵ{���C
+	這些程式需要一個 terminal interface。這是shell 所無法提供的。所以這些
+	無法在 shell script 裡自動執行這些程式。
 
-	���@���s��~'expect' ���{���A�i�H�ΨӰ��o��ơA�]�������ѤF 
-        ~programmable terminal interface�C���U���Ҥl�O��~'expect' �����A~login�G
+	有一隻叫做~'expect' 的程式，可以用來做這件事，因為它提供了 
+        ~programmable terminal interface。底下的例子是用~'expect' 來幫你~login：
 \begin{verbatim}
 	        # username is passed as 1st arg, password as 2nd
 	        set password [index $argv 2]
@@ -441,22 +441,22 @@ All reasonable requests will be granted.
 	        expect eof
 \end{verbatim}
 
-	expect �� telnet, rlogin,debugger �M�@�ǨS������ command language ��
-        �{�����ѤF�@�Ӫ�G�۰ʤƪ���k�CExpect �̭������@�ΥH�b�� rogue 
-	(�@�� Unix �����j�ѹC���^�ɨ��o���Ϊ�l���p�A�M��N�����v�٦^���ϥΪ�
-	���Ҥl�C�γo�� script �A�N��o��y���\���@�b�z�C
+	expect 為 telnet, rlogin,debugger 和一些沒有內建 command language 的
+        程式提供了一個近乎自動化的方法。Expect 裡面的有一用以在玩 rogue 
+	(一個 Unix 中的古老遊戲）時取得較佳初始情況，然後將控制權還回給使用者
+	的例子。用這個 script 你就能得到『成功的一半』。
 
-	�A�̡A���@�Ǥw�g�g�n���{���i�H���A�o���P pseudo-tty �������F��A��
-	�H�A�u�n�b script ������o�ǵ{���N�i�H���A�B�z�o�ǪF��C
+	再者，有一些已經寫好的程式可以幫你這類與 pseudo-tty 有關的東西，所
+	以你只要在 script 中執行這些程式就可以幫你處理這些東西。
 
-	����Ӥ�k�i�H���o 'expect':
-	1.�e�@�� email ��~library@cme.nist.gov ���e�N�g~"send 
+	有兩個方法可以取得 'expect':
+	1.送一封 email 給~library@cme.nist.gov 內容就寫~"send 
 	  pub/expect/expect.shar.Z"
 	2. \url{ftp://ftp.cme.nist.gov/pub/expect/expect.shar.Z}
 
-	�t�@�Ӱ��k�O�Τ@���s pty 4.0 ���K�b comp.sources.unix volume25 ���F
-	��C�o�ӵ{���|���Ѥ@�� pseudo-tty session ���ݭn tty ���{���ΡC�Y��
-	�� named pipe �t�X pty 4.0 �Ӱ��W�ҡA�h�ݰ_�ӥi��p�U�G
+	另一個做法是用一隻叫 pty 4.0 曾貼在 comp.sources.unix volume25 的東
+	西。這個程式會提供一個 pseudo-tty session 給需要 tty 的程式用。若使
+	用 named pipe 配合 pty 4.0 來做上例，則看起來可能如下：
 \begin{verbatim}
  	       #!/bin/sh
 	        /etc/mknod out.$$ p; exec 2>&1
@@ -469,11 +469,11 @@ All reasonable requests will be granted.
 	        ) | ( pty passwd "$1" >out.$$ )
 \end{verbatim}
 
-	�W���� 'waitfor' �O²�檺 C �{���A�\�ά����� input ���P�ҵ��ݪ��r��
-	�ۦP�ɦA���U���C
+	上面的 'waitfor' 是簡單的 C 程式，功用為等到 input 有與所等待的字串
+	相同時再往下做。
 
-	�U���O�@�ӧ�²�檺���k�A���L���I�O�P 'passwd' �{�������ʥi��L�k�P
-	�B�C
+	下面是一個更簡單的做法，不過缺點是與 'passwd' 程式的互動可能無法同
+	步。
 \small
 \begin{verbatim}
 	        #!/bin/sh
@@ -481,103 +481,103 @@ All reasonable requests will be granted.
 \end{verbatim}
 \normalsize
 
-\subsection{�b~shell script ��~C �{�������A�n��ˤ~����Y�ӵ{����~process ID 
-        �O�H}
+\subsection{在~shell script 或~C 程式當中，要怎樣才能找到某個程式的~process ID 
+        呢？}
 
-	�b~shell script ����:
+	在~shell script 當中:
 
-	�S���{�����{���i�H�ΨӬd�ߵ{���W�ٻP process ID �����������C���~�A
-	�p�G���������ܡA�q�`�]�����ӥi�H�A�]���i��|���h�� process ����P�@
-	�ӦW�٪��{���A�ӥB process �b�Ұʤ��ᤴ�i�ק�ۤv���W�١C�M�ӡA�p�G
-	�z�u���Q�n�o������Y�ӯS�w�{�����Ҧ� process, �i�H�Q�ΥH�U�R�O��F
-	���G
+	沒有現成的程式可以用來查詢程式名稱與 process ID 之間的對應。此外，
+	如果有對應的話，通常也都不太可信，因為可能會有多個 process 執行同一
+	個名稱的程式，而且 process 在啟動之後仍可修改自己的名稱。然而，如果
+	您真的想要得知執行某個特定程式的所有 process, 可以利用以下命令行達
+	成：
 \begin{verbatim}
 		ps ux | awk '/name/ && !/awk/ {print $2}'
 \end{verbatim}
-	�z�i�H��~"name" �����z�Q�M�䪺�{���W�١C
+	您可以把~"name" 換成您想尋找的程式名稱。
 
-	�o�өR�O�檺���[���O���R ps �{������X�A�M��� awk��grep������
-	�{���ӷj�M�㦳�S�w�W�٪���r��A�M���o�Ǥ�r������� PID ���L
-	�X�ӡC�ȱo�`�N���O���Ҫ��R�O��ΤF "!/awk/" �H�קK awk �� process 
-	�]�Q�C�X�ӡC
+	這個命令行的基本觀念是分析 ps 程式的輸出，然後用 awk或grep等公用
+	程式來搜尋具有特定名稱的文字行，然後把這些文字行當中的 PID 欄位印
+	出來。值得注意的是此例的命令行用了 "!/awk/" 以避免 awk 的 process 
+	也被列出來。
 
-	�z�i��n�ھڱz�ҥΪ� Unix �����ӽվ� ps �ҥΪ��ѼơC
+	您可能要根據您所用的 Unix 種類來調整 ps 所用的參數。
 
-	�b C �y���{���̭��G
+	在 C 語言程式裡面：
 
-	�b C ���{���w�̭��@�˨S���]�㦳�i��ʡ^����ƥi�H��X�{���W�ٻP 
-	process IDs�C
+	在 C 的程式庫裡面一樣沒有（具有可攜性）的函數可以找出程式名稱與 
+	process IDs。
 
-	�M�Ӧ��Ǽt�Ӵ��Ѩ�����z��Ū�� Kernel ���O����A�Ҧp Sun ���ѤF 
-	kvm\_ �}�Y����ơAData General �h���ѤF dg\_ �}�Y����ơC�p�G�z���t
-	�κ޲z�������w Kernel �O���骺Ū���v�O���ܡ]�@��u�� super user �� 
-	kmem �s�ո̪��H���~��Ū�� Kernel �O����^�A�@��ϥΪ̤]�i�H�Q�γo
-	�ǯS����ƨӹF��ت��C�M�ӡA�o�Ǩ�Ƴq�`�S����������󻡩��A�N�⦳
-	���ܤ]���g�o�}�`�����A�Ʀܷ|�H�ۨt�Ϊ�������s�ӧ��ܡC
+	然而有些廠商提供函數讓您能讀取 Kernel 的記憶體，例如 Sun 提供了 
+	kvm\_ 開頭的函數，Data General 則提供了 dg\_ 開頭的函數。如果您的系
+	統管理員未限定 Kernel 記憶體的讀取權力的話（一般只有 super user 或 
+	kmem 群組裡的人員才能讀取 Kernel 記憶體），一般使用者也可以利用這
+	些特殊函數來達到目的。然而，這些函數通常沒有正式的文件說明，就算有
+	的話也都寫得艱深難懂，甚至會隨著系統版本的更新而改變。
 
-	���Ǽt�ӷ|���� /proc �ɮרt�ΡA���ɮרt�Φs�b���覡���@�Ӥ��t�h����
-	�ת��ؿ��C�C���ɦW���O�@�ӼƦr�A������ process ID�A�z�i�H�}�ҳo����
-	�רåBŪ������o�� process ����T�C�A�������@�U�A���ɭԱz�|�]���s��
-	�v��������ӵL�k�ϥγo�ǥ\��A�ӥB�ϥγo�ǥ\�઺�覡�]�H�ۨt�Φ�
-	�ܡC
+	有些廠商會提供 /proc 檔案系統，此檔案系統存在的方式為一個內含多個檔
+	案的目錄。每個檔名都是一個數字，對應於 process ID，您可以開啟這個檔
+	案並且讀取關於這個 process 的資訊。再次提醒一下，有時候您會因為存取
+	權限的限制而無法使用這些功能，而且使用這些功能的方式也隨著系統而
+	變。
 
-	�p�G�z���t�ӨèS�����ѯS�����{���w�Ϊ� /proc �ӳB�z�o�ǨơA���O�z�S
-	�Q�n�b C �̭������o�ǥ\��A����z�i��n�ۤv�bKernel �O��������O��
-	�j�M�C�p�G�z�Q�ݬݳo�ǥ\��b�Y�Ǩt�ΤW�O��򰵨쪺�A�i�H�Ѧ� ofiles 
-	����l�{���A�z�i�H�q comp.source.sources.unix �����~�k�ɤ峹������
-	�o�C�]���@�Ӻ٬� kstuff ���M�˵{�����g�b 1991 �~����o���� 
-	alt.sources�A���i�H���z�b kernel �����j�M���Ϊ���T�A�z�i�H�� 
-	wuarchive.wustl.edu �Q�ΰΦW ftp ���^ 
-	usenet/alt.sources/articles/{329{6,7,8,9},330{0,1}}.Z�C�^
+	如果您的廠商並沒有提供特殊的程式庫或者 /proc 來處理這些事，但是您又
+	想要在 C 裡面完成這些功能，那麼您可能要自己在Kernel 記憶體當中費心
+	搜尋。如果您想看看這些功能在某些系統上是怎麼做到的，可以參考 ofiles 
+	的原始程式，您可以從 comp.source.sources.unix 的歷年歸檔文章當中取
+	得。（有一個稱為 kstuff 的套裝程式曾經在 1991 年五月發表於 
+	alt.sources，它可以幫您在 kernel 當中搜尋有用的資訊，您可以到 
+	wuarchive.wustl.edu 利用匿名 ftp 取回 
+	usenet/alt.sources/articles/{329{6,7,8,9},330{0,1}}.Z。）
 
 ------------------------------
 
 Subject: How do I check the exit status of a remote command executed via "rsh"?
 Date: Thu Mar 18 17:16:55 EST 1993
 
-\subsection{�ڭn��˸g��~rsh ���滷����O�ɡA�ˬd������O���������A�H}
+\subsection{我要怎樣經由~rsh 執行遠方指令時，檢查遠方指令的結束狀態？}
 
-	�H�U���O��O�椣�q���G
+	以下指令行是行不通的：
 
 	        rsh some-machine some-crummy-command || echo "Command failed"
 
-	�p�G rsh �{�������ন�\�a����A���� rsh �{�����������A�N�O 0�A���o
-	�]�\���O�z�u���Q�n�����G�C
-	�p�G�z�Q�ˬd����{�������檬�A�A�z�i�H�ո� Maarten Litmaath �� 1994
-	�~�Q��b alt.sources�o���� "ersh" script�Aersh �O�@�өI�s rsh �� shell 
-	script�A���|�w�ƻ��誺�����^��������O���������A�A�öǦ^���������A�C
+	如果 rsh 程式本身能成功地執行，那麼 rsh 程式的結束狀態就是 0，但這
+	也許不是您真正想要的結果。
+	如果您想檢查遠方程式的執行狀態，您可以試試 Maarten Litmaath 於 1994
+	年十月在 alt.sources發表的 "ersh" script，ersh 是一個呼叫 rsh 的 shell 
+	script，它會安排遠方的機器回應遠方指令的結束狀態，並傳回此結束狀態。
 
-\subsection{�ण���~shell �ܼƶǶi~awk �{�������O�H}
+\subsection{能不能把~shell 變數傳進~awk 程式當中呢？}
 
-	�o�Ӱ��D����ӥi�檺��k�A�Ĥ@�Ӥ�k�u�O��{�������ݭn�Ψ즹�ܼƪ�
-	�a�誽���i�}�A�Ҧp�n�o���z�ثe�ϥέ��� tty�A�i�H�ϥΡG
+	這個問題有兩個可行的方法，第一個方法只是把程式當中需要用到此變數的
+	地方直接展開，例如要得知您目前使用哪些 tty，可以使用：
 \footnotesize
 \begin{verbatim}
         who | awk '/^'"$USER"'/ { print $2 }'                           (1)
 \end{verbatim}
 \normalsize
-	awk �{�����{���q�`�|�γ�޸��A�_�ӡA�]��~awk �{���̭��g�`�|�Ψ� \$ 
-	�r���A�p�G�ϥ����޸����ܡAshell �����|�����o�Ӧr���C�ҥH�աA�b�o��
-	�S�����ΤU�A�ڭ̷Q�n~shell ����~\$USER ������~\$ �r���ɡA�N���ݥ���
-	��޸���e�b�q���y�l�ȮɬA�_�ӡA�M������޸���~\$USER �A�_�ӡA�A��
-	��޸����H�᪺�y�l�A�_�ӡC�Ъ`�N�A���޸��b�Y�Ǫ��p�U�i�H���h���g�A
-	�]�N�O���A�i�H�g���G
+	awk 程式的程式通常會用單引號括起來，因為~awk 程式裡面經常會用到 \$ 
+	字元，如果使用雙引號的話，shell 本身會解釋這個字元。所以啦，在這種
+	特殊情形下，我們想要~shell 解釋~\$USER 當中的~\$ 字元時，就必需先用
+	單引號把前半段的句子暫時括起來，然後用雙引號把~\$USER 括起來，再用
+	單引號把隨後的句子括起來。請注意，雙引號在某些狀況下可以略去不寫，
+	也就是說，可以寫成：
 \footnotesize
 \begin{verbatim}
         who | awk '/^'$USER'/ { print $2 }'                             (2)
 \end{verbatim}
 \normalsize
-	�M�ӡA�p�G shell �ܼƪ����e�t���S���r���Ϊťզr���ɡA�N���A�ΤF�C
+	然而，如果 shell 變數的內容含有特殊字元或空白字元時，就不適用了。
 
-	�ĤG�ا��ܼƪ��]�w�Ƕi awk ���覡�O�Q�� awk �����@�ӵL��󻡩���
-	�\��A�����\�z�q�R�O�C�z�L�u���y���ɮצW�١v�ӳ]�w�ܼơA�Ҧp�G
+	第二種把變數的設定傳進 awk 的方式是利用 awk 當中一個無文件說明的
+	功能，它允許您從命令列透過「假造的檔案名稱」來設定變數，例如：
 \footnotesize
 \begin{verbatim}
         who | awk '$1 == user { print $2 }' user="$USER" -              (3)
 \end{verbatim}
 \normalsize
-	�ѩ�R�O�椤���ܼƳ]�w�O�b awk �u���B�z�쪺�ɭԤ~�|�ͮġA�]���z�i
-	�H�Q�γo�اޥ��� awk �b�J�줣�P�ɦW���ɭ԰����P���ʧ@�C�Ҧp�G
+	由於命令行中的變數設定是在 awk 真正處理到的時候才會生效，因此您可
+	以利用這種技巧讓 awk 在遇到不同檔名的時候做不同的動作。例如：
 
 \footnotesize
 \begin{verbatim}
@@ -585,154 +585,154 @@ Date: Thu Mar 18 17:16:55 EST 1993
 \end{verbatim}
 \normalsize
 
-	�Ъ`�N���� awk �������|�b BEGIN �϶����椧�e�A�N���u���ɮצW�٤�
-	�e�ұԭz���ܼƳ]�w�ͮġA�����Ǥ��|�A�ҥH�z���i�H�̿�䤤�@�ءC
+	請注意有些 awk 的版本會在 BEGIN 區塊執行之前，就讓真實檔案名稱之
+	前所敘述的變數設定生效，但有些不會，所以您不可以依賴其中一種。
 
-	�A�i�@�B�����A���z���w�ܼƪ��]�w�ɡA�p�G�S�����w�u�ꪺ�ɮצW�١A
-	awk �N���|�۰ʱq�зǿ�JŪ���A�ҥH�z�n�b�R�O����[�W�@�� - �ѼơA
-	�N�� (3) �����O�椺�e�@�ˡC
+	再進一步提醒，當您指定變數的設定時，如果沒有指定真實的檔案名稱，
+	awk 將不會自動從標準輸入讀取，所以您要在命令之後加上一個 - 參數，
+	就跟 (3) 的指令行內容一樣。
 
-	�ĤT�ذ��k�O�ϥθ��s����awk (nawk)�A�z�i�H�b nawk ��������������
-	���ܼơC�Ҧp�G
+	第三種做法是使用較新版的awk (nawk)，您可以在 nawk 當中直接取用環
+	境變數。例如：
 \footnotesize
 \begin{verbatim}
         nawk 'END { print "Your path variable is " ENVIRON["PATH"] }' /dev/null
 \end{verbatim}
 \normalsize
 
-\subsection{�n��ˤ~���קK�b�O���餤�d�U~zombie processes�H}
+\subsection{要怎樣才能避免在記憶體中留下~zombie processes？}
 
-	�ܤ����a�A��󦺱����l~process �������欰�S�ʨèS����k���@��ơA�]
-	���o�ǯS�w������|�H��~Unix ���������P�Ӧ��Үt���C      
+	很不幸地，對於死掉的子~process 應有的行為特性並沒有辦法做一般化，因
+	為這些特定的機制會隨著~Unix 的種類不同而有所差異。      
 
-	�����A�b�U��~Unix �W���z�����ݨϥ�~wait() �ӳB�z�l~process�C�]�N�O
-	���A���٨S�ݹL���@��~Unix �|�۰ʧ⵲�����l~process �F���A�Y�ϱz���i
-	�D���ӫ�򰵡C
+	首先，在各種~Unix 上面您都必需使用~wait() 來處理子~process。也就是
+	說，我還沒看過有一種~Unix 會自動把結束的子~process 幹掉，即使您不告
+	訴它該怎麼做。
 
-	�䦸�A�b�Y�Ǳq~SysV �l�ͪ��t�η����A�p�G�z����F~signal(SIGCHLD, 
-	SIG\_IGN)"�A�]��A�ƹ�W���ӬO~SIGCLD �ӫD~SIGCHLD�A���j�h�Ʒs�X
-	�l��~SysV �t�γ��|�b���Y�ɷ����[�W \#define SIGCHLD SIGCLD�^�A��
-	��l~processes ���|�۰ʳQ�M���o�����b�b�A�z����Ƴ����ΰ��C�ݬݳo��
-	�覡�O�_�i�檺�̨ΰ��k�N�O�ۤv�b�����W�ոլݡC�p�G�z�Q�յۼg�X��i
-	��ʪ��{���X�A����̿�o�دS���B�z�覡�i�ण�O�n�D�N�C�������O�A�b 
-	POSIX �ä����\�z�o�˰��F��~SIGCHLD ���欰�S�ʳ]��~SIG\_IGN �b~POSIX 
-        �����èS���w�q�A�ҥH�p�G�n���z���{���X�G~POSIX ���n�D�ɡA�N���i�H
-        �o�˰��C
+	其次，在某些從~SysV 衍生的系統當中，如果您執行了~signal(SIGCHLD, 
+	SIG\_IGN)"，（嗯，事實上應該是~SIGCLD 而非~SIGCHLD，但大多數新出
+	爐的~SysV 系統都會在表頭檔當中加上 \#define SIGCHLD SIGCLD），那
+	麼子~processes 都會自動被清除得乾乾淨淨，您什麼事都不用做。看看這個
+	方式是否可行的最佳做法就是自己在機器上試試看。如果您想試著寫出具可
+	攜性的程式碼，那麼依賴這種特殊處理方式可能不是好主意。不幸的是，在 
+	POSIX 並不允許您這樣做；把~SIGCHLD 的行為特性設成~SIG\_IGN 在~POSIX 
+        當中並沒有定義，所以如果要讓您的程式合乎~POSIX 的要求時，就不可以
+        這樣做。
 
-	�����ˤ~��O POSIX �����k�O�H�p�P�e���ҭz�A�z���ݳ]�w�@�� signal 
-	���B�z��ơA�M�������h wait�C�b POSIX ���� signal �B�z��ƬO�g�� 
-	sigaction �]�w�A�ѩ�z�u��פ�l process �P����A�Ӥ��O���� stopped 
-	���l process�A�ҥH�i�H�b sa\_flags �����[�W SA\_NOCLDSTOP�C�p�G�n 
-	wait �l process �ӥ������]���Q�� (block)�A�i�H�ϥ� waitpid()�C�Ĥ@
-        �ӰѼƥ��ݬO -1 (�N�� wait ���� pid)�A�ĤT�ӰѼƥ��ݬO WNOHANG�A�o�O
-	�̨�i��ʪ����k�A�]�O�i��|�������ӳ̨�i��ʪ��g�k�C
+	那麼怎樣才算是 POSIX 的做法呢？如同前面所述，您必需設定一個 signal 
+	的處理函數，然後讓它去 wait。在 POSIX 當中 signal 處理函數是經由 
+	sigaction 設定，由於您只對終止的子 process 感興趣，而不是那些 stopped 
+	的子 process，所以可以在 sa\_flags 當中加上 SA\_NOCLDSTOP。如果要 
+	wait 子 process 而本身不因此被擋 (block)，可以使用 waitpid()。第一
+        個參數必需是 -1 (代表 wait 任何 pid)，第三個參數必需是 WNOHANG，這是
+	最具可攜性的做法，也是可能會成為未來最具可攜性的寫法。
 
-	�p�G�z���t�Τ��䴩~POSIX�A���N���ܦh���k�F�C��²�檺�覡�N�O����
-	��~signal(SIGCHLD, SIG\_IGN) �O�_�i��A�i�H���ܨ��N�n�F�C�p�G 
-	~SIG\_IGN �L�k�Ψӱj��۰ʦ��B���e�A����z�N�n�ۤv�g�@��~signal �B�z
-	��ƨӦ��B���e�F�C�n�g�X�@�ӾA�Ω�C�@��~Unix ��~singal �B�z��ƨ�
-	���o��ƬO���e�����ơA�]�����U�C���@�P���a��G
+	如果您的系統不支援~POSIX，那就有很多做法了。最簡單的方式就是先試
+	試~signal(SIGCHLD, SIG\_IGN) 是否可行，可以的話那就好了。如果 
+	~SIG\_IGN 無法用來強制自動收拾殘骸，那麼您就要自己寫一個~signal 處理
+	函數來收拾殘骸了。要寫出一個適用於每一種~Unix 的~singal 處理函數來
+	做這件事是不容易的事，因為有下列不一致的地方：
 
-	�b�@��~Unix ���A�@�өΤ@�ӥH�W���l~process ���ɡA�|�I�s~SIGCHLD �� 
-	~signal �B�z��ơC�]�N�O���A�p�G�A��~signal �B�z��ƥu���@��~wait() 
-        �ɡA�ä��|��Ҧ����l~process �����B���b�C���L�٦n�A�ڬ۫H�o���� 
-        ~Unix ���|��~wait3() ��~waitpid()�A�o��̳����i�b~option �ѼƤ��ϥ�
-        ~WNOHNAG �i�Ψ��ˬd�O�_���l~process �|�ݦ��B�C�ҥH�b�@�Ӧ� 
-        ~wait3()/waitpid() ���t�Τ��A�A�i�H�@�A���ƨϥ�~wait3()/waitpid() 
-        �H�T�w�Ҧ����l~process ���w���B���b�C�̦n�O��~waitpid() �]��
-        ���b~POSIX �зǤ��C
+	在一些~Unix 中，一個或一個以上的子~process 死時，會呼叫~SIGCHLD 的 
+	~signal 處理函數。也就是說，如果你的~signal 處理函數只有一個~wait() 
+        時，並不會把所有的子~process 都收拾乾淨。不過還好，我相信這類的 
+        ~Unix 都會有~wait3() 或~waitpid()，這兩者都有可在~option 參數中使用
+        ~WNOHNAG 可用來檢查是否有子~process 尚待收拾。所以在一個有 
+        ~wait3()/waitpid() 的系統中，你可以一再重複使用~wait3()/waitpid() 
+        以確定所有的子~process 都已收拾乾淨。最好是用~waitpid() 因為
+        它在~POSIX 標準中。
 
-	�b�@�� SysV-derived ���t�Τ��A�A SIGCHLD �� signal �B�z��Ƶ�����A 
-	�Y�٦��l process ���ݲM���A�٬O�|���� SIGCHLD signal�C �]���A�b�j��
-	���� SysV �t�Τ��A�b signal �B�z��Ƹ̥i�H���]�n�B�z�� signal �u���@
-	�ӡA �ϥ��Y�٦����ݳB�z�̡Asignal �|�@�A�����͡A�t�Τ]�|�@�A���I�s 
-	signal �B�z��ơC
+	在一些 SysV-derived 的系統中，再 SIGCHLD 的 signal 處理函數結束後， 
+	若還有子 process 等待清除，還是會產生 SIGCHLD signal。 因此，在大部
+	份的 SysV 系統中，在 signal 處理函數裡可以假設要處理的 signal 只有一
+	個， 反正若還有等待處理者，signal 會一再的產生，系統也會一再的呼叫 
+	signal 處理函數。
 
-	�b�@�Ǥ���ª��t�Τ��A�L�k���� signal �B�z��Ʀb�Q�I�s�� signal �B�z
-	��ƳQ�۰ʳ]�� SIG\_DFL�C�b�o�����t�Τ��A�n�b�A��signal �B�z��Ƥ�
-	���̫�[�J "signal(SIGCHLD,catcher\_func)"("catcher\_func" �O�B�z��ƪ�
-	�W�r�^�C
+	在一些比較舊的系統中，無法防止 signal 處理函數在被呼叫後 signal 處理
+	函數被自動設為 SIG\_DFL。在這類的系統中，要在你的signal 處理函數中
+	的最後加入 "signal(SIGCHLD,catcher\_func)"("catcher\_func" 是處理函數的
+	名字）。
 
-	�٦n�s�@�I���t�Τ��b signal �B�z��ƳQ�I�s��ä��|�q�]�� 
-	SIG\_DFL�C�ҥH�b�S�� wait3()/waitpid() �Ӧ� SIGCLD ���t�Τ��A�n�B�z
-	�����D�A���b�B�z��ƩI�s�F�@�� wait() �H��N�o�� signal() �q�s�]�w 
-	signal �B�z��ơC���F�V�e�ۮe���G�A System V �� signal() ���P�H�e�ۦP
-	���@�k�C�ҥH�A���ӭn�� sigaction() �� sigset() �Ӧw�� signal �B�z��ơC
+	還好新一點的系統中在 signal 處理函數被呼叫後並不會從設為 
+	SIG\_DFL。所以在沒有 wait3()/waitpid() 而有 SIGCLD 的系統中，要處理
+	此問題，當在處理函數呼叫了一次 wait() 以後就得用 signal() 從新設定 
+	signal 處理函數。為了向前相容之故， System V 的 signal() 維與以前相同
+	的作法。所以，應該要用 sigaction() 或 sigset() 來安裝 signal 處理函數。
 
-	�`���ӻ��A�b�� waitpid()(POSIX) ��wait3() ���t�ΤF�A�A���ӭn�Υ��̦�
-	�A�� signal �B�z��Ƹ̤]�n loop�A�b�S�� waitpid() �P wait3() ���t��
-	���A�h�C���I�s signal �B�z��Ƴ��n�� wait()�C
+	總結來說，在有 waitpid()(POSIX) 或wait3() 的系統了，你應該要用它們而
+	你的 signal 處理函數裡也要 loop，在沒有 waitpid() 與 wait3() 的系統
+	中，則每次呼叫 signal 處理函數都要有 wait()。
 
-	�̫ᴣ�Ѥ@��~portable ���O�Ĳv���t�����k�C�o�Ӥ�k�O~parent process �b 
-        ~fork() ��n~wait() ����~child process �������C�Ӧ�~child process 
-	���W�S ~fork()�A�o�ɧA�N���@~child process�P�@~grandchild process�C
-	�N�� ~child process ���W�����A�h ~parent process �]�|��۵����C
-	�� ~grandchild �Ӱ�����n ~child �����Ʊ��C���� ~grandchild ���]����
-	~parent (child) �w���A~parent �N�ܦ��F~init�A~init �N�|���A�B�z ~wait() �����Ʃy�C�o�Ӥ�
-        �k�h�ΤF�@��~fork() �ҥH����S���Ĳv�A���o����O��~portable ����k�C 
+	最後提供一個~portable 但是效率較差的做法。這個方法是~parent process 在 
+        ~fork() 後要~wait() 它的~child process 的結束。而此~child process 
+	馬上又 ~fork()，這時你就有一~child process與一~grandchild process。
+	將此 ~child process 馬上結束，則 ~parent process 也會跟著結束。
+	讓 ~grandchild 來做原先要 ~child 做的事情。此時 ~grandchild 的因為其
+	~parent (child) 已死，~parent 就變成了~init，~init 就會幫你處理 ~wait() 相關事宜。這個方
+        法多用了一個~fork() 所以比較沒有效率，但這絕對是個~portable 的方法。 
 
-\subsection{���ڭn�q~pipe Ū�@���J�ɡA�n�p��~�����o���ƹ��O�����q��L��
-      �J�ӫD�q�@�Ӥj~block buffer �Ӫ��H}
+\subsection{當我要從~pipe 讀一行輸入時，要如何才能讓這行資料像是直接從鍵盤輸
+      入而非從一個大~block buffer 來的？}
 
-	stdio �o��~library �|�ۤv�P�_���O�_�O�b~tty �U����A���ǥH�M�w�ĥΦ�� 
-	~buffering �覡�C�p�G���{���O�b~tty �Ҧ��U�A���򥦴N�|�H�@���@��Ӱ� 
-	~buffering�F�Ϥ��A�h�Τ@�Ӹ��j��~buffer �ӫD�@��@�檺���C
+	stdio 這個~library 會自己判斷它是否是在~tty 下執行，並藉以決定採用何種 
+	~buffering 方式。如果它認為是在~tty 模式下，那麼它就會以一次一行來做 
+	~buffering；反之，則用一個較大的~buffer 而非一行一行的做。
 
-	�p�G�A�ள��A�ҷQ�n���� buffering ���n�骺��l�{���A����A�N�i�H�� 
-	setbuf() �� setvbuf() �ӧ��� buffering ���覡�C
+	如果你能拿到你所想要取消 buffering 的軟體的原始程式，那麼你就可以用 
+	setbuf() 或 setvbuf() 來改變 buffering 的方式。
 
-	�p�G�A�L�k�����l�{���A����A�N�u��յۥh���A�o�ӥ��b pty �U����
-	���{���A�����H�����O�b tty �U����C�Ҧp�A�Υ��e�b���D 3.9 ���Ҵ��L
-	�� pty �{���C
+	如果你無法拿到原始程式，那麼你就只能試著去說服這個正在 pty 下執行
+	的程式，讓它以為它是在 tty 下執行。例如，用先前在問題 3.9 中所提過
+	的 pty 程式。
 
-\subsection{�ڭn�p��b�ɮצW�r���[�J����H}
+\subsection{我要如何在檔案名字中加入日期？}
 
-	�o���ä����A���O�ݰ_�Ӧ��@�I�����C�ڭ̴N�q date �o�өR�O�}�l��
-	�_�Gdate �౵���@�Ӯ榡�r��A�îھڦ��r��ӨM�w������X�O����C�o
-	�Ӯ榡�r�ꥲ�ݥγ�޸��A�_�ӡA�H�קK shell �ۤv�h�����o�Ӧr��C
-	�ոեH�U�o�өR�O�G
+	這其實並不難，但是看起來有一點神秘。我們就從 date 這個命令開始說
+	起：date 能接收一個格式字串，並根據此字串來決定它的輸出是什麼。這
+	個格式字串必需用單引號括起來，以避免 shell 自己去解釋這個字串。
+	試試以下這個命令：
 
 		date '+%d%m%y'
 
-	�A���ӷ|�o������ 130994 �����G�C�p�G�A�ٷQ�⥦�[�W���I�Ÿ��A�A�u�n
-	������o�Ǧr���[�J�榡�r�ꤤ�N��F�]���n�α׽u '/'�^�G
+	你應該會得到類似 130994 的結果。如果你還想把它加上標點符號，你只要
+	直接把這些字元加入格式字串中就行了（不要用斜線 '/'）：
 
 		date '+%d.%m.%y'
 
-	�b�o�Ӯ榡�r�ꤤ�٦��ܦh token �i�ѨϥΡG��ĳŪ date �� man page �N
-	�i�H��즳���������C
+	在這個格式字串中還有很多 token 可供使用：建議讀 date 的 man page 就
+	可以找到有關的說明。
 
-	�{�b�A�N�i�H��W�z date �R�O�����G����ɦW�̥h�F�CĴ�p�A�n�y�@�ӦW
-	�� report.130994�]�ϥ��N�O�N�����Ѥ�����N��^���ɮסG
+	現在，就可以把上述 date 命令的結果放到檔名裡去了。譬如，要造一個名
+	為 report.130994（反正就是代表今天日期的意思）的檔案：
 
 		FILENAME=report.`date '+%d%m%y'`
 
-	�`�N�@�I�A�o�̤@�@�ΤF��դ޸��G�̭����޸��O���F�קK�榡�r��Q shell 
-	�Υh����L�����F�~�����դ޸��h�O�Ψӧi�D shell �]�_�Ӫ������n�h��
-	��A�ç���檺��X�N����o���R�O���]command substitution�^�C
+	注意一點，這裡一共用了兩組引號：裡面的引號是為了避免格式字串被 shell 
+	用去做其他解釋；外面那組引號則是用來告訴 shell 包起來的部份要去執
+	行，並把執行的輸出代換到這整行命令中（command substitution）。
 
-\subsection{�����򦳤@��~script �O�� \#! ... �����ɮת��}��?}
+\subsection{為什麼有一些~script 是用 \#! ... 做為檔案的開端?}
 
-	�ڷQ���ǤH�i��|���إH '\#' �o�Ӧr���}�l������d�V�F�C�o��ؾ���
-	�ΨӸѨM���P���p�U���P�@���D�C
+	我想有些人可能會把兩種以 '\#' 這個字元開始的機制搞混了。這兩種機制
+	用來解決不同情況下的同一問題。
 
-	�I�����ѡG�� UNIX �� kernel �}�l�n����@���{��(�ϥ� exec() �������@
-	�ӡ^�A�|�������ɮ׶}�Y�� 16 �� bit�C�o 16 �� bit �٬� 'magic number'�C
-	Magic number ���X�ӭ��n���\��C�����Akernel �A����@���ɮפ��e�|��
-	�ݬݥ��� magic number�A�p�G kernel ���{�o���� magic number�A�N���|
-	�h���椧�åB�| return �^ ENOEXEC�C
+	背景知識：當 UNIX 的 kernel 開始要執行一隻程式(使用 exec() 中的任一
+	個），會先偷看檔案開頭的 16 個 bit。這 16 個 bit 稱為 'magic number'。
+	Magic number 有幾個重要的功能。首先，kernel 再執行一個檔案之前會先
+	看看它的 magic number，如果 kernel 不認得那個 magic number，就不會
+	去執行之並且會 return 回 ENOEXEC。
 
-	�A�̡A�H�ۮɥN�i�B�A~magic number ���u�i�H�Ψӿ�O�O�_�������ɡA��
-	�i�H�Ψӿ�O�Ӧp����榹�ɡC�|�Ҩӻ��A���p�A�b~SCO XENIX/386 �W 
-	~compile �F�@�ӵ{���A�M��N�o�ӵ{������~SysV/386 UNIX �W�h����A 
-	SysV/386 UNIX �� kernel �|�{�o����~magic number�A���u�ګ��I�o�O�@�� 
-	~x.out �榡���i�����ɡv�A�M��|�]�w�ۤv�h�ϥ�~XENIX �ۮe��~system 
-	call�C
+	再者，隨著時代進步，~magic number 不只可以用來辨別是否為執行檔，更
+	可以用來辨別該如何執行此檔。舉例來說，假如你在~SCO XENIX/386 上 
+	~compile 了一個程式，然後將這個程式拿到~SysV/386 UNIX 上去執行， 
+	SysV/386 UNIX 的 kernel 會認得它的~magic number，說「啊哈！這是一個 
+	~x.out 格式的可執行檔」，然後會設定自己去使用~XENIX 相容的~system 
+	call。
 
-	�J�M kernel �u����� binary executable image�C�A�γ\�|�ݡA�� script 
-        �S�O�����檺�O�H���ڦb shell prompt �U�� 'my.script' �ä��|�o�� 
-	ENOEXEC�ڡI�o�O�]�� script ������O�� shell �����ӫD�� kernel �Ӱ�
-	���C�b shell ������{���������i��O���o�o�Ӽˤl�G
+	既然 kernel 只能執行 binary executable image。你或許會問，那 script 
+        又是怎麼執行的呢？當我在 shell prompt 下打 'my.script' 並不會得到 
+	ENOEXEC啊！這是因為 script 的執行是由 shell 做的而非由 kernel 來做
+	的。在 shell 中執行程式的部份可能是長得這個樣子：
 \begin{verbatim}
 	        /* try to run the program */
 	        execl(program, basename(program), (char *)0);
@@ -749,17 +749,17 @@ Date: Thu Mar 18 17:16:55 EST 1993
 	            more involved, but this illustrates the point I'm
 	            trying to make.)
 \end{verbatim}
-	�b�W�Ҥ��A�Y�Ĥ@�� execl() ���\���ܡA���b execl() ���U���������N����
-	�ݤF�A�]�� execl() �����N���A�^�Y�F�C
+	在上例中，若第一個 execl() 成功的話，那在 execl() 底下的的部份就不必
+	看了，因為 execl() 執行後就不再回頭了。
 
-	���p�Ĥ@�� execl() ���Ѫ��ܡA���N���ܳo���O�@�� binary executable�A
-	shell �|�յۧ⥦���� shell script �Ӱ���C
+	假如第一個 execl() 失敗的話，那就表示這不是一個 binary executable，
+	shell 會試著把它當成 shell script 來執行。
 
-	�b�f�J�ܪ��H�̹��p���X�R kernel ����{������O�Q�쪺�F�@�ӫD�`��
-	���k�l�C�L���� kernel �{�o '\#!' �o�� magic number�C�]��� 8-bit ���r��
-	�c���@�� 16 bits �� magic numbre�C)�p�G�@���ɮ׬O�H '\#!' �}�l���A�h 
-	kernel �|��Ĥ@��䥦�����e�����n�ΨӰ��榹�ɮפ��e���R�O�C���F�o��
-	�B�z��A�ڭ̴N���F�p�U���@�k�G
+	在柏克萊的人們對於如何擴充 kernel 執行程式的能力想到的了一個非常棒
+	的法子。他們讓 kernel 認得 '\#!' 這個 magic number。（兩個 8-bit 的字元
+	構成一個 16 bits 的 magic numbre。)如果一個檔案是以 '\#!' 開始的，則 
+	kernel 會把第一行其它的內容當成要用來執行此檔案內容的命令。有了這個
+	處理後，我們就有了如下的作法：
 \begin{verbatim}
 	        #! /bin/sh
 
@@ -767,30 +767,30 @@ Date: Thu Mar 18 17:16:55 EST 1993
 
 	        #! /bin/awk -F:
 \end{verbatim}
-	�o�سB�z�u���s�b�� Berkeley �t�ΡAUSG �t�Ϊ��O���� SVR4 �~��o��
-	�@�k�[�J kernel ���C�ҥH�Y�A�� System V �b R4 ���e�������A���D�t��
-	�����ק�A�_�h�N�u����� binary executable image�C
+	這種處理只有存在於 Berkeley 系統，USG 系統的是直到 SVR4 才把這種
+	作法加入 kernel 中。所以若你用 System V 在 R4 之前的版本，除非廠商
+	有做修改，否則就只能執行 binary executable image。
 
-	����o�����ڭ̥���ɥ��ˬy�A�^�� USG based UNIX �٨S�� csh ���~
-	�N�C�]���A���U�ӷU�h�����ϥΪ̻��G�u�@���@�� interactive user 
-        interface �Ө� sh �u���O�@�ӥ��Ѥ��@�A�ڭn�� csh �աI�v�ҥH�O�A���\
-        �h���t�ӴN�� csh �P�� magic number �[�J�L�̪����~���C
+	講到這裡讓我們先把時光倒流，回到 USG based UNIX 還沒有 csh 的年
+	代。因為，有愈來愈多的的使用者說：「作為一個 interactive user 
+        interface 而言 sh 真的是一個失敗之作，我要用 csh 啦！」所以呢，有許
+        多的廠商就把 csh 與其 magic number 加入他們的產品中。
 
-	�o�ذ��k�y���F�@�Ӱ��D�C�o�򻡧a�A�A�� login shell �����F /bin/csh�C
-        ��i�@�B�����]�A�O�Ӱ����n�g csh script ����è�³J�C�A���M�|�Ʊ�u�n
-        �� 'my.script' �N�����@�� csh script�C�ӥB�Ʊ椣���g�L /bin/sh �ӬO
-        �g�Ѧp�U���@�k����G
+	這種做法造成了一個問題。這麼說吧，你把 login shell 換成了 /bin/csh。
+        更進一步的假設你是個堅持要寫 csh script 的白癡笨蛋。你當然會希望只要
+        打 'my.script' 就能執行一個 csh script。而且希望不必經過 /bin/sh 而是
+        經由如下的作法執行：
 \begin{verbatim}
 	        execl ("/bin/csh", "csh", "-c", "my.script", (char *)0);
 \end{verbatim}
 
-	���O�p�L�o�򰵪��ܷ|���j�·Ъ��C�Q�Q����t�θ��٦����� sh �� shell 
-	sript�A�@���� csh �Ӱ���o�� sript�A���O�����L�áC�ҥH�o���@�ӥi�H��
-	�ɭԥ� csh�A���ɭԥ� sh �Ӱ��� script ����k�C
+	但是如過這麼做的話會有大麻煩的。想想原先系統裡還有不少 sh 的 shell 
+	sript，一旦用 csh 來執行這些 sript，那是必死無疑。所以得有一個可以有
+	時候用 csh，有時候用 sh 來執行 script 的方法。
 
-	���ɷQ�쪺�@�k�O�� csh �h�ˬd�n���檺~script ���Ĥ@�Ӧr���C���Y�o��
-	�r���O~'\#' ��~csh �|��~/bin/csh �h����o��~script�A�_�h�N��~/bin/sh 
-        �h����o��~script�C�W�z���@�k�i����o���o�Ӽˤl�G
+	當時想到的作法是讓 csh 去檢查要執行的~script 的第一個字元。假若這個
+	字元是~'\#' 那~csh 會用~/bin/csh 去執行這個~script，否則就用~/bin/sh 
+        去執行這個~script。上述的作法可能長得像這個樣子：
 \small
 \begin{verbatim}
 	        /* try to run the program */
@@ -811,13 +811,13 @@ Date: Thu Mar 18 17:16:55 EST 1993
 	        return -1;
 \end{verbatim}
 \normalsize
-	�����I�n�`�N���O�C�Ĥ@�A�o�O��~'csh' �ʤ�}�A�S���ʨ�~kernel �]�S��
-	���O��~shell�C�ҥH�p�G�n~execl(�^�@��~script�A���ޥ��O���O�H~'\#' �}
-	�l�A�A���|�o�쪺~return value ���|�OENOEXEC�C���p�A�q~csh �H�~�� 
-	~shell �]�p~/bin/sh ) ��~script�A����o��~script ���٬O~sh �ӫD~csh�C
+	有兩點要注意的是。第一，這是由~'csh' 動手腳，沒有動到~kernel 也沒有
+	改到別的~shell。所以如果要~execl(）一個~script，不管它是不是以~'\#' 開
+	始，你都會得到的~return value 都會是ENOEXEC。假如你從~csh 以外的 
+	~shell （如~/bin/sh ) 的~script，執行這個~script 的還是~sh 而非~csh。
 
-	�ĤG�A�o�Ӱ��k�u�P�_�Ĥ@�Ӧr���O�_�� '\#'�A�ҥH�u�n���O '\#' ��L����
-	�Oԣ�F�賣�e��~sh �h�B�z�C���U�O�X�ӨҤl�G
+	第二，這個做法只判斷第一個字元是否為 '\#'，所以只要不是 '\#' 其他不管
+	是啥東西都送給~sh 去處理。底下是幾個例子：
 \begin{verbatim}
 	        :
 
@@ -830,7 +830,7 @@ Date: Thu Mar 18 17:16:55 EST 1993
 	        echo "Gee...I wonder what shell I am running under???"
 \end{verbatim}
 
-	�P�̥u�n�O�H '\#' ���}�ݪ� script�A�p�U�G
+	同裡只要是以 '\#' 為開端的 script，如下：
 \begin{verbatim}
 	        #
 
@@ -842,21 +842,21 @@ Date: Thu Mar 18 17:16:55 EST 1993
 
 	        # Gee...I wonder what shell I am running under???
 \end{verbatim}
-	�p�G�O�b~csh �̰��椧�A�h�|��~/bin/csh �Ӱ���C
+	如果是在~csh 裡執行之，則會用~/bin/csh 來執行。
 
-	(����:�p�G�A�Ϊ�~ksh�A����W�z��~'sh' ����~'ksh' �Y�i�C�]���A
-	�z�פW�ӻ�~Korn shell ���ӬO�P~Bourne shell �ۮe���C�p�G�A�Ϊ�
-	�O~zsh, bash ���䥦��~shell�A���ۤv�ݵۿ�a�C�^
+	(註解:如果你用的~ksh，那把上述的~'sh' 換成~'ksh' 即可。因為，
+	理論上來說~Korn shell 應該是與~Bourne shell 相容的。如果你用的
+	是~zsh, bash 等其它的~shell，那自己看著辦吧。）
 
-	�p�G�A��~kernel ���䴩~'\#!' ��~'\#' ��M�N�O�h�l�����k�C�ӥB�A�ٷ|�y��
-	�V�c�AĴ�p���A��~'\#! /bin/sh' ���ӭn����O�H
+	如果你的~kernel 有支援~'\#!' 那~'\#' 顯然就是多餘的做法。而且，還會造成
+	混淆，譬如當你用~'\#! /bin/sh' 應該要怎麼辦呢？
 
-	�٦n�A'\#!' �麥����CSystem V Release 4 �w�g�N��[�J�C�Ӧ��@��~System 
-	V Release 3.2 ���t�ӡA�]����~V.4 ���o�������ө������S�ʥ[�J���~���A
-	�åB���յۻ��A�A���o�ǯS�ʴN���F�A�A�ä��ݭn��L�p�@�ӯu�� streams 
-	�άO�ʺA�ո`~kernel �ѼƳo�����F��C
+	還好，'\#!' 日漸盛行。System V Release 4 已經將其加入。而有一些~System 
+	V Release 3.2 的廠商，也正把~V.4 中這類比較顯而易見的特性加入產品中，
+	並且嘗試著說服你說這些特性就夠了，你並不需要其他如一個真正 streams 
+	或是動態調節~kernel 參數這類的東西。
 
-	XENIX �ä��䴩 '\#!'�C���L~XENIX ��~/bin/csh ���䴩~'\#' ���@�k�C �p
-	�G~XENIX �䴩~'\#!' ���M�����A�i�O�ڹ惡�������Ʊ�C
+	XENIX 並不支援 '\#!'。不過~XENIX 的~/bin/csh 有支援~'\#' 的作法。 如
+	果~XENIX 支援~'\#!' 當然不錯，可是我對此不抱任何希望。
 \end{CJK*}
 \end{document}
