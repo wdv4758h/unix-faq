@@ -1,0 +1,925 @@
+³o¤C½g¤å³¹¥]§t¤@¨Ç¦b comp.unix.questions ©M comp.unix.shell ±`¨£¨ìªº°Ý
+ÃD¡C½Ð¤£¦A­n°Ý³o¨Ç°ÝÃD¡A¦]¬°³o¨Ç°ÝÃD¤w¸g¦^µª¹L¤Ó¦h¦¸¤F¡C¦ý¤]½Ð¤£­n¦]¬°
+¦³¤H°Ý³o¨Ç°ÝÃD¦Óµo¤õ¡A¦]¬°¥L­Ì¥i¯à©|¥¼Åª¹L³o¨Ç¤å³¹¡C
+
+This collection of documents is Copyright (c) 1994, Ted Timar, except 
+Part 6, which is Copyright (c) 1994, Pierre Lewis and Ted Timar.
+
+All rights reserved. Permission to distribute the collection is 
+hereby granted providing that distribution is electronic, no money is 
+involved, reasonable attempts are made to use the latest version and 
+all credits and this copyright notice are maintained.
+
+Other requests for distribution will be considered.
+
+All reasonable requests will be granted.
+
+¤¤¤åÂ½Ä¶ by {chenjl,freedom,jjyang}@csie.nctu.edu.tw
+­Y±z¹ï¤¤¤åÂ½Ä¶¦³¥ô¦ó·N¨£½Ðµo e-mail µ¹ cfaq@csie.nctu.edu.tw
+
+§Ú­Ì§Æ±æ³o¨Ç¤å¥ó¤¤ªº¸ê°T¯à¹ï§A¦³©ÒÀ°§U¡M¦ý¬O¨Ã¤£«Oµý¬O¥¿½Tªº¡C­Yµo¥Í·l
+®`½Ð¦Û¦æ­t³d¡C
+
+±z¥i¥H¦b rtfm.mit.edu ªº pub/usenet/news.answers §ä¨ì¥]¬A¦¹¤å¥ó¦b¤ºªº
+³\¦h FAQ¡C ¦b¦¹¥Ø¿ý¤Uªº FAQ ªº¦W¦r¥i¦b¤å³¹ªº³»ºÝªº "Archive-Name:" 
+¨º¤@¦æ§ä¨ì¡C
+
+/* Ä¶ª`: ¦b¥xÆW½Ð¥Î NCTUCCA.edu.tw:/USENET/FAQ¡A¦b¥æ¤jªº¸Ü 
+         ftp.csie.nctu.edu.tw:/pub/Documents/FAQ ¬O±q CCCA mirror ¨Óªº */
+
+  ¦¹¤@ FAQ ¬O¥H"unix-faq/faq/part[1-7]" ¬°¦W¡C
+
+³o¨Ç¤å³¹¤j¬ù¤À¦¨¡G
+
+      1.*¡^¤@¯ë©Êªº°ÝÃD
+      2.*¡^ªì¾ÇªÌ¥i¯à·|°Ýªº°ò¥»°ÝÃD
+      3.*) ¤¤¯Åªº°ÝÃD
+      4.*) ¦Û¥H¬°¤w¸gª¾¹D©Ò¦³µª®×ªº¤H¥i¯à·|°Ýªº°ª¯Å°ÝÃD
+      5.*) Ãö©ó¦UºØ shell ªº°ÝÃD
+      6.*) ¦U¦¡¦U¼Ëªº Unix
+      7.*) An comparison of configuration management systems (RCS, SCCS).
+
+This article includes answers to:
+
+      3.1)§ ­n¦p¦ó±oª¾¤@­ÓÀÉ®×«Ø¥ßªº®É¶¡¡H
+      3.2)  ¦b°õ¦æ rsh ªº®É­Ô­n«ç¼Ë¤~¯à¤£¥²µ¥»·¤è«ü¥O°õ¦æµ²§ô´N¦^¨ì shell¡H
+      3.3)  ­n«ç¼Ë¤~¯àºIÂ_¤@­ÓÀÉ®×?
+      3.4)  ¬°¤°»ò°õ¦æ find ®É©Ò¨Ï¥Îªº {} ²Å¸¹µLªk¹F¨ì§Ú¹w´Áªºµ²ªG?
+      3.5)  §Ú­n¦p¦ó§ïÅÜ¤@­Ó symbolic link ªº permission ©O¡H
+      3.6)  §Ú­n¦p¦ó "undelete" ¤@­ÓÀÉ®×¡H
+      3.7)  ¤@­Ó process ­n«ç¼Ë°»´ú¥X¦Û¤v¬O§_¦b­I´ºª¬ºA°õ¦æ?
+      3.8)  ¬°¤°»ò¦b Bourne shell ·í¤¤¡A¹ï°j°éªº¿é¥X¤JÂà¦VµLªk¹F¨ì¹w´Áªº®ÄªG¡H
+      3.9)  §Ú­n«ç»ò¦b¤@­Ó shell script ¤¤©Î¦b­I´º°õ¦æ 'ftp'¡B'telnet'¡B'tip' 
+            µ¥ interactive ªºµ{¦¡©O¡H
+      3.10) ¦b shell script ©Î C µ{¦¡·í¤¤¡A­n«ç¼Ë¤~¯à§ä¨ì¬Y­Óµ{¦¡ªº process ID
+            ©O¡H
+      3.11) §Ú­n«ç¼Ë¸g¥Ñ rsh °õ¦æ»·¤è«ü¥O®É¡AÀË¬d»·¤è«ü¥Oªºµ²§ôª¬ºA¡H
+      3.12) ¯à¤£¯à§â shell ÅÜ¼Æ¶Ç¶i awk µ{¦¡·í¤¤©O¡H
+      3.13) ­n«ç¼Ë¤~¯àÁ×§K¦b°O¾ÐÅé¤¤¯d¤U zombie processes¡H
+      3.14) ·í§Ú­n±q pipe Åª¤@¦æ¿é¤J®É¡A­n¦p¦ó¤~¯àÅý³o¦æ¸ê®Æ¹³¬Oª½±µ±qÁä½L¿é
+            ¤J¦Ó«D±q¤@­Ó¤j block buffer ¨Óªº¡H
+      3.15) §Ú­n¦p¦ó¦bÀÉ®×¦W¦r¤¤¥[¤J¤é´Á¡H
+      3.16) ¬°¤°»ò¦³¤@¨Ç script ¬O¥Î #! ... °µ¬°ÀÉ®×ªº¶}ºÝ¡H
+
+­Y­n§ä°ÝÃD 3.5 ªºµª®×, ¥Î regular expression ©¹«e§ä "^3.5)" §Y¥i¡C
+
+¦]¬°³o¨Ç³£¬O¥¿·í¦X²zªº°ÝÃD, ©Ò¥H¦b comp.unix.questions ©Î¬O 
+comp.unix.shell ¤¤¡C¨C¹j¤@°}¤l, ´N·|¦³³o¨Ç°ÝÃD»Pµª®×¥X²{, ºò±µµÛ´N·|
+¦³¤H¹ï¦P¼Ë°ÝÃD¤@¦A¥X²{µo¨cÄÌ¡CÃö©ó UNIX ¥NªíÔ£©O? ½Ð°Ñ¦Ò¨C¤ë post ¦b 
+news.announce.newusers ¤¤¦W¬° "Answers to Frequently Asked Questions" 
+ªº¤å³¹¡C
+
+¦]¬° Unix ¦³¤Ó¦h¤£¦PªººØÃþ¤F, ©Ò¥H«ÜÃø«OÃÒ¦¹¤å¥ó©Ò´£¨Ñªºµª®×¥²µM·|¦³
+¥Î¡C¦b¹Á¸Õ¥»¤å¥ó´£¨Ñªº§@ªk«e, ½Ð¥ýÅªÅª§A©Ò¨Ï¥Î¨t²Îªº¤â¥U¡C­Y§A¹ïµª®×
+¦³¥ô¦ó«ØÄ³©Î§ó¥¿, ½Ð°e email µ¹ tmtaimar@isgtec.com.
+
+----------------------------------------------------------------------
+
+Subject: How do I find the creation time of a file?
+Date: Thu Mar 18 17:16:55 EST 1993
+
+3.1)	§Ú­n¦p¦ó±oª¾¤@­ÓÀÉ®×«Ø¥ßªº®É¶¡¡H
+
+	«Ü¿ò¾Ñ¡A¦]¬°ÀÉ®×«Ø¥ßªº®É¶¡¨Ã¥¼Àx¦s¦b¥ô¦ó¦a¤è¡A©Ò¥Hµª®×¬OµLªk±oª¾¡C
+	Ãö©ó¤@­ÓÀÉ®×§A¥u¯à¬d¨ì³Ì«á­×§ïªº®É¶¡¡]"ls -l")¡A³Ì«áÅª¨úªº®É¶¡
+        ("ls -lu") »P inode §ïÅÜªº¨Ï¶¡¡C¦³¤@¨Ç man pages ±N³Ì«á¤@­Ó®É¶¡·í
+        ¦¨¬O«Ø¥ßªº®É¶¡¡A³oºØ»¡ªk¬O¿ùªº¡C¦]¬° mv¡Bln¡Bchmod¡Bchmod¡Bchown¡B
+        chgrp µ¥°Ê§@³£·|§ïÅÜ³o­Ó®É¶¡¡C
+
+	­Y»Ý§ó¸ÔºÉªº»¡©ú¥i°Ñ¦Ò "stat(2)" ªº man page.
+
+------------------------------
+
+Subject: How do I use "rsh" without having the rsh hang around ... ?
+Date: Thu Mar 18 17:16:55 EST 1993
+
+3.2)	¦b°õ¦æ rsh ªº®É­Ô­n«ç¼Ë¤~¯à¤£¥²µ¥»·¤è«ü¥O°õ¦æµ²§ô´N¦^¨ì shell¡H
+        (Ãö©ó§Ú­Ì©Ò°Q½×ªº rsh,½Ð°Ñ¾\°ÝÃD2.7)
+
+	¥H¤U³o¨Ç¾Ìª½Ä±·Q¨ìªºµª®×³£¹F¤£¨ì³o­Ó®ÄªG¡G
+		rsh machine command &
+	©Î	
+		rsh machine 'command &'
+
+	¨Ò¦p, °õ¦æ rsh machine 'sleep 60 &' ³o­Ó©R¥O®É¡A§Ú­Ì¥i¥HÆ[¹î¨ì¡Grsh ¨Ã
+	¤£·|¥ß¨èµ²§ô¡A¦Ó¬Oµ¥¨ì»·¤èªº sleep ©R¥O§¹¦¨¥H«á¤~µ²§ô¡A§Y¨Ï§Ú­Ì¦b»·
+	¤è¨Ï¥Î­I´º¤è¦¡°õ¦æ¦¹©R¥O¡C©Ò¥H­n«ç¼Ë¤~¯àÅý rsh ¦b sleep©R¥O±Ò°Ê«á¥ß
+	¨èµ²§ô©O¡H
+
+	µª®×¦p¤U¡Ð
+
+	¦pªG±z¦b»·ºÝ¨Ï¥Îcsh:
+		rsh machine -n 'command >&/dev/null </dev/null &'
+
+	¦pªG±z¦b»·ºÝ¨Ï¥Î sh:
+		rsh machine -n 'command >/dev/null 2>&1 </dev/null &'
+
+	¬°¤°»ò©O¡H¦]¬° "-n" ·|§â rsh ªºstdin±µ¨ì /dev/null¡A¦]¦¹±z¥i¥H¦b¥»¦a
+	¾÷¾¹¥H­I´º¤è¦¡°õ¦æ¾ã­Ó rsh ©R¥O¡C¤£ºÞ¬O¨Ï¥Î -n ¿ï¶µ©ÎªÌ¦b«ü¥Oµ²§À¨Ï
+	¥Î "/dev/null"¡A¨ä®ÄªG³£¬O¤@¼Ëªº¡C¦¹¥~,¦b»·ºÝ¾÷¾¹¨Ï¥Îªº¿é¥X¤JÂà¦V¡]¼g
+	¦b³æ¤Þ¸¹¤ºªº³¡¥÷¡^·|Åý rsh »{©w¦¹¦¸³s½u¥i³w¦æµ²§ô¡]¦]¬°¤wµL¨ä¥L¿é
+	¤J¸ê®Æ¡^¡C
+
+	ªþµù: ¥ô¦óÀÉ®×³£¥i¥H¥Î©ó»·ºÝ¾÷¾¹ªº¿é¥X¤JÂà¦V¡A¦Ó¤£¶È­­©ó /dev/null¡C
+
+	¦b³\¦hª¬ªp¤U¡A³o­Ó½ÆÂøªº©R¥O·í¤¤¦³«Ü¦h³¡¥÷³£¬O«D¥²­nªº¡C
+
+------------------------------
+
+Subject: How do I truncate a file? 
+Date: Mon, 27 Mar 1995 18:09:10 -0500
+
+3.3)	­n«ç¼Ë¤~¯àºIÂ_¤@­ÓÀÉ®×?
+
+	BSD ªº¨ç¼Æftruncate() ¥i¥H³]©wÀÉ®×ªºªø«×¡C¦ý¬O¨Ã¤£¬O¨C¤@ºØª©¥»ªº°Ê§@
+        ³£¤@¼Ë¡C¨ä¥L UNIX ªºÅÜºØ¦ü¥G¤]³£¤ä´©¨ä¥Lª©¥»ªººIÂ_¥\¯à¡C
+
+	¤ä´© ftruncate¨ç¼Æªº¨t²Î¦h¥b¥iÂkÃþ¬°¥H¤U¤TºØ¡G
+
+	BSD 4.2 - Ultrix, SGI, LynxOS
+		-µLªk¨Ï¥ÎºIÂ_¥\¯à¨Ó¼W¥[ÀÉ®×ªø«×
+		-°õ¦æºIÂ_°Ê§@¤£·|²¾°ÊÀÉ®×«ü¼Ð
+
+	BSD 4.3 - SunOS, Solaris, OSF/1, HP/UX, Amiga
+		-¥i¥H¥ÎºIÂ_¥\¯à¨Ó¼W¥[ÀÉ®×ªø«×
+		-°õ¦æºIÂ_°Ê§@¤£·|²¾°ÊÀÉ®×«ü¼Ð
+
+	Cray - UniCOS 7, UniCOS 8
+		-µLªk¨Ï¥ÎºIÂ_¥\¯à¨Ó¼W¥[ÀÉ®×ªø«×
+		-°õ¦æºIÂ_°Ê§@·|²¾°ÊÀÉ®×«ü¼Ð
+
+	¨ä¥L¨t²Î«h¥i¯à¦b¥H¤U¥|­Ó¦a¤è»P²³¤£¦P:
+
+	F_CHSIZE - ¥u¦bSCO ¤W
+		-¦³¨Ç¨t²Î©w¸q¤FF_CHSIZE ¦ý¨Ã¨S¦³¯uªº¤ä´©¦¹¥\¯à
+		-°Ê§@Ãþ¦üBSD 4.3
+
+	F_FREESP - ¥u¦b Interative Unix ¤W
+		-¦³¨Ç¨t²Î(¦pInteractive Unix)©w¸q¤FF_FREESP ¦ý¨Ã¨S¦³¯uªº¤ä´©¦¹
+		 ¥\¯à
+		-°Ê§@Ãþ¦üBSD 4.3
+
+	chsize() - QNX and SCO
+		-¦³¨Ç¨t²Î(¦pInteractive Unix)¦³chsize() ¨ç¼Æ¦ý¨Ã¨S¦³¯uªº¤ä´©
+                 ¦¹¥\¯à
+		-°Ê§@Ãþ¦üBSD 4.3
+
+	¡uªÅªÅ¦p¤]¡v-¥Ø«e§ä¤£¨ì³oºØ¨t²Î
+		-¤]³\·|¦³¨t²Î§¹¥þ¤£¤ä´© truncate¥\¯à
+
+	FAQ ºûÅ@ªÌªºµù¸Ñ:¥H¤U¬O§Ú¦b´X¦~«e±qºô¸ô§ì¨ìªºµ{¦¡¡A­ì§@ªÌ¤w¤£¥i¦Ò¡A
+                         ¤£¹LS.Spencer Sun <spencer@ncd.com> ¤]°^Äm¤F¤@¥÷
+                         F_FREESPªº¥\¯à¡C
+
+	      functions for each non-native ftruncate follow
+
+	      /* ftruncate emulations that work on some System V's.
+	         This file is in the public domain. */
+
+	      #include 
+	      #include 
+
+	      #ifdef F_CHSIZE
+	      int
+	      ftruncate (fd, length)
+	           int fd;
+	           off_t length;
+	      {
+	        return fcntl (fd, F_CHSIZE, length);
+	      }
+	      #else
+	      #ifdef F_FREESP
+	      /* The following function was written by
+	         kucharsk@Solbourne.com (William Kucharski) */
+
+	      #include 
+	      #include 
+	      #include 
+
+	      int
+	      ftruncate (fd, length)
+	           int fd;
+	           off_t length;
+	      {
+	        struct flock fl;
+	        struct stat filebuf;
+
+	        if (fstat (fd, &filebuf) < 0)
+	          return -1;
+
+	        if (filebuf.st_size < length)
+	          {
+        	    /* Extend file length. */
+	            if (lseek (fd, (length - 1), SEEK_SET) < 0)
+	              return -1;
+
+	            /* Write a "0" byte. */
+	            if (write (fd, "", 1) != 1)
+        	      return -1;
+	          }
+	        else
+	          {
+	            /* Truncate length. */
+	            fl.l_whence = 0;
+	            fl.l_len = 0;
+	            fl.l_start = length;
+	            fl.l_type = F_WRLCK;      /* Write lock on file space. */
+
+	/* This relies on the UNDOCUMENTED F_FREESP argument to
+	   fcntl, which truncates the file so that it ends at the
+	   position indicated by fl.l_start.
+	   Will minor miracles never cease? */
+	          if (fcntl (fd, F_FREESP, &fl) < 0)
+	              return -1;
+	          }
+
+	        return 0;
+	      }
+	      #else
+	      int
+	      ftruncate (fd, length)
+	           int fd;
+	           off_t length;
+	      {
+	        return chsize (fd, length);
+	      }
+	      #endif
+	      #endif
+
+------------------------------
+
+Subject: Why doesn't find's "{}" symbol do what I want?
+Date: Thu Mar 18 17:16:55 EST 1993
+
+3.4)	¬°¤°»ò°õ¦æ find ®É©Ò¨Ï¥Îªº {} ²Å¸¹µLªk¹F¨ì§Ú¹w´Áªºµ²ªG?
+
+	Find «ü¥O¦³¤@­Ó -exec ªº¿ï¶µ·|°w¹ï¨C¤@­Ó§ä¨ìªºÀÉ®×°õ¦æ¤@­Ó¯S®í
+        ªº«ü¥O¡CFind ·|§â¥X²{{}ªº¦a¤è¸m´«¦¨¥Ø«e§ä¨ìªºÀÉ®×¦WºÙ¡C¦]¦¹¡A
+        ¤]³\¦³¤@¤Ñ±z·|¨Ï¥Î find «ü¥O¹ï¨C¤@­ÓÀÉ®×°õ¦æ¬Y­Ó«ü¥O¡A©ÎªÌ¹ï
+        ¤@­Ó¥Ø¿ý°õ¦æ¬Y­Ó«ü¥O¡C
+
+	        find /path -type d -exec command {}/\* \;
+
+	§Æ±æ find ¯à¨Ì§Ç°õ¦æ¥H¤U«ü¥O:
+
+	        command directory1/*
+	        command directory2/*
+	        ...
+
+	¤£©¯ªº¬O¡Afind ¥u·|®i¶}¦Û¦¨¤@Åéªº {} token¡F¦pªG {} ¸ò¨ä¥L¦r¤¸¬Û³s
+        ªº¸Ü¡]¦p¡G{}/*¡^¡A¨º»òfind±N¤£·|¥H±z©Ò·Qªº¤è¦¡®i¶} {}, ¦Ó¬OÂà´«¬°¥H
+        ¤U©R¥O
+
+	        command {}/*
+	        command {}/*
+	        ...
+
+	¤]³\±z¥i¥H§â¥¦·í¦¨ bug, ¤]¥i¥H§â¥¦¬Ý¦¨¬O¬G·N³]­pªº¯S²§¥\¯à¡C¦ý§Ú­Ì
+	¥i¤£Ä@³Q¥Ø«e³o­Ó¯S²§¥\¯à¤zÂZ¡C©Ò¥H­n«ç¼ËÁ×§K³o­Ó°ÝÃD©O¡H¨ä¤¤¤@ºØ°µ
+	ªk¬O¼g¤@­Ó¤p¤pªº shell script¡A¦WºÙ´N¥s°µ ./doit ¦n¤F¡A¨ä¤º®e¦p¤U¡G
+
+		command "$1"/*
+
+	¨º»ò±z´N¥i¥H§â­ì¨Óªº©R¥O¦æ§ï¼g¬°
+
+		find /path -type d -exec ./doit {} \;
+
+	¦pªG±z·Q¬Ù±¼ ./doit ³o­Ó shell script, ¥i¥H³o»ò¼g¡G
+
+		find /path -type d -exec sh -c 'command $0/*' {} \;
+
+	(³oºØ¼gªk¥i¦æªº­ì¦]¬O "sh -c 'command' A B C ..."«ü¥O·í¤¤¡A$0·|®i¶}¬°
+	A, $1·|®i¶}¬°B, ¨Ì¦¹Ãþ±À)
+
+	©ÎªÌ±z¤]¥i¥H²¤¬I¤p­p¨Ï¥Î sed ¨Ó³y¥X±z·Q°õ¦æªº«ü¥O¦æ¡G
+
+		find /path -type d -print | sed 's:.*:command &/*:' | sh
+
+	¦pªG±z·Q´î¤Ö command ªº°õ¦æ¦¸¼Æ¡A±z¥i¥H¥ýÀË¬d¬Ý¬Ý¨t²Î¤¤¦³¨S¦³ 
+	xargs ³o­Ó«ü¥O, xargs·|±q¼Ð·Ç¿é¤J¤@¦¸Åª¨ú¤@¦æ¡A¨Ã¥B§â³o¨ÇÅª¤Jªº¸ê®Æ
+	¦X¨Ö¦Ü¤@­Ó©R¥O¦æ¤º¡C±z¥i¥H¼g¦¨¥H¤U©R¥O¦æ¡G
+
+		find /path -print | xargs command
+
+	³o¼Ë·|¨Ï¥H¤U«ü¥O°õ¦æ¤@¦¸©Î¦h¦¸¡G
+
+	        command file1 file2 file3 file4 dir1/file1 dir1/file2
+
+	«Ü¤£©¯¦a¡A³o¨Ã¤£¬O§¹¬üµL¯Ê©ÎªÌ¸UµL¤@¥¢ªº¸Ñªk¡A¿é¤J xargs ªº¤å¦r¦æ
+	¥²¶·¥H´«¦æ¦r¤¸µ²§À¡A©Ò¥H·íÀÉ®×¦WºÙ·í¤¤¦³©_©Çªº¦r¤¸¡]¦p´«¦æ¦r¤¸¡^®É¡A
+	xargs´N·|¦]¦¹¦Ó²V²c¡C
+
+------------------------------
+
+Subject: How do I set the permissions on a symbolic link?
+Date: Thu Mar 18 17:16:55 EST 1993
+
+3.5)  §Ú­n¦p¦ó§ïÅÜ¤@­Ó symbolic link ªº permission ©O¡H
+
+	³o­Ó°ÝÃD¨S¦³·N¸q¡A¦]¬° symbolic linkªº permission ®Ú¥»¤£¥Nªí¤°»ò¡C
+	¨º­Ó link ©Ò«ü¹L¥hªºÀÉ®×ªº permission ¤~¦³·N¸q¡C
+
+------------------------------
+
+Subject: How do I "undelete" a file?
+Date: Thu Mar 18 17:16:55 EST 1993
+
+3.6)  §Ú­n¦p¦ó "undelete" ¤@­ÓÀÉ®×¡H
+
+	¬Y¦~¬Y¤ëªº¬Y¤@¤Ñ¡A­n§R°£ "*.foo" «o¤@¤£¤p¤ß¥´¦¨¤F "rm * .foo"¡A
+	µ²ªGµo²{³º§â "*" ³£§R°£¤F¡C¯uªº¬O±ý­úµL²\°Ú¡I¥i¬O§A¤]¥u¦n§â³o·í¦¨
+	¬O¦¨ªøªº¥N»ù¤F¡C
+
+	·íµM¤@­ÓºÙÂ¾ªº¨t²ÎºÞ²z­ûÀ³·í·|©w´Á°µ³Æ¥÷¡C¥ý°Ý¤@°Ý§Aªº¨t²ÎºÞ²z­û¬Ý
+	§A¤£¤p¤ß§R°£ªºÀÉ®×¬O¤£¬O¦³³Æ¥÷°_¨Ó¡C¦pªG¨S¦³ªº¸Ü¡A¶â¡AÄ~Äò©¹¤U¬Ý§a¡I
+
+	¤£ºÞ§A¬O¤£¬O¯uªº­n§R°£¤@­ÓÀÉ®×¡A·í§A¤U¤F "rm" ¥H«á¡AÀÉ®×´N¤£¨£¤F¡C
+	¦b§A "rm" ¤@­ÓÀÉ®×¡A¨t²Î´N¤£¦A°O±o§AªºÀÉ®×¬O¥Î¤FµwºÐ¤¤ªº­þ¨Ç block 
+	¤F¡C§óÁV¿|ªº¬O¡A·í¨t²Î­n¥Î¨ì§ó¦hªºµwºÐªÅ¶¡®É¡A´NÀu¥ý¨ú¥Î³o¨Ç­è©ñ¥X
+	¨Óªº block¡C¤£¹L¤Ñ©³¤U¨S¦³¤£¥i¯àªº¨Æ¡C²z½×¤W»¡¡A­Y§A¦b¤U¤F "rm" «á¡A
+	°¨¤W§â¨t²Î shutdown¡A¸ê®Æ¬O´N±o¦^¨Óªº¡C¤£¹L¡A§A±o§ä¤@­Ó¹ï¨t²Î«D±`
+	¼ô±x¥BªÖªá¶O¼Æ¤p®É¦Ü¼Æ¤Ñªº®É¶¡¨ÓÀ°§A°µ³o¥ó¨Æªº±M®a¤~¦æ¡C
+
+	·í§A¤£¤p¤ß "rm" ¤F¤@­ÓÀÉ®×«á¡A²Ä¤@­Ó¤ÏÀ³©Î³\¬O¬°¤°»ò¤£¥Î¤@­Ó alias 
+	©Î¦b sh ¤¤ªº function ±N "rm"  ¨ú¥N±¼¡A·í§A¤U "rm" ¥u§âÀÉ®×·h¨ì¤@­Ó
+	©U§£±í¤§Ãþªº¦a¤è©O¡H¨º¦pªG¤£¤p¤ß±þ¿ùÀÉ®×´N¥i¥H®¾±Ï¡A¥u¬O­n©w´Á²M¤@
+	²M©U§£±í´N¦n¤F¡C¦³¨â­Ó²z¥Ñ¡C²Ä¤@¡A¤j¦h¼Æªº¤H¤£»{¬°³o¬O¤@­Ó¦nªº°µªk¡C
+	³o»ò°µªº¸Ü§A·|¤Ó¨Ì¿à§Aªº "rm"¡A¦³¤@¤Ñ¨ì¤F¤@­Ó¥¿±`ªº¨t²Î¤¤§â¥¿±`ªº 
+	"rm" ·í¦¨§Aªº "rm" ¨Ó¥Î¡A¨º¥i¯à·|¦º±o«ÜºG¡C²Ä¤G¡A§A·|µo²{§Aªá¶O¤F
+	³\¦h¤£¥²­nªº®É¶¡¦b³B²z©U§£±í¸ÌªºªF¦è¡C©Ò¥H¹ï¤@­Óªì¾ÇªÌ¦Ó¨¥©O¡A¥Î 
+	"rm" ªº -i¿ï¶µÀ³¸Ó´N°÷¤F¡C
+
+	¦pªG§A¦³¤jµL¬Èªººë¯«ªº¸Ü¡A¨º¦n§a¡A´Nµ¹§A­ÓÂ²³æªºµª®×¡C¼g¤@­Ó¦W¬° 
+	"can" ªº«ü¥O¡A¥\¥Î¬O±NÀÉ®×²¾¨ì©U§£±í¸Ì¡C¦b csh(1) ¤¤¡A±N¥H¤UªºªF¦è
+	©ñ¶i ".login" ¸Ì:
+
+        alias can       'mv \!* ~/.trashcan'       # junk file(s) to trashcan
+        alias mtcan     'rm -f ~/.trashcan/*'      # irretrievably empty trash
+        if ( ! -d ~/.trashcan ) mkdir ~/.trashcan  # ensure trashcan exists
+
+	¦pªG§A·Q­n¨C¦¸ logout ®É³£§â©U§£±í²M°®²b¡A¨º´N§â
+
+        rm -f ~/.trashcan/*
+
+	¶i ".logout" ¸Ì¡C­Y§A¥Îªº¬O sh ©Î¬O ksh¡A¨º¦Û¤v¸Õ¸ÕµÛ¼g¼g¬Ý§a¡I
+
+	MIT ªº¶®¨å®R­pµe(Project Athena)§@¥X¤F¤@®M¦³ 
+        delete/undelete/expunge/purge ªº³nÅé¡C³o®M³nÅé¥i¥H§¹¥þ¨ú¥N "rm" ¦Ó¤S´£
+	¨Ñ undelete ªº¥\¯à¡C³o­Ó³nÅé´¿ post ¦b comp.sources.misc(volume 17¡A 
+	issue 023-025)¡C
+
+------------------------------
+
+Subject: How can a process detect if it's running in the background?
+Date: Thu Mar 18 17:16:55 EST 1993
+
+3.7)	¤@­Ó process ­n«ç¼Ë°»´ú¥X¦Û¤v¬O§_¦b­I´ºª¬ºA°õ¦æ?
+
+	­º¥ý,±z¬O§_·Qª¾¹D±z¦Û¤v¬O¦b­I´ºª¬ºA¤U°õ¦æ¡A©ÎªÌ¦b¥æ½Íª¬ºA¤U°õ¦æ¡H¦pªG
+	±z¥u¬O·QÂÇ¦¹¨M©w¬O§_¸Ó¦b²×ºÝ¾÷¤W¦L¥X´£¥Ü²Å¸¹¤§Ãþªº°T®§¡A¨º»ò§ó¦X¾Aªº°µ
+	ªkÀ³¸Ó¬OÀË¬d±zªº¼Ð·Ç¿é¤J¬O§_¬°²×ºÝ¾÷:
+
+            sh: if [ -t 0 ]; then ... fi
+            C: if(isatty(0)) { ... }
+
+	¤@¯ë¨Ó»¡¡A±zµLªk±oª¾¦Û¤v¬O§_¦b­I´ºª¬ºA¤U°õ¦æ¡C°ÝÃDªº®Ú¥»¦b©ó¤£¦Pªº shell 
+	»P¤£¦Pªº UNIX ª©¥»¹ï©ó¡u«e´º¡v»P¡u­I´º¡vªº©w¸q¥i¯à¦³©Ò¤£¦P¡C¦Ó¥B¦b³Ì
+	±`¨£ªº¨t²Î¤W¡A«e´º»P­I´º³£¦³¸û¦nªº©w¸q¡Aµ{¦¡¬Æ¦Ü¥i¥H¦b­I´º»P«e´º¤§¶¡¥ô
+	·N¤Á´«¡I
+
+	¦b¨S¦³ job control ªºUNIX¨t²Î¤W¡A­Y­n§â process ©ñ¤J­I´ºª¬ºA³q±`¬O§â 
+	SIGINT »P SIGQUIT ©¿²¤±¼¡A¨Ã¥B§â¼Ð·Ç¿é¤JÂà¬°"/dev/null"¡A³o¬O¥Ñshell³B
+	²zªº¡C
+
+	¦b¨ã¦³ job control ¥\¯àªº UNIX ¨t²Î¡A­Yshell¤ä´© job control ¥\¯à¡A¨º»òshell
+	¥u­n§â process group ID ³]¦¨¸ò terminal ©ÒÄÝªº PGID ¤£¦P§Y¥i§â process ¤Á
+	´«¦Ü­I´ºª¬ºA¡F¦pªG­n§â process ¤Á¦^«e´ºª¬ºA¡A¥u­n§â¦¹ process ªº PGID ³]
+	¦¨¸ò¥Ø«e terminal ©ÒÄÝªº PGID §Y¥i¡C¦pªG shell ¤£¤ä´© job control ¥\¯à¡A«h
+	¤£ºÞUNIX ¨t²Î¬O§_¤ä´© job control ªº¥\¯à¡Ashell ¹ï process ªº³B²z°Ê§@³£
+	¬O¤@¼Ëªº¡]¤]´N¬O©¿²¤SIGINT »P SIGQUIT¡A¨Ã¥B§â¼Ð·Ç¿é¤JÂà¬°"/dev/null"¡^¡C
+
+------------------------------
+
+Subject: Why doesn't redirecting a loop work as intended?  (Bourne shell)
+Date: Thu Mar 18 17:16:55 EST 1993
+
+3.8)	¬°¤°»ò¦b Bourne shell ·í¤¤¡A¹ï°j°éªº¿é¥X¤JÂà¦VµLªk¹F¨ì¹w´Áªº®ÄªG¡H
+
+	Á|­Ó¨Ò¤l¨Ó»¡¦n¤F¡G
+
+		foo=bar
+		while read line
+		do
+		# do something with $line
+		    foo=bletch
+		done < /etc/passwd
+
+		echo "foo is now: $foo"
+
+	¾¨ºÞ "foo=bletch" ¤w¸g³]©w¤F foo ªº­È¡AµM¦Ó¦b¦hºØ¨t²Îªº Bourne shell 
+        ¤W°õ¦æ¦¹ script ªº®É­Ô¤´·|¦L¥X "foo is now: bar"¡C¬°¤°»ò©O¡H¦]¬°¤@¨Ç
+        ¾ú¥v¦]¯À¡A¦b Bourne shell ·í¤¤¡A¤@­Ó±±¨îµ²ºc¡]¦p¤@­Ó°j°é¡A©ÎªÌ¤@­Ó 
+        "if" ±Ô­z¡^ªº­«¾É¦V·|³y¥X¤@­Ó·sªº subshell¡A©Ò¥H°Õ¡A¦b¦¹ subshell ¤º
+        ©Ò³]©wªºÅÜ¼Æ·íµM¤£·|¼vÅT¥Ø«e shell ªºÅÜ¼Æ¡C
+
+	POSIX 1003.2 Shell and Tools Interface ªº¼Ð·Ç©e­û·|¤w¨¾¤î¤W­zªº°ÝÃD¡A
+        ¤]´N¬O¤W­zªº¨Ò¤l¦b¿í´`P1003.2 ¼Ð·ÇªºBourne shells·í¤¤·|¦L¥X 
+        "foo is now: bletch"¡C
+
+	¦b¤@¨Ç¸û¥j¦Ñªº (¥H¤Î¿í´` P1003.2 ¼Ð·Çªº) Bourne shell ·í¤¤¡A±z¥i¥H¨Ï
+        ¥Î¥H¤U§Þ¥©¨ÓÁ×§K­«Âà¦Vªº°ÝÃD¡G
+
+		foo=bar
+		# make file descriptor 9 a duplicate of file descriptor 0 stdin);
+		# then connect stdin to /etc/passwd; the original stdin is now
+		# `remembered' in file descriptor 9; see dup(2) and sh(1)
+		exec 9<&0 < /etc/passwd
+
+		while read line
+		do
+		# do something with $line
+		    foo=bletch
+		done
+
+		# make stdin a duplicate of file descriptor 9, i.e. reconnect
+		# it to the original stdin; then close file descriptor 9
+		exec 0<&9 9<&-
+		echo "foo is now: $foo"
+
+	³o¼Ë¤l¤£ºÞ¦b­þºØ Bourne shell À³¸Ó³£·|¦L¥X "foo is now: bletch"¡C
+	±µ¤U¨Ó¡A¬Ý¬Ý¥H¤U³o­Ó¨Ò¤l¡G
+
+	        foo=bar
+
+	        echo bletch | read foo
+
+	        echo "foo is now: $foo"
+
+	³o­Ó¨Ò¤l¦b³\¦h Bourne shell ¤º³£·|¦L¥X "foo is now: bar"¡A¦³¨Ç«h·|
+        ¦L¥X "foo is now: bletch"¡C¬°¤°»ò©O¡H¤@¯ë»¡¨Ó¡A¤@­Ó pipeline ¸Ì­±
+        ªº¨C¤@­Ó³¡¥÷³£¬O¦b¤@­Ó subshell ¤¤°õ¦æ¡C¦ý¬O¦³¨Ç¨t²Îªº¸Ì pipeline 
+        ªº³Ì«á¤@­Ó¦pªG¬O¦p "read" ³oÃþªº¤º«Ø«ü¥O¡A¨Ã¤£·|¥t¥~³y¥X¤@­Ó 
+        subshell¡C
+
+	POSIX 1003.2 ¹ï³o¨âºØ§@ªk¨Ã¨S¦³µw©Ê³W©w­n¥Î­þ¤@ºØ¡C©Ò¥H¤@­Ó portable 
+        ªº shell script ¤£À³¸Ó¨Ì¿à³o¨âºØ§@ªk¨ä¤¤ªº¤@ºØ¡C
+
+------------------------------
+
+Subject: How do I run ... interactive programs from a shell script ... ?
+Date: Thu Mar 18 17:16:55 EST 1993
+
+3.9)  §Ú­n«ç»ò¦b¤@­Ó shell script ¤¤©Î¦b­I´º°õ¦æ 'ftp'¡B'telnet'¡B'tip' µ¥ 
+      interactive ªºµ{¦¡©O¡H
+
+	³o¨Çµ{¦¡»Ý­n¤@­Ó terminal interface¡C³o¬Oshell ©ÒµLªk´£¨Ñªº¡C©Ò¥H³o¨Ç
+	µLªk¦b shell script ¸Ì¦Û°Ê°õ¦æ³o¨Çµ{¦¡¡C
+
+	¦³¤@°¦¥s°µ 'expect' ªºµ{¦¡¡A¥i¥H¥Î¨Ó°µ³o¥ó¨Æ¡A¦]¬°¥¦´£¨Ñ¤F 
+        programmable terminal interface¡C©³¤Uªº¨Ò¤l¬O¥Î 'expect' ¨ÓÀ°§A login¡G
+
+	        # username is passed as 1st arg, password as 2nd
+	        set password [index $argv 2]
+	        spawn passwd [index $argv 1]
+	        expect "*password:"
+	        send "$password\r"
+	        expect "*password:"
+	        send "$password\r"
+	        expect eof
+
+	expect ¬° telnet, rlogin,debugger ©M¤@¨Ç¨S¦³¤º«Ø command language ªº
+        µ{¦¡´£¨Ñ¤F¤@­Óªñ¥G¦Û°Ê¤Æªº¤èªk¡CExpect ¸Ì­±ªº¦³¤@¥Î¥H¦bª± rogue 
+	(¤@­Ó Unix ¤¤ªº¥j¦Ñ¹CÀ¸¡^®É¨ú±o¸û¨Îªì©l±¡ªp¡AµM«á±N±±¨îÅvÁÙ¦^µ¹¨Ï¥ÎªÌ
+	ªº¨Ò¤l¡C¥Î³o­Ó script §A´N¯à±o¨ì¡y¦¨¥\ªº¤@¥b¡z¡C
+
+	¦AªÌ¡A¦³¤@¨Ç¤w¸g¼g¦nªºµ{¦¡¥i¥HÀ°§A³oÃþ»P pseudo-tty ¦³ÃöªºªF¦è¡A©Ò
+	¥H§A¥u­n¦b script ¤¤°õ¦æ³o¨Çµ{¦¡´N¥i¥HÀ°§A³B²z³o¨ÇªF¦è¡C
+
+	¦³¨â­Ó¤èªk¥i¥H¨ú±o 'expect':
+	1.°e¤@«Ê email µ¹ library@cme.nist.gov ¤º®e´N¼g "send 
+	  pub/expect/expect.shar.Z"
+	2. ftp://ftp.cme.nist.gov/pub/expect/expect.shar.Z
+
+	¥t¤@­Ó°µªk¬O¥Î¤@°¦¥s pty 4.0 ´¿¶K¦b comp.sources.unix volume25 ªºªF
+	¦è¡C³o­Óµ{¦¡·|´£¨Ñ¤@­Ó pseudo-tty session µ¹»Ý­n tty ªºµ{¦¡¥Î¡C­Y¨Ï
+	¥Î named pipe °t¦X pty 4.0 ¨Ó°µ¤W¨Ò¡A«h¬Ý°_¨Ó¥i¯à¦p¤U¡G
+ 
+ 	       #!/bin/sh
+	        /etc/mknod out.$$ p; exec 2>&1
+	        ( exec 4<out.$$; rm -f out.$$
+	        <&4 waitfor 'password:'
+	            echo "$2"
+	        <&4 waitfor 'password:'
+	            echo "$2"
+	        <&4 cat >/dev/null
+	        ) | ( pty passwd "$1" >out.$$ )
+
+	¤W­±ªº 'waitfor' ¬OÂ²³æªº C µ{¦¡¡A¥\¥Î¬°µ¥¨ì input ¦³»P©Òµ¥«Ýªº¦r¦ê
+	¬Û¦P®É¦A©¹¤U°µ¡C
+
+	¤U­±¬O¤@­Ó§óÂ²³æªº°µªk¡A¤£¹L¯ÊÂI¬O»P 'passwd' µ{¦¡ªº¤¬°Ê¥i¯àµLªk¦P
+	¨B¡C
+
+	        #!/bin/sh
+	        ( sleep 5; echo "$2"; sleep 5; echo "$2") | pty passwd "$1"
+
+------------------------------
+
+Subject: How do I find the process ID of a program with a particular name ... ?
+Date: Thu Mar 18 17:16:55 EST 1993
+
+3.10)	¦b shell script ©Î C µ{¦¡·í¤¤¡A­n«ç¼Ë¤~¯à§ä¨ì¬Y­Óµ{¦¡ªº process ID 
+        ©O¡H
+
+	¦b shell script ·í¤¤:
+
+	¨S¦³²{¦¨ªºµ{¦¡¥i¥H¥Î¨Ó¬d¸ßµ{¦¡¦WºÙ»P process ID ¤§¶¡ªº¹ïÀ³¡C¦¹¥~¡A
+	¦pªG¦³¹ïÀ³ªº¸Ü¡A³q±`¤]³£¤£¤Ó¥i«H¡A¦]¬°¥i¯à·|¦³¦h­Ó process °õ¦æ¦P¤@
+	­Ó¦WºÙªºµ{¦¡¡A¦Ó¥B process ¦b±Ò°Ê¤§«á¤´¥i­×§ï¦Û¤vªº¦WºÙ¡CµM¦Ó¡A¦pªG
+	±z¯uªº·Q­n±oª¾°õ¦æ¬Y­Ó¯S©wµ{¦¡ªº©Ò¦³ process, ¥i¥H§Q¥Î¥H¤U©R¥O¦æ¹F
+	¦¨¡G
+		ps ux | awk '/name/ && !/awk/ {print $2}'
+
+	±z¥i¥H§â "name" ´«¦¨±z·Q´M§äªºµ{¦¡¦WºÙ¡C
+
+	³o­Ó©R¥O¦æªº°ò¥»Æ[©À¬O¤ÀªR ps µ{¦¡ªº¿é¥X¡AµM«á¥Î awk©Îgrepµ¥¤½¥Î
+	µ{¦¡¨Ó·j´M¨ã¦³¯S©w¦WºÙªº¤å¦r¦æ¡AµM«á§â³o¨Ç¤å¦r¦æ·í¤¤ªº PID Äæ¦ì¦L
+	¥X¨Ó¡C­È±oª`·Nªº¬O¦¹¨Òªº©R¥O¦æ¥Î¤F "!/awk/" ¥HÁ×§K awk ªº process 
+	¤]³Q¦C¥X¨Ó¡C
+
+	±z¥i¯à­n®Ú¾Ú±z©Ò¥Îªº Unix ºØÃþ¨Ó½Õ¾ã ps ©Ò¥Îªº°Ñ¼Æ¡C
+
+	¦b C »y¨¥µ{¦¡¸Ì­±¡G
+
+	¦b C ªºµ{¦¡®w¸Ì­±¤@¼Ë¨S¦³¡]¨ã¦³¥iÄâ©Ê¡^ªº¨ç¼Æ¥i¥H§ä¥Xµ{¦¡¦WºÙ»P 
+	process IDs¡C
+
+	µM¦Ó¦³¨Ç¼t°Ó´£¨Ñ¨ç¼ÆÅý±z¯àÅª¨ú Kernel ªº°O¾ÐÅé¡A¨Ò¦p Sun ´£¨Ñ¤F 
+	kvm_ ¶}ÀYªº¨ç¼Æ¡AData General «h´£¨Ñ¤F dg_ ¶}ÀYªº¨ç¼Æ¡C¦pªG±zªº¨t
+	²ÎºÞ²z­û¥¼­­©w Kernel °O¾ÐÅéªºÅª¨úÅv¤Oªº¸Ü¡]¤@¯ë¥u¦³ super user ©Î 
+	kmem ¸s²Õ¸Ìªº¤H­û¤~¯àÅª¨ú Kernel °O¾ÐÅé¡^¡A¤@¯ë¨Ï¥ÎªÌ¤]¥i¥H§Q¥Î³o
+	¨Ç¯S®í¨ç¼Æ¨Ó¹F¨ì¥Øªº¡CµM¦Ó¡A³o¨Ç¨ç¼Æ³q±`¨S¦³¥¿¦¡ªº¤å¥ó»¡©ú¡A´Nºâ¦³
+	ªº¸Ü¤]³£¼g±oÁ}²`ÃøÀ´¡A¬Æ¦Ü·|ÀHµÛ¨t²Îª©¥»ªº§ó·s¦Ó§ïÅÜ¡C
+
+	¦³¨Ç¼t°Ó·|´£¨Ñ /proc ÀÉ®×¨t²Î¡A¦¹ÀÉ®×¨t²Î¦s¦bªº¤è¦¡¬°¤@­Ó¤º§t¦h­ÓÀÉ
+	®×ªº¥Ø¿ý¡C¨C­ÓÀÉ¦W³£¬O¤@­Ó¼Æ¦r¡A¹ïÀ³©ó process ID¡A±z¥i¥H¶}±Ò³o­ÓÀÉ
+	®×¨Ã¥BÅª¨úÃö©ó³o­Ó process ªº¸ê°T¡C¦A¦¸´£¿ô¤@¤U¡A¦³®É­Ô±z·|¦]¬°¦s¨ú
+	Åv­­ªº­­¨î¦ÓµLªk¨Ï¥Î³o¨Ç¥\¯à¡A¦Ó¥B¨Ï¥Î³o¨Ç¥\¯àªº¤è¦¡¤]ÀHµÛ¨t²Î¦Ó
+	ÅÜ¡C
+
+	¦pªG±zªº¼t°Ó¨Ã¨S¦³´£¨Ñ¯S®íªºµ{¦¡®w©ÎªÌ /proc ¨Ó³B²z³o¨Ç¨Æ¡A¦ý¬O±z¤S
+	·Q­n¦b C ¸Ì­±§¹¦¨³o¨Ç¥\¯à¡A¨º»ò±z¥i¯à­n¦Û¤v¦bKernel °O¾ÐÅé·í¤¤¶O¤ß
+	·j´M¡C¦pªG±z·Q¬Ý¬Ý³o¨Ç¥\¯à¦b¬Y¨Ç¨t²Î¤W¬O«ç»ò°µ¨ìªº¡A¥i¥H°Ñ¦Ò ofiles 
+	ªº­ì©lµ{¦¡¡A±z¥i¥H±q comp.source.sources.unix ªº¾ú¦~ÂkÀÉ¤å³¹·í¤¤¨ú
+	±o¡C¡]¦³¤@­ÓºÙ¬° kstuff ªº®M¸Ëµ{¦¡´¿¸g¦b 1991 ¦~¤­¤ëµoªí©ó 
+	alt.sources¡A¥¦¥i¥HÀ°±z¦b kernel ·í¤¤·j´M¦³¥Îªº¸ê°T¡A±z¥i¥H¨ì 
+	wuarchive.wustl.edu §Q¥Î°Î¦W ftp ¨ú¦^ 
+	usenet/alt.sources/articles/{329{6,7,8,9},330{0,1}}.Z¡C¡^
+
+------------------------------
+
+Subject: How do I check the exit status of a remote command executed via "rsh"?
+Date: Thu Mar 18 17:16:55 EST 1993
+
+3.11)	§Ú­n«ç¼Ë¸g¥Ñ rsh °õ¦æ»·¤è«ü¥O®É¡AÀË¬d»·¤è«ü¥Oªºµ²§ôª¬ºA¡H
+
+	¥H¤U«ü¥O¦æ¬O¦æ¤£³qªº¡G
+
+	        rsh some-machine some-crummy-command || echo "Command failed"
+
+	¦pªG rsh µ{¦¡¥»¨­¯à¦¨¥\¦a°õ¦æ¡A¨º»ò rsh µ{¦¡ªºµ²§ôª¬ºA´N¬O 0¡A¦ý³o
+	¤]³\¤£¬O±z¯u¥¿·Q­nªºµ²ªG¡C
+	¦pªG±z·QÀË¬d»·¤èµ{¦¡ªº°õ¦æª¬ºA¡A±z¥i¥H¸Õ¸Õ Maarten Litmaath ©ó 1994
+	¦~¤Q¤ë¦b alt.sourcesµoªíªº "ersh" script¡Aersh ¬O¤@­Ó©I¥s rsh ªº shell 
+	script¡A¥¦·|¦w±Æ»·¤èªº¾÷¾¹¦^À³»·¤è«ü¥Oªºµ²§ôª¬ºA¡A¨Ã¶Ç¦^¦¹µ²§ôª¬ºA¡C
+
+------------------------------
+
+Subject: Is it possible to pass shell variable settings into an awk program?
+Date: Thu Mar 18 17:16:55 EST 1993
+
+3.12)	¯à¤£¯à§â shell ÅÜ¼Æ¶Ç¶i awk µ{¦¡·í¤¤©O¡H
+
+	³o­Ó°ÝÃD¦³¨â­Ó¥i¦æªº¤èªk¡A²Ä¤@­Ó¤èªk¥u¬O§âµ{¦¡·í¤¤»Ý­n¥Î¨ì¦¹ÅÜ¼Æªº
+	¦a¤èª½±µ®i¶}¡A¨Ò¦p­n±oª¾±z¥Ø«e¨Ï¥Î­þ¨Ç tty¡A¥i¥H¨Ï¥Î¡G
+
+        who | awk '/^'"$USER"'/ { print $2 }'                           (1)
+
+	awk µ{¦¡ªºµ{¦¡³q±`·|¥Î³æ¤Þ¸¹¬A°_¨Ó¡A¦]¬° awk µ{¦¡¸Ì­±¸g±`·|¥Î¨ì $ 
+	¦r¤¸¡A¦pªG¨Ï¥ÎÂù¤Þ¸¹ªº¸Ü¡Ashell ¥»¨­·|¸ÑÄÀ³o­Ó¦r¤¸¡C©Ò¥H°Õ¡A¦b³oºØ
+	¯S®í±¡§Î¤U¡A§Ú­Ì·Q­n shell ¸ÑÄÀ $USER ·í¤¤ªº $ ¦r¤¸®É¡A´N¥²»Ý¥ý¥Î
+	³æ¤Þ¸¹§â«e¥b¬qªº¥y¤l¼È®É¬A°_¨Ó¡AµM«á¥ÎÂù¤Þ¸¹§â $USER ¬A°_¨Ó¡A¦A¥Î
+	³æ¤Þ¸¹§âÀH«áªº¥y¤l¬A°_¨Ó¡C½Ðª`·N¡AÂù¤Þ¸¹¦b¬Y¨Çª¬ªp¤U¥i¥H²¤¥h¤£¼g¡A
+	¤]´N¬O»¡¡A¥i¥H¼g¦¨¡G
+
+        who | awk '/^'$USER'/ { print $2 }'                             (2)
+
+	µM¦Ó¡A¦pªG shell ÅÜ¼Æªº¤º®e§t¦³¯S®í¦r¤¸©ÎªÅ¥Õ¦r¤¸®É¡A´N¤£¾A¥Î¤F¡C
+
+	²Ä¤GºØ§âÅÜ¼Æªº³]©w¶Ç¶i awk ªº¤è¦¡¬O§Q¥Î awk ·í¤¤¤@­ÓµL¤å¥ó»¡©úªº
+	¥\¯à¡A¥¦¤¹³\±z±q©R¥O¦C³z¹L¡u°²³yªºÀÉ®×¦WºÙ¡v¨Ó³]©wÅÜ¼Æ¡A¨Ò¦p¡G
+
+        who | awk '$1 == user { print $2 }' user="$USER" -              (3)
+
+	¥Ñ©ó©R¥O¦æ¤¤ªºÅÜ¼Æ³]©w¬O¦b awk ¯u¥¿³B²z¨ìªº®É­Ô¤~·|¥Í®Ä¡A¦]¦¹±z¥i
+	¥H§Q¥Î³oºØ§Þ¥©Åý awk ¦b¹J¨ì¤£¦PÀÉ¦Wªº®É­Ô°µ¤£¦Pªº°Ê§@¡C¨Ò¦p¡G
+
+        awk '{ program that depends on s }' s=1 file1 s=0 file2         (4)
+
+	½Ðª`·N¦³¨Ç awk ªºª©¥»·|¦b BEGIN °Ï¶ô°õ¦æ¤§«e¡A´NÅý¯u¹êÀÉ®×¦WºÙ¤§
+	«e©Ò±Ô­zªºÅÜ¼Æ³]©w¥Í®Ä¡A¦ý¦³¨Ç¤£·|¡A©Ò¥H±z¤£¥i¥H¨Ì¿à¨ä¤¤¤@ºØ¡C
+
+	¦A¶i¤@¨B´£¿ô¡A·í±z«ü©wÅÜ¼Æªº³]©w®É¡A¦pªG¨S¦³«ü©w¯u¹êªºÀÉ®×¦WºÙ¡A
+	awk ±N¤£·|¦Û°Ê±q¼Ð·Ç¿é¤JÅª¨ú¡A©Ò¥H±z­n¦b©R¥O¤§«á¥[¤W¤@­Ó - °Ñ¼Æ¡A
+	´N¸ò (3) ªº«ü¥O¦æ¤º®e¤@¼Ë¡C
+
+	²Ä¤TºØ°µªk¬O¨Ï¥Î¸û·sª©ªºawk (nawk)¡A±z¥i¥H¦b nawk ·í¤¤ª½±µ¨ú¥ÎÀô
+	¹ÒÅÜ¼Æ¡C¨Ò¦p¡G
+
+        nawk 'END { print "Your path variable is " ENVIRON["PATH"] }' /dev/null
+
+------------------------------
+
+Subject: How do I get rid of zombie processes that persevere?
+>From: jik@rtfm.MIT.Edu (Jonathan I. Kamens)
+>From: casper@fwi.uva.nl (Casper Dik)
+Date: Thu, 09 Sep 93 16:39:58 +0200
+
+3.13)	­n«ç¼Ë¤~¯àÁ×§K¦b°O¾ÐÅé¤¤¯d¤U zombie processes¡H
+
+	«Ü¤£©¯¦a¡A¹ï©ó¦º±¼ªº¤l process À³¦³ªº¦æ¬°¯S©Ê¨Ã¨S¦³¿ìªk°µ¤@¯ë¤Æ¡A¦]
+	¬°³o¨Ç¯S©wªº¾÷¨î·|ÀHµÛ Unix ªººØÃþ¤£¦P¦Ó¦³©Ò®t²§¡C      
+
+	­º¥ý¡A¦b¦UºØ Unix ¤W­±±z³£¥²»Ý¨Ï¥Î wait() ¨Ó³B²z¤l process¡C¤]´N¬O
+	»¡¡A§ÚÁÙ¨S¬Ý¹L¦³¤@ºØ Unix ·|¦Û°Ê§âµ²§ôªº¤l process ·F±¼¡A§Y¨Ï±z¤£§i
+	¶D¥¦¸Ó«ç»ò°µ¡C
+
+	¨ä¦¸¡A¦b¬Y¨Ç±q SysV ­l¥Íªº¨t²Î·í¤¤¡A¦pªG±z°õ¦æ¤F signal(SIGCHLD, 
+	SIG_IGN)"¡A¡]¶â¡A¨Æ¹ê¤WÀ³¸Ó¬OSIGCLD ¦Ó«DSIGCHLD¡A¦ý¤j¦h¼Æ·s¥X
+	Älªº SysV ¨t²Î³£·|¦bªíÀYÀÉ·í¤¤¥[¤W #define SIGCHLD SIGCLD¡^¡A¨º
+	»ò¤l processes ³£·|¦Û°Ê³Q²M°£±o°®°®²b²b¡A±z¤°»ò¨Æ³£¤£¥Î°µ¡C¬Ý¬Ý³o­Ó
+	¤è¦¡¬O§_¥i¦æªº³Ì¨Î°µªk´N¬O¦Û¤v¦b¾÷¾¹¤W¸Õ¸Õ¬Ý¡C¦pªG±z·Q¸ÕµÛ¼g¥X¨ã¥i
+	Äâ©Êªºµ{¦¡½X¡A¨º»ò¨Ì¿à³oºØ¯S®í³B²z¤è¦¡¥i¯à¤£¬O¦n¥D·N¡C¤£©¯ªº¬O¡A¦b 
+	POSIX ¨Ã¤£¤¹³\±z³o¼Ë°µ¡F§â SIGCHLD ªº¦æ¬°¯S©Ê³]¦¨ SIG_IGN ¦b POSIX 
+        ·í¤¤¨Ã¨S¦³©w¸q¡A©Ò¥H¦pªG­nÅý±zªºµ{¦¡¦X¥G POSIX ªº­n¨D®É¡A´N¤£¥i¥H
+        ³o¼Ë°µ¡C
+
+	¨º»ò«ç¼Ë¤~ºâ¬O POSIX ªº°µªk©O¡H¦p¦P«e­±©Ò­z¡A±z¥²»Ý³]©w¤@­Ó signal 
+	ªº³B²z¨ç¼Æ¡AµM«áÅý¥¦¥h wait¡C¦b POSIX ·í¤¤ signal ³B²z¨ç¼Æ¬O¸g¥Ñ 
+	sigaction ³]©w¡A¥Ñ©ó±z¥u¹ï²×¤îªº¤l process ·P¿³½ì¡A¦Ó¤£¬O¨º¨Ç stopped 
+	ªº¤l process¡A©Ò¥H¥i¥H¦b sa_flags ·í¤¤¥[¤W SA_NOCLDSTOP¡C¦pªG­n 
+	wait ¤l process ¦Ó¥»¨­¤£¦]¦¹³Q¾× (block)¡A¥i¥H¨Ï¥Î waitpid()¡C²Ä¤@
+        ­Ó°Ñ¼Æ¥²»Ý¬O -1 (¥Nªí wait ¥ô¦ó pid)¡A²Ä¤T­Ó°Ñ¼Æ¥²»Ý¬O WNOHANG¡A³o¬O
+	³Ì¨ã¥iÄâ©Êªº°µªk¡A¤]¬O¥i¯à·|¦¨¬°¥¼¨Ó³Ì¨ã¥iÄâ©Êªº¼gªk¡C
+
+	¦pªG±zªº¨t²Î¤£¤ä´© POSIX¡A¨º´N¦³«Ü¦h°µªk¤F¡C³ÌÂ²³æªº¤è¦¡´N¬O¥ý¸Õ
+	¸Õsignal(SIGCHLD, SIG_IGN) ¬O§_¥i¦æ¡A¥i¥Hªº¸Ü¨º´N¦n¤F¡C¦pªG 
+	SIG_IGN µLªk¥Î¨Ó±j¨î¦Û°Ê¦¬¬B´ÝÀe¡A¨º»ò±z´N­n¦Û¤v¼g¤@­Ó signal ³B²z
+	¨ç¼Æ¨Ó¦¬¬B´ÝÀe¤F¡C­n¼g¥X¤@­Ó¾A¥Î©ó¨C¤@ºØ Unix ªº singal ³B²z¨ç¼Æ¨Ó
+	°µ³o¥ó¨Æ¬O¤£®e©öªº¨Æ¡A¦]¬°¦³¤U¦C¤£¤@­Pªº¦a¤è¡G
+
+	¦b¤@¨Ç Unix ¤¤¡A¤@­Ó©Î¤@­Ó¥H¤Wªº¤l process ¦º®É¡A·|©I¥s SIGCHLD ªº 
+	signal ³B²z¨ç¼Æ¡C¤]´N¬O»¡¡A¦pªG§Aªº signal ³B²z¨ç¼Æ¥u¦³¤@­Ó wait() 
+        ®É¡A¨Ã¤£·|§â©Ò¦³ªº¤l process ³£¦¬¬B°®²b¡C¤£¹LÁÙ¦n¡A§Ú¬Û«H³oÃþªº 
+        Unix ³£·|¦³ wait3() ©Î waitpid()¡A³o¨âªÌ³£¦³¥i¦b option °Ñ¼Æ¤¤¨Ï¥Î
+        WNOHNAG ¥i¥Î¨ÓÀË¬d¬O§_¦³¤l process ©|«Ý¦¬¬B¡C©Ò¥H¦b¤@­Ó¦³ 
+        wait3()/waitpid() ªº¨t²Î¤¤¡A§A¥i¥H¤@¦A­«½Æ¨Ï¥Î wait3()/waitpid() 
+        ¥H½T©w©Ò¦³ªº¤l process ³£¤w¦¬¬B°®²b¡C³Ì¦n¬O¥Î waitpid() ¦]¬°
+        ¥¦¦b POSIX ¼Ð·Ç¤¤¡C
+
+	¦b¤@¨Ç SysV-derived ªº¨t²Î¤¤¡A¦A SIGCHLD ªº signal ³B²z¨ç¼Æµ²§ô«á¡A 
+	­YÁÙ¦³¤l process µ¥«Ý²M°£¡AÁÙ¬O·|²£¥Í SIGCHLD signal¡C ¦]¦¹¡A¦b¤j³¡
+	¥÷ªº SysV ¨t²Î¤¤¡A¦b signal ³B²z¨ç¼Æ¸Ì¥i¥H°²³]­n³B²zªº signal ¥u¦³¤@
+	­Ó¡A ¤Ï¥¿­YÁÙ¦³µ¥«Ý³B²zªÌ¡Asignal ·|¤@¦Aªº²£¥Í¡A¨t²Î¤]·|¤@¦Aªº©I¥s 
+	signal ³B²z¨ç¼Æ¡C
+
+	¦b¤@¨Ç¤ñ¸ûÂÂªº¨t²Î¤¤¡AµLªk¨¾¤î signal ³B²z¨ç¼Æ¦b³Q©I¥s«á signal ³B²z
+	¨ç¼Æ³Q¦Û°Ê³]¬° SIG_DFL¡C¦b³oÃþªº¨t²Î¤¤¡A­n¦b§Aªºsignal ³B²z¨ç¼Æ¤¤
+	ªº³Ì«á¥[¤J "signal(SIGCHLD,catcher_func)"("catcher_func" ¬O³B²z¨ç¼Æªº
+	¦W¦r¡^¡C
+
+	ÁÙ¦n·s¤@ÂIªº¨t²Î¤¤¦b signal ³B²z¨ç¼Æ³Q©I¥s«á¨Ã¤£·|±q³]¬° 
+	SIG_DFL¡C©Ò¥H¦b¨S¦³ wait3()/waitpid() ¦Ó¦³ SIGCLD ªº¨t²Î¤¤¡A­n³B²z
+	¦¹°ÝÃD¡A·í¦b³B²z¨ç¼Æ©I¥s¤F¤@¦¸ wait() ¥H«á´N±o¥Î signal() ±q·s³]©w 
+	signal ³B²z¨ç¼Æ¡C¬°¤F¦V«e¬Û®e¤§¬G¡A System V ªº signal() ºû»P¥H«e¬Û¦P
+	ªº§@ªk¡C©Ò¥H¡AÀ³¸Ó­n¥Î sigaction() ©Î sigset() ¨Ó¦w¸Ë signal ³B²z¨ç¼Æ¡C
+
+	Á`µ²¨Ó»¡¡A¦b¦³ waitpid()(POSIX) ©Îwait3() ªº¨t²Î¤F¡A§AÀ³¸Ó­n¥Î¥¦­Ì¦Ó
+	§Aªº signal ³B²z¨ç¼Æ¸Ì¤]­n loop¡A¦b¨S¦³ waitpid() »P wait3() ªº¨t²Î
+	¤¤¡A«h¨C¦¸©I¥s signal ³B²z¨ç¼Æ³£­n¦³ wait()¡C
+
+	³Ì«á¡A¦³¤@­Ó portable¦ý¬O®Ä²v¸û®tªº°µªk¡C¨º´N¬O parent process ¦b 
+        fork() «á­n wait()  ¥¦ªºchild process ªºµ²§ô¡C¦Ó¦¹¤l process °¨¤W¤S 
+        fork()¡A³o®É§A´N¦³¤@ child process»P¤@ grandchild process¡C±N¦¹ 
+        child process °¨¤Wµ²§ô¡A«h parent process ¤]·|¸òµÛµ²§ô¡CÅý grandchild 
+        ¨Ó°µ­ì¥ý­n child °µªº¨Æ±¡¡C¦¹®É grandchild ªº¦]¬°¨ä parent (child) 
+        ¤w¦º¡Aparent ´NÅÜ¦¨¤F init¡Ainit ´N·|À°§A³B²zwait() ¬ÛÃö¨Æ©y¡C³o­Ó¤è
+        ªk¦h¥Î¤F¤@­Ó fork() ©Ò¥H¤ñ¸û¨S¦³®Ä²v¡A¦ý³oµ´¹ï¬O­Ó portable ªº¤èªk¡C 
+
+------------------------------
+
+Subject: How do I get lines from a pipe ... instead of only in larger blocks?
+>From: jik@rtfm.MIT.Edu (Jonathan I. Kamens)
+Date: Sun, 16 Feb 92 20:59:28 -0500
+
+3.14) ·í§Ú­n±q pipe Åª¤@¦æ¿é¤J®É¡A­n¦p¦ó¤~¯àÅý³o¦æ¸ê®Æ¹³¬Oª½±µ±qÁä½L¿é
+      ¤J¦Ó«D±q¤@­Ó¤j block buffer ¨Óªº¡H
+
+	stdio ³o­Ó library ·|¦Û¤v§PÂ_¥¦¬O§_¬O¦b tty ¤U°õ¦æ¡A¨ÃÂÇ¥H¨M©w±Ä¥Î¦óºØ 
+	buffering ¤è¦¡¡C¦pªG¥¦»{¬°¬O¦b tty ¼Ò¦¡¤U¡A¨º»ò¥¦´N·|¥H¤@¦¸¤@¦æ¨Ó°µ 
+	buffering¡F¤Ï¤§¡A«h¥Î¤@­Ó¸û¤jªº buffer ¦Ó«D¤@¦æ¤@¦æªº°µ¡C
+
+	¦pªG§A¯à®³¨ì§A©Ò·Q­n¨ú®ø buffering ªº³nÅéªº­ì©lµ{¦¡¡A¨º»ò§A´N¥i¥H¥Î 
+	setbuf() ©Î setvbuf() ¨Ó§ïÅÜ buffering ªº¤è¦¡¡C
+
+	¦pªG§AµLªk®³¨ì­ì©lµ{¦¡¡A¨º»ò§A´N¥u¯à¸ÕµÛ¥h»¡ªA³o­Ó¥¿¦b pty ¤U°õ¦æ
+	ªºµ{¦¡¡AÅý¥¦¥H¬°¥¦¬O¦b tty ¤U°õ¦æ¡C¨Ò¦p¡A¥Î¥ý«e¦b°ÝÃD 3.9 ¤¤©Ò´£¹L
+	ªº pty µ{¦¡¡C
+
+------------------------------
+
+Subject: How do I get the date into a filename?
+>From: melodie neal <melodie@comtech.ct.oz.au>
+Date: Fri, 7 Oct 1994 09:27:33 -0400
+
+3.15) §Ú­n¦p¦ó¦bÀÉ®×¦W¦r¤¤¥[¤J¤é´Á¡H
+
+	³o¨ä¹ê¨Ã¤£Ãø¡A¦ý¬O¬Ý°_¨Ó¦³¤@ÂI¯«¯µ¡C§Ú­Ì´N±q date ³o­Ó©R¥O¶}©l»¡
+	°_¡Gdate ¯à±µ¦¬¤@­Ó®æ¦¡¦r¦ê¡A¨Ã®Ú¾Ú¦¹¦r¦ê¨Ó¨M©w¥¦ªº¿é¥X¬O¤°»ò¡C³o
+	­Ó®æ¦¡¦r¦ê¥²»Ý¥Î³æ¤Þ¸¹¬A°_¨Ó¡A¥HÁ×§K shell ¦Û¤v¥h¸ÑÄÀ³o­Ó¦r¦ê¡C
+	¸Õ¸Õ¥H¤U³o­Ó©R¥O¡G
+
+		date '+%d%m%y'
+
+	§AÀ³¸Ó·|±o¨ìÃþ¦ü 130994 ªºµ²ªG¡C¦pªG§AÁÙ·Q§â¥¦¥[¤W¼ÐÂI²Å¸¹¡A§A¥u­n
+	ª½±µ§â³o¨Ç¦r¤¸¥[¤J®æ¦¡¦r¦ê¤¤´N¦æ¤F¡]¤£­n¥Î±×½u '/'¡^¡G
+
+		date '+%d.%m.%y'
+
+	¦b³o­Ó®æ¦¡¦r¦ê¤¤ÁÙ¦³«Ü¦h token ¥i¨Ñ¨Ï¥Î¡G«ØÄ³Åª date ªº man page ´N
+	¥i¥H§ä¨ì¦³Ãöªº»¡©ú¡C
+
+	²{¦b¡A´N¥i¥H§â¤W­z date ©R¥Oªºµ²ªG©ñ¨ìÀÉ¦W¸Ì¥h¤F¡CÄ´¦p¡A­n³y¤@­Ó¦W
+	¬° report.130994¡]¤Ï¥¿´N¬O¥Nªí¤µ¤Ñ¤é´Áªº·N«ä¡^ªºÀÉ®×¡G
+
+		FILENAME=report.`date '+%d%m%y'`
+
+	ª`·N¤@ÂI¡A³o¸Ì¤@¦@¥Î¤F¨â²Õ¤Þ¸¹¡G¸Ì­±ªº¤Þ¸¹¬O¬°¤FÁ×§K®æ¦¡¦r¦ê³Q shell 
+	¥Î¥h°µ¨ä¥L¸ÑÄÀ¡F¥~­±¨º²Õ¤Þ¸¹«h¬O¥Î¨Ó§i¶D shell ¥]°_¨Óªº³¡¥÷­n¥h°õ
+	¦æ¡A¨Ã§â°õ¦æªº¿é¥X¥N´«¨ì³o¾ã¦æ©R¥O¤¤¡]command substitution¡^¡C
+
+------------------------------
+
+Subject: Why do some scripts start with #! ... ?
+>From: chip@@chinacat.unicom.com (Chip Rosenthal)
+Date: Tue, 14 Jul 1992 21:31:54 GMT
+
+3.16) ¬°¤°»ò¦³¤@¨Ç script ¬O¥Î #! ... °µ¬°ÀÉ®×ªº¶}ºÝ
+
+	§Ú·Q¦³¨Ç¤H¥i¯à·|§â¨âºØ¥H '#' ³o­Ó¦r¤¸¶}©lªº¾÷¨î·d²V¤F¡C³o¨âºØ¾÷¨î
+	¥Î¨Ó¸Ñ¨M¤£¦P±¡ªp¤Uªº¦P¤@°ÝÃD¡C
+
+	­I´ºª¾ÃÑ¡G·í UNIX ªº kernel ¶}©l­n°õ¦æ¤@°¦µ{¦¡(¨Ï¥Î exec() ¤¤ªº¥ô¤@
+	­Ó¡^¡A·|¥ý°½¬ÝÀÉ®×¶}ÀYªº 16 ­Ó bit¡C³o 16 ­Ó bit ºÙ¬° 'magic number'¡C
+	Magic number ¦³´X­Ó­«­nªº¥\¯à¡C­º¥ý¡Akernel ¦A°õ¦æ¤@­ÓÀÉ®×¤§«e·|¥ý
+	¬Ý¬Ý¥¦ªº magic number¡A¦pªG kernel ¤£»{±o¨º­Ó magic number¡A´N¤£·|
+	¥h°õ¦æ¤§¨Ã¥B·| return ¦^ ENOEXEC¡C
+
+	¦AªÌ¡AÀHµÛ®É¥N¶i¨B¡A magic number ¤£¥u¥i¥H¥Î¨Ó¿ë§O¬O§_¬°°õ¦æÀÉ¡A§ó
+	¥i¥H¥Î¨Ó¿ë§O¸Ó¦p¦ó°õ¦æ¦¹ÀÉ¡CÁ|¨Ò¨Ó»¡¡A°²¦p§A¦b SCO XENIX/386 ¤W 
+	compile ¤F¤@­Óµ{¦¡¡AµM«á±N³o­Óµ{¦¡®³¨ì SysV/386 UNIX ¤W¥h°õ¦æ¡A 
+	SysV/386 UNIX ªº kernel ·|»{±o¥¦ªº magic number¡A»¡¡u°Ú«¢¡I³o¬O¤@­Ó 
+	x.out ®æ¦¡ªº¥i°õ¦æÀÉ¡v¡AµM«á·|³]©w¦Û¤v¥h¨Ï¥Î XENIX ¬Û®eªº system 
+	call¡C
+
+	¬JµM kernel ¥u¯à°õ¦æ binary executable image¡C§A©Î³\·|°Ý¡A¨º script 
+        ¤S¬O«ç»ò°õ¦æªº©O¡H·í§Ú¦b shell prompt ¤U¥´ 'my.script' ¨Ã¤£·|±o¨ì 
+	ENOEXEC°Ú¡I³o¬O¦]¬° script ªº°õ¦æ¬O¥Ñ shell °µªº¦Ó«D¥Ñ kernel ¨Ó°µ
+	ªº¡C¦b shell ¤¤°õ¦æµ{¦¡ªº³¡¥÷¥i¯à¬Oªø±o³o­Ó¼Ë¤l¡G
+
+	        /* try to run the program */
+	        execl(program, basename(program), (char *)0);
+
+	        /* the exec failed -- maybe it is a shell script? */
+	        if (errno == ENOEXEC)
+	            execl ("/bin/sh", "sh", "-c", program, (char *)0);
+
+	        /* oh no mr bill!! */
+	        perror(program);
+	        return -1;
+
+	            (This example is highly simplified.  There is a lot
+	            more involved, but this illustrates the point I'm
+	            trying to make.)
+
+	¦b¤W¨Ò¤¤¡A­Y²Ä¤@­Ó execl() ¦¨¥\ªº¸Ü¡A¨º¦b execl() ©³¤Uªºªº³¡¥÷´N¤£¥²
+	¬Ý¤F¡A¦]¬° execl() °õ¦æ«á´N¤£¦A¦^ÀY¤F¡C
+
+	°²¦p²Ä¤@­Ó execl() ¥¢±Ñªº¸Ü¡A¨º´Nªí¥Ü³o¤£¬O¤@­Ó binary executable¡A
+	shell ·|¸ÕµÛ§â¥¦·í¦¨ shell script ¨Ó°õ¦æ¡C
+
+	¦b¬f§JµÜªº¤H­Ì¹ï©ó¦p¦óÂX¥R kernel °õ¦æµ{¦¡ªº¯à¤O·Q¨ìªº¤F¤@­Ó«D±`´Î
+	ªºªk¤l¡C¥L­ÌÅý kernel »{±o '#!' ³o­Ó magic number¡C¡]¨â­Ó 8-bit ªº¦r¤¸
+	ºc¦¨¤@­Ó 16 bits ªº magic numbre¡C)¦pªG¤@­ÓÀÉ®×¬O¥H '#!' ¶}©lªº¡A«h 
+	kernel ·|§â²Ä¤@¦æ¨ä¥¦ªº¤º®e·í¦¨­n¥Î¨Ó°õ¦æ¦¹ÀÉ®×¤º®eªº©R¥O¡C¦³¤F³o­Ó
+	³B²z«á¡A§Ú­Ì´N¦³¤F¦p¤Uªº§@ªk¡G
+
+	        #! /bin/sh
+
+	        #! /bin/csh
+
+	        #! /bin/awk -F:
+
+	³oºØ³B²z¥u¦³¦s¦b©ó Berkeley ¨t²Î¡AUSG ¨t²Îªº¬Oª½¨ì SVR4 ¤~§â³oºØ
+	§@ªk¥[¤J kernel ¤¤¡C©Ò¥H­Y§A¥Î System V ¦b R4 ¤§«eªºª©¥»¡A°£«D¼t°Ó
+	¦³°µ­×§ï¡A§_«h´N¥u¯à°õ¦æ binary executable image¡C
+
+	Á¿¨ì³o¸ÌÅý§Ú­Ì¥ý§â®É¥ú­Ë¬y¡A¦^¨ì USG based UNIX ÁÙ¨S¦³ csh ªº¦~
+	¥N¡C¦]¬°¡A¦³·U¨Ó·U¦hªºªº¨Ï¥ÎªÌ»¡¡G¡u§@¬°¤@­Ó interactive user 
+        interface ¦Ó¨¥ sh ¯uªº¬O¤@­Ó¥¢±Ñ¤§§@¡A§Ú­n¥Î csh °Õ¡I¡v©Ò¥H©O¡A¦³³\
+        ¦hªº¼t°Ó´N§â csh »P¨ä magic number ¥[¤J¥L­Ìªº²£«~¤¤¡C
+
+	³oºØ°µªk³y¦¨¤F¤@­Ó°ÝÃD¡C³o»ò»¡§a¡A§A§â login shell ´«¦¨¤F /bin/csh¡C
+        §ó¶i¤@¨Bªº°²³]§A¬O­Ó°í«ù­n¼g csh script ªº¥ÕÃ¨²Â³J¡C§A·íµM·|§Æ±æ¥u­n
+        ¥´ 'my.script' ´N¯à°õ¦æ¤@­Ó csh script¡C¦Ó¥B§Æ±æ¤£¥²¸g¹L /bin/sh ¦Ó¬O
+        ¸g¥Ñ¦p¤Uªº§@ªk°õ¦æ¡G
+
+	        execl ("/bin/csh", "csh", "-c", "my.script", (char *)0);
+
+	¦ý¬O¦p¹L³o»ò°µªº¸Ü·|¦³¤j³Â·Ðªº¡C·Q·Q­ì¥ý¨t²Î¸ÌÁÙ¦³¤£¤Ö sh ªº shell 
+	sript¡A¤@¥¹¥Î csh ¨Ó°õ¦æ³o¨Ç sript¡A¨º¬O¥²¦ºµLºÃ¡C©Ò¥H±o¦³¤@­Ó¥i¥H¦³
+	®É­Ô¥Î csh¡A¦³®É­Ô¥Î sh ¨Ó°õ¦æ script ªº¤èªk¡C
+
+	·í®É·Q¨ìªº§@ªk¬OÅý csh ¥hÀË¬d­n°õ¦æªº script ªº²Ä¤@­Ó¦r¤¸¡C°²­Y³o­Ó
+	¦r¤¸¬O '#' ¨º csh ·|¥Î /bin/csh ¥h°õ¦æ³o­Ó script¡A§_«h´N¥Î /bin/sh 
+        ¥h°õ¦æ³o­Ó script¡C¤W­zªº§@ªk¥i¯àªø±o¹³³o­Ó¼Ë¤l¡G
+    
+	        /* try to run the program */
+	        execl(program, basename(program), (char *)0);
+
+	        /* the exec failed -- maybe it is a shell script? */
+	        if (errno == ENOEXEC && (fp = fopen(program, "r")) != NULL) {
+        	    i = getc(fp);
+	            (void) fclose(fp);
+	            if (i == '#')
+	                execl ("/bin/csh", "csh", "-c", program, (char *)0);
+	            else
+        	        execl ("/bin/sh", "sh", "-c", program, (char *)0);
+	        }
+
+	        /* oh no mr bill!! */
+	        perror(program);
+	        return -1;
+
+	¦³¨âÂI­nª`·Nªº¬O¡C²Ä¤@¡A³o¬O¥Ñ 'csh' °Ê¤â¸}¡A¨S¦³°Ê¨ì kernel ¤]¨S¦³
+	§ï¨ì§Oªº shell¡C©Ò¥H¦pªG­n execl(¡^¤@­Ó script¡A¤£ºÞ¥¦¬O¤£¬O¥H '#' ¶}
+	©l¡A§A³£·|±o¨ìªº return value ³£·|¬OENOEXEC¡C°²¦p§A±q csh ¥H¥~ªº 
+	shell ¡]¦p /bin/sh ) ªº script¡A°õ¦æ³o­Ó script ªºÁÙ¬O sh ¦Ó«D csh¡C
+
+	²Ä¤G¡A³o­Ó°µªk¥u§PÂ_²Ä¤@­Ó¦r¤¸¬O§_¬° '#'¡A©Ò¥H¥u­n¤£¬O '#' ¨ä¥L¤£ºÞ
+	¬OÔ£ªF¦è³£°eµ¹ sh ¥h³B²z¡C©³¤U¬O´X­Ó¨Ò¤l¡G
+
+	        :
+
+	        : /bin/sh
+
+	                        <--- a blank line
+
+	        : /usr/games/rogue
+
+	        echo "Gee...I wonder what shell I am running under???"
+
+	¦P¸Ì¥u­n¬O¥H '#' ¬°¶}ºÝªº script¡A¦p¤U¡G
+
+	        #
+
+	        # /bin/csh
+
+	        #! /bin/csh
+
+	        #! /bin/sh
+
+	        # Gee...I wonder what shell I am running under???
+
+	¦pªG¬O¦b csh ¸Ì°õ¦æ¤§¡A«h·|¥Î /bin/csh ¨Ó°õ¦æ¡C
+
+	(µù¸Ñ:¦pªG§A¥Îªº ksh¡A¨º§â¤W­zªº 'sh' ´«¦¨ 'ksh' §Y¥i¡C¦]¬°¡A
+	²z½×¤W¨Ó»¡ Korn shell À³¸Ó¬O»P Bourne shell ¬Û®eªº¡C¦pªG§A¥Îªº
+	¬O zsh, bash µ¥¨ä¥¦ªº shell¡A¨º¦Û¤v¬ÝµÛ¿ì§a¡C¡^
+
+	¦pªG§Aªº kernel ¦³¤ä´© '#!' ¨º '#' ÅãµM´N¬O¦h¾lªº°µªk¡C¦Ó¥B¡AÁÙ·|³y¦¨
+	²V²c¡AÄ´¦p·í§A¥Î '#! /bin/sh' À³¸Ó­n«ç»ò¿ì©O¡H
+
+	ÁÙ¦n¡A'#!' ¤éº¥²±¦æ¡CSystem V Release 4 ¤w¸g±N¨ä¥[¤J¡C¦Ó¦³¤@¨Ç System 
+	V Release 3.2 ªº¼t°Ó¡A¤]¥¿§â V.4 ¤¤³oÃþ¤ñ¸ûÅã¦Ó©ö¨£ªº¯S©Ê¥[¤J²£«~¤¤¡A
+	¨Ã¥B¹Á¸ÕµÛ»¡ªA§A»¡³o¨Ç¯S©Ê´N°÷¤F¡A§A¨Ã¤£»Ý­n¨ä¥L¦p¤@­Ó¯u¥¿ streams 
+	©Î¬O°ÊºA½Õ¸` kernel °Ñ¼Æ³oÃþªºªF¦è¡C
+
+	XENIX¨Ã¤£¤ä´© '#!'¡C¤£¹L XENIX ªº /bin/csh ¦³¤ä´© '#' ªº§@ªk¡C ¦p
+	ªG XENIX ¤ä´© '#!' ·íµM¤£¿ù¡A¥i¬O§Ú¹ï¦¹¤£©ê¥ô¦ó§Æ±æ¡C
+
+
+------------------------------
+
+unix / faq ²Ä 3 ³¡¥÷µ²§ô
+**********************************

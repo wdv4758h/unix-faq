@@ -1,0 +1,3480 @@
+\documentclass{article}
+\usepackage{CJK}
+\usepackage{url}
+
+\begin{document}
+\begin{CJK*}{Bg5}{ming} 
+
+內容翻譯自~UNIX FAQ。
+中文翻譯~by \url{{chenjl,freedom,jjyang}@csie.nctu.edu.tw}
+若您對中文翻譯有任何意見請發~e-mail 給~\url{cfaq@csie.nctu.edu.tw}
+
+我們希望這些文件中的資訊能對你有所幫助﹐但是並不保証是正確的。若發生損
+害請自行負責。
+
+您可以在~rtfm.mit.edu 的~pub/usenet/news.answers 找到包括此文件在內的
+許多 FAQ。 在此目錄下的 FAQ 的名字可在文章的頂端的 "Archive-Name:" 
+那一行找到。\footnote{ 在台灣請用~\url{ftp://NCTUCCA.edu.tw/USENET/FAQ}，
+若您人在交大的話 ~\url{ftp://ftp.csie.nctu.edu.tw/pub/Documents/FAQ} 是從
+~CCCA mirror  來的}
+
+因為 Unix 有太多不同的種類了, 所以很難保證此文件所提供的答案必然會有
+用。在嘗試本文件提供的作法前, 請先讀讀你所使用系統的手冊。若你對答案
+有任何建議或更正, 請送 email 給 tmtaimar@isgtec.com.
+
+
+
+\section{ 一般性的問題 }
+\subsection{ 誰幫助你將做出這個~faq 的? }
+	這個文件是最早的幾個~FAQ 之一, 編纂於~1989 年七月。整個編輯工作幾
+	乎都是~Steve Hayman 做的。 我只是接管這份文件的維護。
+
+	我們非常感謝~Usenet 讀者提出的問題，反應，更正和提議。
+
+	特別感謝~Maarten Litmaath, Guy Harris 和~Jonathan  Kamens，他們都
+	貢獻良多。
+
+	這個文件中的第 5 部份(shells)幾乎完全是~Matthew Wicks 
+	\url{<wicks@dcdmjw.fnal.gov>} 寫的。
+
+	這個文件中的第 6 部份(各種 Unix)幾乎完全是~Pierre (P.) Lewis 
+	\url{<lew@bnr.ca>}寫的
+
+	我儘可能的把每個問題的作者與最後更新的日期放在問題的開端。很不幸
+	地，因為我最近才開始這樣做, 許多的資訊已遺失。我也疏於保存為問題
+	補充最新資料者的名單。對那些有貢獻而沒有得到應有的榮譽者, 只能在
+        此致歉。
+
+	我將此文件轉為~*roff 格式(ms 與 mm 兩種 macro 都有)。Andrew 
+	Cromarty把它轉換成~Texinfo 格式。這些格式化的版本可由~anonymous 
+	ftp 於 \url{ftp.wg.omron.co.jp} 的~pub/unix-faq/docs 取得.
+
+\subsection{當有人提及 'rn(1)' 或 'ctime(3)' 的時候，刮弧裡的數目意謂什麼呢?}
+
+
+	看起來像是~function call, 不過, 不是。 這些數目字是指~Unix 手冊中
+	文件所在的章節。當你打 "man 3 ctime" 時, 表示是要查閱在第 3 節中 
+	ctime 的內容。
+
+	傳統 Unix 手冊的分節法:
+	\begin{quote}
+	\begin{tabular}{|l|l|}
+	\hline
+	        1   &   User-level  commands \\
+	\hline
+	        2   &   System calls \\
+	\hline
+	        3   &   Library functions  \\
+	\hline
+	        4   &   Devices and device drivers \\
+	\hline
+	        5   &   File formats \\
+	\hline
+	        6   &   Games \\
+	\hline
+	        7   &   Various miscellaneous stuff -  macro packages etc. \\
+	\hline
+	        8   &   System maintenance and operation commands \\
+	\hline
+	\end{tabular}
+	\end{quote}
+
+	有一些 Unix 版本會使用非數字的章節名字。舉例來說﹐Xenix 的指令用
+	"C" 而函數用"S"。 一些比較新的 Unix 版本得用 "man -s\# title" 而非 
+	"man \# title"\footnote{例如~Solaris 2.x}。 
+	
+	每一節都會有一個簡介, 若以~\# 代表節數, "man \# intro" 就可以讀第~\# 
+	節的簡介。
+
+	有時為了區別指令和相同名字的常式或系統呼叫數字是必需的。 舉例來說
+	，你的系統可能有"time(1)", 有關 'time' 這個測量所費時間指令的說明
+	，也有 "time(3)", 關於 'time' 這個用來決定目前時間的副常式的說明。 
+
+	你可以用  "man 1 time" 或 "man 3 time" 來選擇要看哪一 "time" 的說
+	明。
+
+	或許你的系統會有其它的章節或在細分的次章節(subsection),像~ Ultrix 就
+	有 3m, 3n, 3x 與 3yp。
+ 
+\subsection{一些奇怪的~unix 指令名字的由來}
+    awk = "Aho Weinberger and Kernighan"
+    \begin{quote}
+	這個語言以作者 Al Aho, Peter Weinberger 和 Brian Kernighan 的
+	姓來命名。
+    \end{quote}
+    grep = "Global Regular Expression Print"
+    \begin{quote}
+	grep 源自 ed。用來列印所有符合某 pattern 的指令
+
+	g/re/p
+
+	"re" 代表 regular expression
+    \end{quote}
+    fgrep = "Fixed GREP".
+    \begin{quote}
+	fgrep 祇找固定的字串。~"f" 不是代表~"fast" - 事實上~"fgrep 
+	foobar *.c" 通常比~"egrep foobar *.c" 來得慢(有點意外吧，不信
+	的話，自己試試嘍)。
+
+	儘管如此，fgrep 仍然有可取之處，在檔案中搜尋字串時，
+	fgrep 能處理的字串數目較~egrep 多。
+    \end{quote}
+    egrep = "Extended GREP"
+    \begin{quote}
+	egrep 用比~grep 更~fancy 的 regular rexpression。許多人只用~egrep，
+        因為它用的~algorithm 比~grep 或~fgrep 用的要好一些， 而且通常是三個
+        程式中最快的。
+    \end{quote}
+    cat = "CATenate"
+    \begin{quote}
+	catenate 是一個滿曖昧的字，在這裡的意思是"把它連成一串", 這就是
+	"cat" 這個指令對一個或多個檔案所做的處理。
+
+	請不要跟 C/A/T 混淆了，C/A/T 是指電腦輔助排版系統~(Computer 
+	Aided Typesetter)。
+    \end{quote}
+    gecos = "General Electric Comprehensive Operating Supervisor"
+    \begin{quote}
+	不過，通用電器的大型系統部門賣給~Honeywell 後，
+        Honeywell 就把~GECOS 的~E 拿掉了。
+
+	目前~Unix 的密碼檔裡面仍保有 "pw\_gecos" 這個欄位。這個名字是
+	從古早的年代沿用過來的。
+
+	Dennis Ritchie 曾經說過：
+        \begin{quotation}
+
+	    "有時候我們會把印表輸出或整批工作丟到 GCOS 機器。密碼檔裡
+            面的 gcos 欄位是用來隱藏 \$IDENT 卡片上的資訊，這樣做不夠優雅"。
+            \footnote{這句話不知是甚麼意思, 只好照字面翻譯之}
+        \end{quotation}
+    \end{quote}
+    nroff = "New ROFF" \newline
+    troff = "Typesetter new ROFF"
+    \begin{quote}
+	這些字都是從"roff"衍生的, roff 是重寫 Multics 上的 runoff 程式得來
+	的 (runoff 的意思就是"印出文件")。
+    \end{quote}
+    tee = T
+    \begin{quote}
+	這是管線工人的術語，代表 T 型的管線分叉器。
+    \end{quote}
+    bss = "Block Started by Symbol" (由符號啟始的區塊）
+    \begin{quote}
+	Dennis  Ritchie 曾說過：
+    	\begin{quotation}
+	    這個縮寫也許有其他說法，但事實上我們採用這個縮寫的本意是 
+            "Block Started by Symbol"。它是 FAP 上的虛擬指令，FAP 
+            (Fortran Assembly [-er?] Program) 是指 IBM 704-709-7090-7094 
+	    這種機型的組譯器。這個指令可定義自己的標號，並且預留一定數目
+	    的字組空間。還有另一個虛擬指令 BES，是 "Block Ended by 
+   	    Symbol"，跟 BSS 指令幾乎一樣，不同點在於標號是定義在預留字組
+	    空間尾端的位址 + 1 的地方。在這些機器上，Fortran 的陣列是以反
+	    方向儲存，而且陣列的索引是從 1 算起。
+
+	    這種用法是合理的，因為這跟 UNIX 上標準的程式載入器一樣，程式
+	    碼當中並非真的放入這一整塊預留空間，而是先用一個數目表示，在
+	    載入時才真的把所需的預留空間定出來。
+    	\end{quotation}
+    \end{quote}
+    biff = "BIFF"
+    \begin{quote}
+	這個指令是用來設定當您有新郵件進來時，是否要通知您。這是柏克
+	萊大學校園內一隻狗的名字。
+    	\begin{quotation}
+	    我可以確定這個名稱的起源，如果您有興趣的話，Biff 是 Heidi 
+	    Stettner 養的寵物，想當年 Heidi (還有我，跟 Bill Joy) 都還是 
+	    UCB 的研究生時，早期的 BSD 版本還在發展中。Biff 受到流連於 
+	    Evans Halls 這些人的喜愛，也因為它會對前來的郵差吠叫而聞名；因
+	    此就以 biff 當作指令的名稱。
+	    (這是卡內基美濃大學的 Eric Cooper 證實的）
+    	\end{quotation}
+    \end{quote}
+    rc (像是~".cshrc" 或~"/etc/rc" 中的~rc 這兩個字母) = "RunCom"
+    \begin{quote}
+	"rc" 源自麻省理工學院在 1965 年發展的~CTSS 系統中的~"runcom"。
+	Brian Kernighan 與~Dennis Ritchie 告訴~Vicki Brown 說: 
+    	\begin{quotation}
+	    相關文獻寫著這麼一段話: 'CTSS 具有從檔案中取出一系列命令
+	    來執行的功能；這功能稱為 "run commands" 又稱為 "runcom"，
+	    而這種檔案稱為一個 runcom (a runcom)。'
+
+	    Unix 中的 "rc" 就是這種用法的殘跡。
+    	\end{quotation}
+	此外 "rc" 也是Plan 9 作業系統 shell 的名字。
+    \end{quote}
+    Perl = "Practical Extraction and Report Language" \newline
+    Perl = "Pathologically Eclectic Rubbish Lister"
+    \begin{quote}
+	Perl是~Larry Wall 所發展的一種相當受歡迎的語言，Perl 在處文字， 
+	process，與檔案時非常便利，可以說是兼得~shell 與~C 之長。想知道
+        更多關於~Perl 的訊息，請看~Usenet  newsgroup  \url{comp.lang.perl}。
+    \end{quote}
+    Don Libes 的~"Life with Unix" 一書裡有更多這類的珍聞軼事。
+
+\subsection{"comp.unix.questions" 和 "info-unix" mailing list 之間的 
+      ~gateway 是如何運作的?}
+
+      ``info-unix'' 與~``unix-wizards''分別是~\url{comp.unix.questions} 和 
+      ~\url{comp.unix.wizards} 的~mailing-list 版。Mailing list 與~newsgroup
+      的內容應該是相同的
+
+      要加入或退出任一個~mailing list， 請送電子郵件給~\url{info-unix-quest@brl.mil}
+      或~\url{unix-wizards-request@brl.mil}。切記要加入或退出~mailing list 時是送
+      給~"*-request@brl.mil" 。也請您耐心等候因為不會馬上有回應。
+        
+      底下就是~mailing list 的維護者~Bob Reschly 所提供關於這些~mailing list 
+      的詳細細節。
+
+      ==== postings to info-UNIX and UNIX-wizards lists ====
+
+      我個人不對送到 mailing list 的內容作管制，任何送到這個 mailing 
+      list 的信件都會貼到相對應的 news group。BRL 只是單純的轉送。在
+      此 mailing list 上的 Internet 使用者，要送文章到 newgroup 上時
+      請送到 info-UNIX 或 UNIX-wizards, '-request' 是要的信是要送給 
+      mailing list 的維護者看的。
+
+      在此 mailing list 上的 Internet 使用者會收到兩類的訊息，一種是
+      單獨一篇的討論文章，另一種則是集結多篇討論精華的文摘。從 
+      Internet 或者 BITNET(透過 Bitnet ←→ Internet 轉換程式）寄往 
+      BRL 的訊息都會轉發一份給 mail list 當中的每一個使用者。
+
+
+      從 USENET 發出來的文章則以每天彙整一次的方式寄給 mailing list 
+      當中的所有成員。BITNET 的網路交通跟 Internet 的網路交通很像。
+      主要的不同點在於：對於 mailing list 內所有 BITNET 的收件人，我
+      只要維護一個電子郵件地址，讓這個地址所在的收件程式維護所有收件
+      人的資訊，並且自動轉寄所有文章給 mailing list 上的每一個訂閱者
+      即可。
+
+      在 USENET 上的訂閱者只會讀到各自獨立的訊息，所有發自 Internet 
+      的訊息則轉送至我們位於 USENET 上的機器，然後貼至合適的討論區。
+      很不幸地，這些透過轉換程式貼出去的文章，發件人會變成 news@brl-adm，
+      這是轉換軟體目前尚未解決的先天限制。
+
+      至於讀者群方面，USENET 是一個擁有廣大讀者群的地方，我估計約有數
+      千部主機與數萬名使用者參與 USETNET。BRL 所維護的主要 list 約有 
+      250 個，大約有百分之十是本地的轉送 list。我不太清楚 BITNET 方面的
+      轉送數目，不過如果要讓我猜的話，數目大約跟主要 list 一樣。平均一個 
+      list 在一個星期內要送出 150K 到 400K 的資料。
+
+
+\subsection{請建議一些有用的 Unix, C 相關書籍。}
+
+	Mitch  Wright (mitch@cirrus.com) 維護一份 Unix 和 C 相關書籍一覽
+	表，裡面包含簡介與短評。目前在他的表上有 167 本書ftp.rahul.net 
+	(192.160.13.1) 的 "pub/mitch/YABL/yabl" 就是這份一覽表。 要加入新
+	的內容或提供建議送 email 給 mitch@cirrus.com。
+
+	Samuel Ko (kko@sfu.ca) 維護一份 Unix 相關書籍表。這個列表只包含推
+	薦書，因此比較短。 這份表是分類的列表， 如果你正在尋找特定條件類
+	型的書, 這份表無疑是較為合適的。rtfm.mit.edu 的
+	``\url{pub/usenet/news.answers/books/unix}''  就是此表。
+	要加入新的內容或提供建議送 email 給 kko@sfu.ca。
+
+	如果你不能使用 anonymouse ftp,  email 到 "ftpmail@decwrl.dec.com" 
+	信的內容就寫 "help"，然後你就會收到一份教你如何以 email 取得 
+	anonymous 的信件。
+
+\subsection{以前在這~FAQ 中的發音表到那去了?}
+
+	當~1989 本文件開使時, 它包含了一份~Carl Paukstis 
+	\url{<carlp@frigg.isc-br.com>} 原作，由~Maarten Litmaath 
+	所維護的一份包羅萬象的發音表。後來它功成身退了，因為發音
+	與~"Unix questions" 這個主題不是真那麼有關係。
+
+	若你碰到一些不知該怎麼讀的字, 請參考~Eric S. Raymond
+	\url{<eric@snark.thyrsus.com>}所維護的 Jargon。
+        \footnote{\url{ftp://ftp.csie.nctu.edu.tw/pub/unix/GNU/jarg400.txt.gz}
+	是普通文字版~Jargon}
+
+	若你還是堅持要以前那份發音表, ftp.wg.omron.co.jp (133.210.4.4) 的 
+	``\url{pub/unix-faq/docs/Pronunciation-Guide}'' 就是啦。
+
+\section{初學者可能會問的基本問題}
+\subsection{我要怎麼刪除以 '-' 字元開頭為檔名的檔案？}
+
+	找一個方法讓檔案名稱開頭不要是~'-' 就可以了，最簡單的方法就是使用
+\begin{verbatim}
+        rm ./-filename
+\end{verbatim}
+	(當然，我們假設 "-filename" 位於目前的目錄)。這個方法可以避免讓其
+	他指令解釋 "-"。
+
+	有許多指令，特別是呼叫~"getopt(3)" 的參數剖析常式的程式，會接受一
+	個~"--" 的參數，代表「這是最後一個選項」，此後出現的項目都不再是選
+	項，因此您的~rm 可能會接受這個~"rm -- -filename" 這種寫法。有些不用 
+	~getopt() 的 rm 程式也會以同樣的方式處理單一字元 "-"，因此您也可以試
+	試~"rm - -filename"。
+
+\subsection{我要怎樣才能把檔名當中含有特殊字元的檔案刪除？}
+
+	如果這個「特殊字元」是~'/'，請跳到這題的結尾；如果這個特殊的字元是
+	一個~' 或者控制字元或者中文字，請繼續往下讀。
+
+	典型的解法是:
+\begin{verbatim}
+        rm -i some*pattern*that*matches*only*the*file*you*want
+\end{verbatim}
+	這樣子的話~rm 會在要刪除符合你給的條件的檔案前，要你確定，不
+	過若你的~shell 會將每個字元的第八個~bit 變成零，那以中文作檔
+	名的檔案可能就刪除不掉了！
+
+	或是	
+\begin{verbatim}
+        rm -ri .
+\end{verbatim}
+	這樣子的話~rm 會刪除目前目錄下的所有檔案，而在刪除一個檔案之
+	前會問你是否要刪除此檔。不過很不幸的，並非每一個版本的 rm 都
+	能這麼用。再者，就算能用的話，這麼做的話會把目前所在目錄的所
+	有子目錄都找進去，可能要用~"chmod a-x" 避免使子目錄無法搜尋才
+	能避免可怕的後果。要做~"rm -r" 或含有萬用字元的 "rm" 前請先深
+	呼吸，搞清楚自己是在做什麼！
+
+	或者是，	
+\begin{verbatim}
+        find . -type f ... -ok rm '{}' \;
+\end{verbatim}
+	"..." 是一堆用以辨識檔案名稱的述詞，譬如在找出一有問的檔案的 
+	inode 為何後，用
+\begin{verbatim}
+        find . -num 12345 -ok rm '{}' \;
+\end{verbatim}
+	或者是
+\begin{verbatim}
+        find . -inum 12345 -ok mv '{}' new-file-name \;
+\end{verbatim}
+	刪除或改名。 選項~"-ok" 是告訴~find 要執行指令前先要求你確認
+	。若你能確定所下的指令沒有問題，或者怕所要處理檔案有奇怪的字
+	元印出來會使螢幕亂七八糟，那用選項~"-exec" 就不會先要求你的確
+	認。
+
+	那當檔案名稱裡含有~'/' 時要怎麼辦呢？
+
+	這類檔案是很特別的情形，並且只會因為~kernel 的~bug 而發生（通
+	常是在寫~NFS 的時候，沒有把從遠端機器來的檔案名稱中不合規定的
+	字元過濾掉）。我們第一件要做的事情就是，試著去瞭解為什麼這個
+	問題會如此奇怪。
+
+	UNIX 的目錄其實就只是單純的檔名和~inode number  的成對組合。
+	舉例來說，目錄包含了如下的資訊：
+\begin{table}[h]
+\begin{tabular}{l l}
+		filename & inode \\
+\hline
+		file1    & 12345 \\
+		file2.c  & 12349 \\
+		file3    & 12347 \\
+\end{tabular}
+\end{table}
+	理論上，只有~'/' 和~'$\backslash$0' 兩個字元不能用在檔案名稱中，
+	因為它們有以下的特殊用途：
+\begin{description}
+\item['/']	：用來分隔目錄名稱及檔案名稱。
+\item['$\backslash$0']	：用來當檔名的終結字元。
+\end{description}
+	非常、極端、很不幸的，某些廠商做出來的 NFS 在回應遠端機器的要
+	求時，會很白痴地造出含有斜線~(/）的檔名。例如，當某人在~Mac 
+	或其他非~Unix 機器透過~NFS 造一個以日期為名稱的檔案到你的 
+	~Unix 中。那麼，你的~Unix 目錄看起來可能就會像這個樣子：
+\begin{table}[h]
+\begin{tabular}{l l}
+		filename & inode \\
+		\hline 
+		91/02/07 & 12357 \\
+\end{tabular}
+\end{table}
+	我們前面所提過的~'find' 或~'rm' 都無法刪除這個檔案，因為這些或
+	其他的~Unix 程式都會強制把~'/' 當作前述的分隔字元解釋。
+
+	其實，任何一般的程式都會試著做~unlink("91/02/07")，而這對 
+	~kernel 來說，它的意義是~"unlink 目錄~91 下的子目錄~02 中的檔
+	案~07，但是，我們並沒有這樣的檔案，我們有的是一個名叫 
+	~"91/02/07" 的檔案在目前的目錄中。這是個極細微但極重要的區別。
+
+	這時該怎麼辦呢？首先，先回到產生這種亂七八糟檔名的~Mac，試試
+	看~NFS daemon 要不要讓你改成不含~'/' 的檔名。如果不行，那就得
+	找你的系統管理者幫忙了。請他試試以下幾種方法之一: 
+	\begin{enumerate}
+	\item 用~"ls -i" 找出檔案的~inode number，~umount 掉這個 
+	  ~file system 然後以~"clri" 將這個~inode 清除，然後
+	   祈求~fsck" 的成功。這個作法會刪除這亂七八糟檔名的
+	   檔案。
+
+	\item 若還想保存這個檔案的資料，試試以下的做法：
+	\begin{itemize}
+	   \item 在那亂七八糟檔名的檔案所在之目錄的親目錄底下建一
+	    個子目錄，將舊的目錄下能搬動的檔案都搬到新的目錄
+	    裡。
+	   \item 以~"ls -id" 取得舊目錄的~inode number
+	   \item unmount 掉這個~file system， 用~"clri" 清掉那個
+	    目錄的~inode
+	   \item "fsck" 那個~file system
+	   \item 重新~mount 上那個 file system
+	   \item 將新的目錄改名為舊的目錄名
+	   \item 從~lost+found 下找回那個檔案，改個好名字，放回原
+	    來的目錄。
+	\end{itemize}
+
+	\item 若你有一個叫做~"fsdb" 的程式，那你可以試試看嘍！
+	\end{enumerate}
+
+\subsection{我要如何列出整個目錄樹呢?}
+
+	底下有幾種做法自己挑一個吧：
+\begin{verbatim}
+        ls -R             (not all versions of "ls" have -R)
+        find . -print     (should work everywhere)
+        du -a .           (shows you both the name and size)
+\end{verbatim}
+
+	若你要找的是特定的檔案，例如說是檔名結尾為 ".c" 者，可用
+\begin{verbatim}
+        find . -name '*.c' -print
+\end{verbatim}
+	"find" 是一隻很強很好用的程式。值得一學。
+
+\subsection{要怎麼設定~prompt 才會顯示出目前所在的目錄？}
+	
+	這得視你的 shell 而定。有些 shell 很容易，有些 shell 很難，有些根
+	本辦不到。
+\begin{quote}
+	C Shell (csh):
+	\begin{quote}
+	  將以下的東西加入你的 .cshrc 裡。
+\begin{verbatim}
+alias setprompt 'set prompt="${cwd}% "'
+setprompt           # to set the initial prompt
+alias cd 'chdir \!* && setprompt'
+\end{verbatim}
+	  假如你有用 pushd 與 popd, 把底下的東西也加進去。
+\begin{verbatim}
+		alias pushd 'pushd \!* && setprompt'
+		alias popd  'popd  \!* && setprompt'
+\end{verbatim}
+	  若你的 C shell 沒有 \$cwd 這個變數，那就得用 `pwd` 代替之。
+
+	  若你想要的只是 prompt 裡有目前所在目錄的最後一個成分
+	  ("mail%" 而非 "/usr/spool/mail%") 則用
+\begin{verbatim}
+		alias setprompt 'set prompt="$cwd:t% "'
+\end{verbatim}
+	  有些舊版的 csh 將 \&\& 和 || 的意義弄反了。你可以試試看：
+\begin{verbatim}
+		false && echo bug
+\end{verbatim}
+	  若結果是印出 "bug"，那就把 \&\& 和 || 對調，或找一個沒有這種 
+	  bug 的 csh 來用。
+	\end{quote}
+
+	Bourn Shell (sh):
+	\begin{quote}
+	  如果你有較新版的 Bourn Shell（SVR2 或更新的版本），那麼你就可
+	  以用一個 shell function 來造你自己的命令，譬如 "xcd"：
+\begin{verbatim}
+		xcd() { cd $* ; PS1="`pwd` $ ";}
+\end{verbatim}
+	  如果你的~Bourn Shell 是比較舊的版本，也是可以做到，但是方法比
+	  較複雜。這裡提供一個方法。把以下的內容加入你的~.profile：
+\small
+\begin{verbatim}
+	LOGIN_SHELL=$$ export LOGIN_SHELL
+	CMDFILE=/tmp/cd.$$ export CMDFILE
+	# 16 is SIGURG, pick a signal that's not likely to be 
+	used
+	PROMPTSIG=16 export PROMPTSIG
+	trap '. $CMDFILE' $PROMPTSIG
+\end{verbatim}
+\normalsize
+	然後把以下的部份寫成一個可執行的 ~script (不需要縮排），名字就
+	叫做~"xcd"，放在你的~PATH 中
+\small
+\begin{verbatim}
+	: xcd directory - change directory and set prompt
+	: by signalling the login shell to read a command file
+
+	cat >${CMDFILE?"not set"} <<EOF
+	cd $1
+	PS1="\`pwd\`$"
+	EOF
+	kill -${PROMPTSIG?"not set"} ${LOGIN_SHELL?"not set"}
+\end{verbatim}
+\normalsize
+	那麼，現在就可已用~"xcd /some/dir" 來改變工作目錄了。
+	\end{quote}
+
+	Korn Shell (ksh):
+	\begin{quote}
+	  把下面這行加入你的 .profile 中：
+\begin{verbatim}
+		PS1='$PWD $ '
+\end{verbatim}
+	  如果你只想顯示最後一個部分，那麼就用
+\begin{verbatim}
+		PS1='${PWD##*/} $ '
+\end{verbatim}
+	\end{quote}
+
+	T C shell (tcsh)
+	\begin{quote}
+	  Tcsh 是常用的 csh 加強版，增加了一些內建變數（及許多其他的功
+	  能）：
+\small
+\begin{verbatim}
+	%~          the current directory, using ~ for $HOME
+	%/          the full pathname of the current directory
+	%c or %.    the trailing component of the current directory
+\end{verbatim}
+\normalsize
+	  所以你可以直接用
+\begin{verbatim}
+		set prompt='%~'
+\end{verbatim}
+	\end{quote}
+
+	BASH (FSF's "Bourne Again Shell")
+	\begin{quote}
+	  \$PS1 中若放~$\backslash$w 表示工作目錄的完整路徑
+	（以~\verb+~+ 表示~\$HOME )： 而~$\backslash$W 則是
+	表示工作目錄的最後一個部份。所以，只要把前面所提
+	  有關~sh 和~ksh 的方法做以下的修改
+\begin{verbatim}
+		PS1='\w $ ' 
+\end{verbatim}
+	  或
+\begin{verbatim}
+		PS1='\W $ '
+\end{verbatim}
+	\end{quote}
+\end{quote}
+
+\subsection{當我在寫~shell script 時，要如何從~terminal 讀入字元？}
+
+	在 sh 中，你可以用 read。通常是使用在迴圈，如下例：
+\begin{verbatim}
+		while read line
+		do
+		    ...
+		done
+\end{verbatim}
+	在 csh 中，則用 \$$<$：
+\begin{verbatim}
+		while ( 1 )
+		    set line = "$<"
+		    if ( "$line" == "" ) break
+		        ...
+		end
+\end{verbatim}
+	很可惜的，csh 並沒有方法判斷空白行和檔案結尾（end-of-file）的不同。
+
+	如果你要用~sh 從~terminal 讀一個字元，那麼你可以試試
+\begin{verbatim}
+		echo -n "Enter a character: "
+		stty cbreak         # or  stty raw
+		readchar=`dd if=/dev/tty bs=1 count=1 2>/dev/null`
+		stty -cbreak
+		echo "Thank you for typing a $readchar ."
+\end{verbatim}
+
+\subsection{怎麼樣把~"*.foo" 改名為~"*.bar" 呢？怎樣把檔案名稱改成小寫呢？}
+
+	為什麼~"mv *.foo *.bar" 不對呢? 想想~shell 是怎樣把萬用字元展開的
+	吧。 在~mv 讀取參數前~"*.foo" 與~"*.bar" 就已經展開了。~"mv *.foo 
+	*.bar" 在各種不同的~shell 會有不同的結果。~Csh 的話會印出~"No 
+	match"，因為找不到~"*.bar"。~Sh 則是會執行~"mv a.foo b.foo c.foo 
+	*.bar"，也就是說如果只有在有一名為~"*.bar" 的子目錄存在時~mv 才會
+	認為執行成功，不過就算成功也不是你所預期的結果。
+
+	正確的做法是用你所用的~shell 提供的迴圈來做。若你的系統中有 
+	~"basename" 這個指令：
+\begin{quote}
+	C Shell:
+\begin{verbatim}
+		foreach f ( *.foo )
+		    set base=`basename $f .foo`
+		    mv $f $base.bar
+		end
+\end{verbatim}
+
+	Bourne Shell:
+\begin{verbatim}
+		for f in *.foo; do
+		    base=`basename $f .foo`
+		    mv $f $base.bar
+		done
+\end{verbatim}
+\end{quote}
+	有些~shell 會提供就自己的變數替代功能，那就可以不用~"basename"，
+	而用更簡單的迴圈了：
+\begin{quote}
+	C Shell:
+\begin{verbatim}
+		foreach f ( *.foo )
+		    mv $f $f:r.bar
+		end
+\end{verbatim}
+
+	Korn Shell:
+\begin{verbatim}
+		for f in *.foo; do
+		    mv $f ${f%foo}bar
+		done
+\end{verbatim}
+\end{quote}
+	如果沒有~"basename" 可用或是想要做像把~foo.* 改名為~bar.* 之類的
+	事，那麼可以用其他的方法如~"sed" 把原來的檔案名稱做分隔的動作，但
+	是迴圈的想法是一樣的。你也可以利用~"sed" 把檔名轉換成~"mv" 的命令
+	，然後再把這些命令轉給~"sh" 執行。如下：
+\begin{verbatim}
+	        ls -d *.foo | sed -e 's/.*/mv & &/' -e 's/foo$/bar/' | sh
+\end{verbatim}
+	1990 年~4 月，~Vladimir Lanin 把他自己寫的一隻叫~"mmv" 的程式
+	~post 到~comp.sources.unix (Volumn 21, issues 87 and 88)，這隻程式
+	就能夠把這件事處理得很好。 你可以這樣使用：
+\begin{verbatim}
+        	mmv '*.foo' '=1.bar'
+\end{verbatim}
+	以上所提的~shell 中的迴圈也可以用來做檔案名稱的大、小寫轉換。你可
+	以用改檔名的方式把大寫檔名改為小寫：
+
+        C Shell:
+\begin{verbatim}
+            foreach f ( * )
+                mv $f `echo $f | tr '[A-Z]' '[a-z]'`
+            end
+\end{verbatim}
+
+        Bourne Shell:
+\begin{verbatim}
+            for f in *; do
+                mv $f `echo $f | tr '[A-Z]' '[a-z]'`
+            done
+\end{verbatim}
+
+        Korn Shell:
+\begin{verbatim}
+            typeset -l l
+            for f in *; do
+                l="$f"
+                mv $f $l
+            done
+\end{verbatim}
+	如果你還希望能處理含有特殊字元（空白或其他的奇怪字元）的檔名，那
+	麼你最好用：
+
+        Bourne Shell:
+\begin{verbatim}
+            for f in *; do
+              g=`expr "xxx$f" : 'xxx\(.*\)' | tr '[A-Z]' '[a-z]'`
+              mv "$f" "$g"
+            done
+\end{verbatim}
+	'expr' 不管檔名裡有沒有特殊字元都會印出檔名。
+
+	有些版本的~"tr" 需要用~'[' 和~']'，有些則不必。不過，不管是不是一
+	定要用~'['  與~']' 的~"tr"，加了總是沒有害處。
+
+	若你的系統裡有裝~"perl"，那你可以用~Larry Wall 寫的這個多用途改檔
+	名的程式。 
+\begin{verbatim}
+	#!/usr/bin/perl
+	#
+	# rename script examples from lwall:
+	#       rename 's/\.orig$//' *.orig
+	#       rename 'y/A-Z/a-z/ unless /^Make/' *
+	#       rename '$_ .= ".bad"' *.f
+	#       rename 'print "$_: "; s/foo/bar/ if <stdin> =~ /^y/I' *
+
+	$op = shift;
+	for (@ARGV) {
+	     $was = $_;
+	     eval $op;
+	     die $@ if $@;
+	     rename($was,$_) unless $was eq $_;
+	}
+\end{verbatim}
+
+\subsection{為什麼我用~"rsh host command" 會有一些奇怪的訊息出現？}
+
+	(這裡所指的~"rsh"[也可能是~"remsh" 或~"remote"] 是~remote shell，
+	而不是在有些系統中名為~"rsh" 的~restricted shell，這兩者天差地遠
+	了！)
+
+	若你在遠端的帳號用的是~C shell，那遠端的主機會幫你啟動一個~C 
+	shell 來完成你所下的那個~'command'，這個~shell 會讀取你在遠端的  
+	~.cshrc 檔。若你的~.cshrc 中有~"stty" 或~"biff" 這類不適合~non-
+	interactive shell 的指令。那就可能會有你所意想不到的結果，舉例來
+	說，若你把
+\begin{verbatim}
+	        stty erase ^H
+	        biff y
+\end{verbatim}
+	放在你的 .cshrc 檔裡面。你可能會得到類似以下的奇怪訊息
+\begin{verbatim}
+	        % rsh some-machine date
+	        stty: : Can't assign requested address
+	        Where are you?
+	        Tue Oct  1 09:24:45 EST 1991
+\end{verbatim}
+	若你使用~"at" 或~"cron"，那可能也會得到類似的錯誤訊息。
+
+	不過沒關係，解決的方法非常簡單。若你的~".cshrc" 裡面有一堆只有在 
+	~interactive shell 中才有用的~operation，那就將那些~operation 都用
+	以下的做法包起來：
+\begin{verbatim}
+            if ( $?prompt ) then
+                    operations....
+            endif
+\end{verbatim}
+	因為在一個~non-interactive 中不應該也沒有必要去設定~"prompt"。
+
+	還有一些只有在開啟一個~login session時才有用的東西，最好搬到 
+	~".login" 中去。
+
+\subsection{我要怎要用程式或者是在~shell script 中設定目前所用的~shell 
+	的環境變數或改變所在的目錄?}
+
+	若沒有做一些特殊安排是做不到的。因為，當我們造出一~child process 
+	時，此~process 會繼承其 parent 的變數與所在的目錄。在這個~child 
+	process 只能改到自己的變數與所在目錄而無法影響到其~parent。
+
+	要達到此目的，~parent process 要與~child process 有所溝通。當 
+	~child process 要改變變數值時得把要改變的變數及其內容寫到一個講好
+	的地方，讓~parent process 去讀取， 並改變~parent process 的變數。
+
+
+	另一個做法則是寫一個~shell script，然後在~Bourne shell 或~Korn 
+	shell 中用~"."，在~C shell 中用~source 去執行那個 ~shell script。
+	若此 ~sript 名為~"myscript" :
+
+	在~Bourne shell 或~Korn shell 中就用
+\begin{verbatim}
+        	. myscript
+\end{verbatim}
+	在~C shell 中則用
+\begin{verbatim}
+	        source myscript
+\end{verbatim}
+	若你想做的只是要改變所在目錄或是設定一個環境變數，那使用~C shell 
+	中的~alias 或是~Bourne/Korn shell 中的函數就可達成你的目的。可參
+	考"要怎麼設定~prompt 才會顯示出目前所在的目錄"一節中的做法。
+
+	Thomas Michanek (xtm@telelogic.se) 提供一個更詳細的解答~( 
+	\url{ftp://ftp.wg.omron.co.jp/pub/unix-faq/docs/script-vs-env})。
+
+\subsection{我要如何將~csh 的~stdout 與~stderr 導向到不同的地方呢？}
+
+	在~csh 中，用~"$>$" 將~stdout 導向，用~"$>$\&" 則能將~stdout 與~stderr 
+	一起導向。可是不能只單獨把~stderr 轉向。最好的方法是
+\begin{verbatim}
+	        ( command >stdout_file ) >&stderr_file
+\end{verbatim}
+	以上的命令會開一個~subshell 執行~"command"；而這個~subshell 的 
+	~stdout 則被轉向到~stdout\_file，同時這個~subshell 的~stdout 和 
+	~stderr 則都被轉向到~stderr\_file，但是因為~stdout 已經先被轉向了，
+	所以~stderr 就會被轉到~stderr\_file 了。
+
+	如果你只是單純的不想把~stdout 做轉向，那麼就用 sh 來幫你吧。
+\begin{verbatim}
+	        sh -c 'command 2>stderr_file'
+\end{verbatim}
+
+\subsection{我如何在~.cshrc 中判斷是否在~login shell 中？}
+
+	當有人這麼問的時候，通常要問的是
+
+	要如何判斷是否是一個~interactive shell? 或是問要如何判斷是否是
+        最上層的~shell ?
+
+	若你是要問~"是否在~login shell 中"（註：就是在做完~.cshrc 後，會
+	再去做~.login），那麼你也許用~"ps" 和~"\$\$" 隨便弄一弄，就能知道了
+	。因為通常~login shells 的名字在~"ps" 看起來都是由~'-' 做開頭的。
+	如果你是真的對另外兩個問題感興趣，那麼這裡有個方法可以讓你在 
+	~.cshrc 中判斷。
+\begin{verbatim}
+		if (! $?CSHLEVEL) then
+		#
+		# This is a "top-level" shell,
+		# perhaps a login shell, perhaps a shell started up by
+		# 'rsh machine some-command'
+		# This is where we should set PATH and anything else we
+		# want to apply to every one of our shells.
+		#
+		    setenv CSHLEVEL 0
+		    set home = ~username   # just to be sure
+		    source ~/.env          # environment stuff we always want
+		else
+		#
+		# This shell is a child of one of our other shells so
+		# we don't need to set all the environment variables again.
+		#
+		    set tmp = $CSHLEVEL
+		    @ tmp++
+		    setenv      CSHLEVEL        $tmp
+		endif
+
+		# Exit from .cshrc if not interactive, e.g. under rsh
+		if (! $?prompt) exit
+
+		# Here we could set the prompt or aliases that would be useful
+		# for interactive shells only.
+
+		source ~/.aliases
+\end{verbatim}
+
+\subsection{在~shell 中要用怎樣的~pattern 來表示除了~"." 與~".." 
+	外的所有檔案？}
+
+	這個問題看來容易。因為我們可以用
+
+\begin{tabular}{l  p{10cm}}
+	* &	表示所有不是以~"." 為開端的檔案 \\
+
+	.* &	表示所有以~"." 為開端的檔案，但是這樣會把~"." 和~".." 也包 
+		含進來，但是通常你並不會想把這兩個也含進來。 \\
+
+	.[!.]*  & 這只有比較新的~shells 才能用；某些~shells 用~"\^" 代替~"!"；
+                而符合~POSIX 標準的~shells 一定能用~"!"，但是大部份也都能接
+                受~"\^"；所有具可移植性的應用程式都不應該在~"[" 之後緊接著沒
+		被~quota 起來的~"\^")表示所有以~"." 為開頭並且第二個字元不是 
+		~"."  的檔案；但是這樣卻會漏掉~"..foo" 這類的檔案。 \\
+
+	.??* &	表示所有以~"." 為開頭且檔名長度至少為~3 的檔案，這樣大概
+		就能避開~"." 和~".." 了，但是卻還是會漏掉~".a" 這類的檔。 \\
+\end{tabular}
+
+	所以想要正確地表示除了~"." 與~".." 之外所有的檔案，你必須要用到~3 
+	個~patterns（如果你沒有像 ".a" 這樣的檔案，那你可以去掉第一個 
+	~pattern）：
+\begin{verbatim}
+        .[!.]* .??* *
+\end{verbatim}
+	或者我們也可以用一兩個外部程式和~backquote substitution。這樣就很完
+	美了：
+\begin{verbatim}
+      `ls -a | sed -e '/^\.$/d' -e '/^\.\.$/d'`
+        (or `ls -A` in some Unix versions)
+\end{verbatim}
+	不過即使是這樣做，碰上檔名裡面含有換行字元，~IFS 字元，或是萬用字
+	元仍然是沒輒。
+
+\subsection{在~Bourne shell script 裡要怎麼找出最後一個參數？}
+
+	由~Martin Weitzel \url{<@mikros.systemware.de:martin@mwtech.uucp>} 
+	和~Maarten Litmaath \url{<maart@nat.vu.nl>} 提供的答案：
+
+	若你能確定參數不會超過九個的話，可用：
+\begin{verbatim}
+	        eval last=\${$#}
+\end{verbatim}
+
+	在符合~POSIX 標準的~shell 裡，不管有多少個參數都可用上述的方法。
+
+	底下的方法是一定有用的：
+\begin{verbatim}
+	        for last
+        	do
+	                :
+	        done
+\end{verbatim}
+
+	更一般性的做法是:
+\begin{verbatim}
+	        for i
+	        do
+	                third_last=$second_last
+	                second_last=$last
+	                last=$i
+	        done
+\end{verbatim}
+	若你想做的是將最後一個參數去除或是將一堆參數的順序反過來或是取用
+	第~N 個參數。底下是一個不用造出~subprocess 只用~shell 內建功能的
+	做法：
+\small
+\begin{verbatim}
+        t0= u0= rest='1 2 3 4 5 6 7 8 9' argv=
+
+        for h in '' $rest
+        do
+                for t in "$t0" $rest
+                do
+                        for u in $u0 $rest
+                        do
+                                case $# in
+                                0)
+                                        break 3
+                                esac
+                                eval argv$h$t$u=\$1
+                                argv="$argv \"\$argv$h$t$u\""   # (1)
+                                shift
+                        done
+                        u0=0
+                done
+                t0=0
+        done
+
+        # now restore the arguments
+        eval set x "$argv"                                      # (2)
+        shift
+\end{verbatim}
+\normalsize
+	這個例子可以用到~999 個參數，應該夠用了吧？仔細看看(1)與(2)標示的
+	地方，想辦法說服你自己不管參數裡面有什麼奇怪的字元這兩行都不會出
+	差錯。  
+
+	要找第~N 個參數，用：
+\begin{verbatim}
+	        eval argN=\$argv$N
+\end{verbatim}
+
+	要將參數的順序反過來，標示為(1)的那一行必須改成
+\begin{verbatim}
+	        argv="\"\$argv$h$t$u\" $argv"
+\end{verbatim}
+	自己練習最後一個參數去除的方法。
+
+	若允許呼叫外部指令這類造出~subprocess 的做法，代誌就更加好辦了。
+	底下是找出~argvN：
+\begin{verbatim}
+	        N=1
+
+	        for i
+	        do
+	                eval argv$N=\$i
+	                N=`expr $N + 1`
+	        done
+\end{verbatim}
+	要將參數的順序反過來還有一個不用造出~subprocess，有更簡單的方法。
+	這個方法也可以用來去除最後一個參數， 不過要注意的是~argvN 不在是
+	原來的第~N 個參數：
+\begin{verbatim}
+        argv=
+
+        for i
+        do
+                eval argv$#=\$i
+                argv="\"\$argv$#\" $argv"
+                shift
+        done
+
+        eval set x "$argv"
+        shift
+\end{verbatim}
+
+\subsection{為什麼有人說~\$PATH 裡不可以放 '.' 呢？}
+
+	背景知識： 環境變數~PATH 是一串用冒號隔開的目錄。當你下一個指令而
+	沒有指定所在的目錄，例如~"ls" 而非~"/bin/ls"，則你的~shell 就會在
+	~PATH 所指定的目錄中去找尋指令。
+
+	你可以在~PATH 裡面放入目前所在的目錄~"." 。或者，在~PATH 中加入一
+	個空的目錄，這兩者是等效的
+\begin{quote}
+	      for csh users:
+\begin{verbatim}
+	        setenv PATH :/usr/ucb:/bin:/usr/bin
+	        setenv PATH .:/usr/ucb:/bin:/usr/bin
+\end{verbatim}
+	      for sh or ksh users
+\begin{verbatim}
+	        PATH=:/usr/ucb:/bin:/usr/bin export PATH
+       		PATH=.:/usr/ucb:/bin:/usr/bin export PATH
+\end{verbatim}
+\end{quote}
+	把~"." 放在~PATH 中是很方便的，若要執行~"./a.out" 只要打~"a.out" 
+	即可，但是這麼做會有大麻煩。
+
+	當把~"." 放在~PATH 的最前面情況下。若你目前所在目錄是如~"/tmp" 這
+	樣大家都可以寫的地方。如果有別的使用這放了一個名為~"ls" 的程式在
+	那裡，而你打入~"ls" 那你可能就死得非常難看了。
+
+	把~"." 放到~PATH 的結尾是個比較好的做法：
+\begin{verbatim}
+	        setenv PATH /usr/ucb:/bin:/usr/bin:.
+\end{verbatim}
+	這麼一來，當你在~"/tmp" 中打~"ls" 時，~shell 就會先找~"/usr/ucb"，
+	~"/bin" 與~"/usr/bin" 裡的 "ls"。減少了一點危險。不過仍然不是百分之
+	百安全。假如你是個笨拙的打字者，有一天你把~"ls -l" 打成~"sl -l"，
+	而又有一個聰明的使用者能猜到這種常見的打字錯誤，在~"/tmp" 底下放
+	了一隻~"sl"，你還是得死。所以啊，千萬要小心。
+
+	有許多~Unix 老手都不把~"." 放在~PATH 裡：
+\begin{verbatim}
+	        setenv PATH /usr/ucb:/bin:/usr/bin
+\end{verbatim}
+	要用目前目錄裡的~"program" 就打~"./program"。他們認為犧牲一點方便換
+	取安全是值得的。
+
+\subsection{在~shell script 中要怎麼讓終端機發出聲音呢？}
+
+	這個問題的答案視你所用的~Unix 而定，更精確的說是視你所用的~"echo" 
+	而定。
+
+	BSD-like 的~"echo" 有一個選項~"-n" 可以用來避免換行，可是無法使用 
+	\\nnn 來表示八進位。所以用法是
+\begin{verbatim}
+	        echo -n '^G'
+\end{verbatim}
+
+	\^G 是表示~ASCII 中的 bell 字元。在~emacs 中可以用~"Ctrl-Q Ctrl-G" 
+	產生之，在~vi 中則用~"Ctrl-V Ctrl-G"。
+
+	SysV-like 的~"echo" 可用~$\backslash$c 避免換行，並且也可以用
+	~$\backslash$nnn。所以用
+\begin{verbatim}
+	        echo '\007\c'
+\end{verbatim}
+
+\subsection{為什麼我不能用~"talk" 與我在某機器上的朋友交談呢？}
+
+	斯斯有三種，~Unix 常見的~"talk" 程式也有三種，兩兩不能互通。舊的 
+	~"talk" 有兩種。為什麼有兩種呢？因為一般稱為~"otalk" 的這個~"talk" 
+	沒有把~"endian"\footnote{如果你不知道這個關於格列佛遊記的典故，請看
+	~``On Holy Wars and a Plea for Peace'', Danny Cohen, USC/ISI IEN 137, 
+	April 1, 1980 (找不到的話，~\url{ftp://ftp.csie.nctu.edu.tw/pub/
+	Documents/RFC/ien/ien-137.txt.3.gz} 就是了)} 考慮進去，所以就有兩種了。例如~big-endian 的~Sun 
+	，與~little-endian 的~Vax 所用的~otalk 就無法溝通。 這一版的~talk 
+	使用~port 517。
+
+	在~1987 年左右，除了~Sun 以外的所有廠商定了一個知曉~network byte 
+	order 的~talk，這個新的~talk 通常稱為~ntalk。所有使用~ntalk 的機
+	器都能互通。這個~talk 使用~port 518。
+
+	有一些~talk 程式懂得~ntalk 與一種~otalk。其中最廣為使用的是 
+	~"ytalk"。
+
+\subsection{為什麼我月曆是錯的？}
+
+	常常有人發現~Unix 的月曆程式~'cal'，產生的結果與預期的不同。
+
+	1752 年~9 月的月曆就非常奇怪
+\begin{verbatim}
+               September 1752
+             S  M Tu  W Th  F  S
+                   1  2 14 15 16
+            17 18 19 20 21 22 23
+            24 25 26 27 28 29 30
+\end{verbatim}
+	這是因為這個月開始整個大不列顛帝國(美國那時還是英國殖民地)，從凱
+	撒曆換成現行的太陽曆。
+	\footnote{教皇格理高十三世(Pope Gregory XIII)於 1582 年改革曆法，可
+        是大不列顛帝國直到 1752 年才換用之。如果您對曆法有興趣，請參考 
+	~calendar FAQ (\url{http://www.pip.dknet.dk/~c-t/calendar.html})}
+
+	另一個常見的問題是參數給錯。舉例來說，要看~1994 年~9 月的月曆，應
+	是~'cal 9 1994' 而非~'cal 9 94'。 
+
+\section{中級的問題}
+\subsection{我要如何得知一個檔案建立的時間？}
+
+	很遺憾，因為檔案建立的時間並未儲存在任何地方，所以答案是無法得知。
+	關於一個檔案你只能查到最後修改的時間（"ls -l")，最後讀取的時間
+        ("ls -lu") 與~inode 改變的使間。有一些~man pages 將最後一個時間當
+        成是建立的時間，這種說法是錯的。因為~mv、ln、chmod、chmod、chown、
+        chgrp 等動作都會改變這個時間。
+
+	若需更詳盡的說明可參考~"stat(2)" 的~man page.
+
+\subsection{在執行~rsh 的時候要怎樣才能不必等遠方指令執行結束就回到~shell？
+        (關於我們所討論的~rsh,請參閱問題~2.7)}
+
+	以下這些憑直覺想到的答案都達不到這個效果：
+\begin{verbatim}
+		rsh machine command &
+\end{verbatim}
+	或	
+\begin{verbatim}
+		rsh machine 'command &'
+\end{verbatim}
+	例如, 執行~rsh machine 'sleep 60 \&' 這個命令時，我們可以觀察到：rsh 並
+	不會立刻結束，而是等到遠方的~sleep 命令完成以後才結束，即使我們在遠
+	方使用背景方式執行此命令。所以要怎樣才能讓~rsh 在~sleep 命令啟動後立
+	刻結束呢？
+
+	答案如下－
+
+	如果您在遠端使用csh:
+\begin{verbatim}
+		rsh machine -n 'command >&/dev/null </dev/null &'
+\end{verbatim}
+
+	如果您在遠端使用 sh:
+\begin{verbatim}
+		rsh machine -n 'command >/dev/null 2>&1 </dev/null &'
+\end{verbatim}
+
+	為什麼呢？因為~"-n" 會把~rsh 的~stdin 接到~/dev/null，因此您可以在本地
+	機器以背景方式執行整個~rsh 命令。不管是使用~-n 選項或者在指令結尾使
+	用~"/dev/null"，其效果都是一樣的。此外,在遠端機器使用的輸出入轉向（寫
+	在單引號內的部份）會讓~rsh 認定此次連線可逕行結束（因為已無其他輸
+	入資料）。
+
+	附註: 任何檔案都可以用於遠端機器的輸出入轉向，而不僅限於~/dev/null。
+
+	在許多狀況下，這個複雜的命令當中有很多部份都是非必要的。
+
+\subsection{要怎樣才能截斷一個檔案?}
+
+	BSD 的函數~ftruncate() 可以設定檔案的長度。但是並不是每一種版本的動作
+        都一樣。其他~UNIX 的變種似乎也都支援其他版本的截斷功能。
+
+	支援~ftruncate 函數的系統多半可歸類為以下三種：
+
+	BSD 4.2 - Ultrix, SGI, LynxOS
+		-無法使用截斷功能來增加檔案長度
+		-執行截斷動作不會移動檔案指標
+
+	BSD 4.3 - SunOS, Solaris, OSF/1, HP/UX, Amiga
+		-可以用截斷功能來增加檔案長度
+		-執行截斷動作不會移動檔案指標
+
+	Cray - UniCOS 7, UniCOS 8
+		-無法使用截斷功能來增加檔案長度
+		-執行截斷動作會移動檔案指標
+
+	其他系統則可能在以下四個地方與眾不同:
+
+	F\_CHSIZE - 只在~SCO 上
+		-有些系統定義了~F\_CHSIZE 但並沒有真的支援此功能
+		-動作類似~BSD 4.3
+
+	F\_FREESP - 只在~Interative Unix 上
+		-有些系統(如~Interactive Unix)定義了~F\_FREESP 但並沒有真的支援此
+		 功能
+		-動作類似~BSD 4.3
+
+	chsize() - QNX and SCO
+		-有些系統(如~Interactive Unix)有~chsize() 函數但並沒有真的支援
+                 此功能
+		-動作類似~BSD 4.3
+
+	「空空如也」-目前找不到這種系統
+		-也許會有系統完全不支援~truncate功能
+
+	FAQ 維護者的註解:以下是我在幾年前從網路抓到的程式，原作者已不可考，
+                         不過~S.Spencer Sun <spencer@ncd.com> 也貢獻了一份
+                         ~F\_FREESP的功能。
+\small
+\begin{verbatim}
+	      functions for each non-native ftruncate follow
+
+	      /* ftruncate emulations that work on some System V's.
+	         This file is in the public domain. */
+
+	      #include 
+	      #include 
+
+	      #ifdef F_CHSIZE
+	      int
+	      ftruncate (fd, length)
+	           int fd;
+	           off_t length;
+	      {
+	        return fcntl (fd, F_CHSIZE, length);
+	      }
+	      #else
+	      #ifdef F_FREESP
+	      /* The following function was written by
+	         kucharsk@Solbourne.com (William Kucharski) */
+
+	      #include 
+	      #include 
+	      #include 
+
+	      int
+	      ftruncate (fd, length)
+	           int fd;
+	           off_t length;
+	      {
+	        struct flock fl;
+	        struct stat filebuf;
+
+	        if (fstat (fd, &filebuf) < 0)
+	          return -1;
+
+	        if (filebuf.st_size < length)
+	          {
+        	    /* Extend file length. */
+	            if (lseek (fd, (length - 1), SEEK_SET) < 0)
+	              return -1;
+
+	            /* Write a "0" byte. */
+	            if (write (fd, "", 1) != 1)
+        	      return -1;
+	          }
+	        else
+	          {
+	            /* Truncate length. */
+	            fl.l_whence = 0;
+	            fl.l_len = 0;
+	            fl.l_start = length;
+	            fl.l_type = F_WRLCK;      /* Write lock on file space. */
+
+	/* This relies on the UNDOCUMENTED F_FREESP argument to
+	   fcntl, which truncates the file so that it ends at the
+	   position indicated by fl.l_start.
+	   Will minor miracles never cease? */
+	          if (fcntl (fd, F_FREESP, &fl) < 0)
+	              return -1;
+	          }
+
+	        return 0;
+	      }
+	      #else
+	      int
+	      ftruncate (fd, length)
+	           int fd;
+	           off_t length;
+	      {
+	        return chsize (fd, length);
+	      }
+	      #endif
+	      #endif
+\end{verbatim}
+\normalsize
+
+\subsection{為什麼執行~find 時所使用的~{} 符號無法達到我預期的結果?}
+
+	Find 指令有一個~-exec 的選項會針對每一個找到的檔案執行一個特殊
+        的指令。~Find 會把出現~{}的地方置換成目前找到的檔案名稱。因此，
+        也許有一天您會使用~find 指令對每一個檔案執行某個指令，或者對
+        一個目錄執行某個指令。
+\begin{verbatim}
+	        find /path -type d -exec command {}/\* \;
+\end{verbatim}
+	希望~find 能依序執行以下指令:
+\begin{verbatim}
+	        command directory1/*
+	        command directory2/*
+	        ...
+\end{verbatim}
+	%不幸的是，find 只會展開自成一體的 ~\{\} token；如果~\{\} 跟其他字元相連
+        %的話（如：\{\}/*），那麼find將不會以您所想的方式展開~\{\}, 而是轉換為以
+        %下命令
+\begin{verbatim}
+	        command {}/*
+	        command {}/*
+	        ...
+\end{verbatim}
+	也許您可以把它當成~bug, 也可以把它看成是故意設計的特異功能。但我們
+	可不願被目前這個特異功能干擾。所以要怎樣避免這個問題呢？其中一種做
+	法是寫一個小小的~shell script，名稱就叫做~./doit 好了，其內容如下：
+\begin{verbatim}
+		command "$1"/*
+\end{verbatim}
+	那麼您就可以把原來的命令行改寫為
+\begin{verbatim}
+		find /path -type d -exec ./doit {} \;
+\end{verbatim}
+	如果您想省掉 ./doit 這個 shell script, 可以這麼寫：
+\begin{verbatim}
+		find /path -type d -exec sh -c 'command $0/*' {} \;
+\end{verbatim}
+	(這種寫法可行的原因是~"sh -c 'command' A B C ..."指令當中，\$0會展開為
+	A, \$1會展開為B, 依此類推)
+
+	或者您也可以略施小計使用~sed 來造出您想執行的指令行：
+\begin{verbatim}
+		find /path -type d -print | sed 's:.*:command &/*:' | sh
+\end{verbatim}
+	如果您想減少~command 的執行次數，您可以先檢查看看系統中有沒有 
+	~xargs 這個指令,~xargs會從標準輸入一次讀取一行，並且把這些讀入的資料
+	合併至一個命令行內。您可以寫成以下命令行：
+\begin{verbatim}
+		find /path -print | xargs command
+\end{verbatim}
+	這樣會使以下指令執行一次或多次：
+\begin{verbatim}
+	        command file1 file2 file3 file4 dir1/file1 dir1/file2
+\end{verbatim}
+	很不幸地，這並不是完美無缺或者萬無一失的解法，輸入~xargs 的文字行
+	必須以換行字元結尾，所以當檔案名稱當中有奇怪的字元（如換行字元）時，
+	~xargs 就會因此而混淆。
+
+\subsection{我要如何改變一個~symbolic link 的~permission 呢？}
+
+	這個問題沒有意義，因為~symbolic link的~permission 根本不代表什麼。
+	那個~link 所指過去的檔案的~permission 才有意義。
+
+\subsection{我要如何~"undelete" 一個檔案？}
+
+	某年某月的某一天，要刪除~"*.foo" 卻一不小心打成了~"rm * .foo"，
+	結果發現竟把~"*" 都刪除了。真的是欲哭無淚啊！可是你也只好把這當成
+	是成長的代價了。
+
+	當然一個稱職的系統管理員應當會定期做備份。先問一問你的系統管理員看
+	你不小心刪除的檔案是不是有備份起來。如果沒有的話，嗯，繼續往下看吧！
+
+	不管你是不是真的要刪除一個檔案，當你下了~"rm" 以後，檔案就不見了。
+	在你~"rm" 一個檔案，系統就不再記得你的檔案是用了硬碟中的哪些~block 
+	了。更糟糕的是，當系統要用到更多的硬碟空間時，就優先取用這些剛放出
+	來的~block。不過天底下沒有不可能的事。理論上說，若你在下了~"rm" 後，
+	馬上把系統~shutdown，資料是就得回來的。不過，你得找一個對系統非常
+	熟悉且肯花費數小時至數天的時間來幫你做這件事的專家才行。
+	當你不小心~"rm" 了一個檔案後，第一個反應或許是為什麼不用一個~alias 
+	或在~sh 中的~function 將~"rm"  取代掉，當你下~"rm" 只把檔案搬到一個
+	垃圾桶之類的地方呢？那如果不小心殺錯檔案就可以挽救，只是要定期清一
+	清垃圾桶就好了。有兩個理由。第一，大多數的人不認為這是一個好的做法。
+	這麼做的話你會太依賴你的~"rm"，有一天到了一個正常的系統中把正常的 
+	~"rm" 當成你的~"rm" 來用，那可能會死得很慘。第二，你會發現你花費了
+	許多不必要的時間在處理垃圾桶裡的東西。所以對一個初學者而言呢，用 
+	~"rm" 的 ~-i選項應該就夠了。
+
+	如果你有大無畏的精神的話，那好吧，就給你個簡單的答案。寫一個名為 
+	~"can" 的指令，功用是將檔案移到垃圾桶裡。在~csh(1) 中，將以下的東西
+	放進~".login" 裡:
+\footnotesize
+\begin{verbatim}
+        alias can       'mv \!* ~/.trashcan'       # junk file(s) to trashcan
+        alias mtcan     'rm -f ~/.trashcan/*'      # irretrievably empty trash
+        if ( ! -d ~/.trashcan ) mkdir ~/.trashcan  # ensure trashcan exists
+\end{verbatim}
+\normalsize
+	如果你想要每次~logout 時都把垃圾桶清乾淨，那就把
+\begin{verbatim}
+        rm -f ~/.trashcan/*
+\end{verbatim}
+
+	進~".logout" 裡。若你用的是~sh 或是~ksh，那自己試試著寫寫看吧！
+
+	MIT 的雅典娜計畫作出了一套有 
+        ~delete/undelete/expunge/purge 的軟體。這套軟體可以完全取代~"rm" 
+	而又提供~undelete 的功能。這個軟體曾~post 在~comp.sources.misc
+	(volume 17, issue 023-025)。
+
+\subsection{一個~process 要怎樣偵測出自己是否在背景狀態執行?}
+
+	首先,您是否想知道您自己是在背景狀態下執行，或者在交談狀態下執行？如果
+	您只是想藉此決定是否該在終端機上印出提示符號之類的訊息，那麼更合適的做
+	法應該是檢查您的標準輸入是否為終端機:
+
+            sh: if [ -t 0 ]; then ... fi
+            C: if(isatty(0)) { ... }
+
+	一般來說，您無法得知自己是否在背景狀態下執行。問題的根本在於不同的~shell 
+	與不同的~UNIX 版本對於「前景」與「背景」的定義可能有所不同。而且在最
+	常見的系統上，前景與背景都有較好的定義，程式甚至可以在背景與前景之間任
+	意切換！
+
+	在沒有~job control 的~UNIX系統上，若要把~process 放入背景狀態通常是把 
+	~SIGINT 與~SIGQUIT 忽略掉，並且把標準輸入轉為~"/dev/null"，這是由
+	~shell處理的。
+
+	在具有 job control 功能的 UNIX 系統，若shell支援 job control 功能，那麼shell
+	只要把 process group ID 設成跟 terminal 所屬的 PGID 不同即可把 process 切
+	換至背景狀態；如果要把 process 切回前景狀態，只要把此 process 的 PGID 設
+	成跟目前 terminal 所屬的 PGID 即可。如果 shell 不支援 job control 功能，則
+	不管UNIX 系統是否支援 job control 的功能，shell 對 process 的處理動作都
+	是一樣的（也就是忽略SIGINT 與 SIGQUIT，並且把標準輸入轉為"/dev/null"）。
+
+\subsection{為什麼在~Bourne shell 當中，對迴圈的輸出入轉向無法達到預期的效果？}
+
+	舉個例子來說好了：
+\begin{verbatim}
+		foo=bar
+		while read line
+		do
+		# do something with $line
+		    foo=bletch
+		done < /etc/passwd
+
+		echo "foo is now: $foo"
+\end{verbatim}
+	儘管~"foo=bletch" 已經設定了~foo 的值，然而在多種系統的~Bourne shell 
+        上執行此~script 的時候仍會印出~"foo is now: bar"。為什麼呢？因為一些
+        歷史因素，在~Bourne shell 當中，一個控制結構（如一個迴圈，或者一個 
+        ~"if" 敘述）的重導向會造出一個新的~subshell，所以啦，在此 subshell 內
+        所設定的變數當然不會影響目前~shell 的變數。
+
+	POSIX 1003.2 Shell and Tools Interface 的標準委員會已防止上述的問題，
+        也就是上述的例子在遵循~P1003.2 標準的~Bourne shells當中會印出 
+        "foo is now: bletch"。
+
+	在一些較古老的 (以及遵循~P1003.2 標準的)~Bourne shell 當中，您可以使
+        用以下技巧來避免重轉向的問題：
+\begin{verbatim}
+		foo=bar
+		# make file descriptor 9 a duplicate of file descriptor 0 stdin);
+		# then connect stdin to /etc/passwd; the original stdin is now
+		# `remembered' in file descriptor 9; see dup(2) and sh(1)
+		exec 9<&0 < /etc/passwd
+
+		while read line
+		do
+		# do something with $line
+		    foo=bletch
+		done
+
+		# make stdin a duplicate of file descriptor 9, i.e. reconnect
+		# it to the original stdin; then close file descriptor 9
+		exec 0<&9 9<&-
+		echo "foo is now: $foo"
+\end{verbatim}
+	這樣子不管在哪種~Bourne shell 應該都會印出~"foo is now: bletch"。
+	接下來，看看以下這個例子：
+\begin{verbatim}
+	        foo=bar
+
+	        echo bletch | read foo
+
+	        echo "foo is now: $foo"
+\end{verbatim}
+	這個例子在許多~Bourne shell 內都會印出 "foo is now: bar"，有些則會
+        印出~"foo is now: bletch"。為什麼呢？一般說來，一個~pipeline 裡面
+        的每一個部份都是在一個~subshell 中執行。但是有些系統的裡~pipeline 
+        的最後一個如果是如~"read" 這類的內建指令，並不會另外造出一個 
+        ~subshell。
+
+	~POSIX 1003.2~對這兩種作法並沒有硬性規定要用哪一種。所以如果想寫
+	一個~portable~的~shell script~不應該依賴這兩種作法其中的一種。
+
+\subsection{我要怎麼在一個~shell script 中或在背景執行
+	~'ftp' 'telnet' 'tip' 等 ~interactive 的程式呢？}
+
+	這些程式需要一個 terminal interface。這是shell 所無法提供的。所以這些
+	無法在 shell script 裡自動執行這些程式。
+
+	有一隻叫做~'expect' 的程式，可以用來做這件事，因為它提供了 
+        ~programmable terminal interface。底下的例子是用~'expect' 來幫你~login：
+\begin{verbatim}
+	        # username is passed as 1st arg, password as 2nd
+	        set password [index $argv 2]
+	        spawn passwd [index $argv 1]
+	        expect "*password:"
+	        send "$password\r"
+	        expect "*password:"
+	        send "$password\r"
+	        expect eof
+\end{verbatim}
+
+	expect 為 telnet, rlogin,debugger 和一些沒有內建 command language 的
+        程式提供了一個近乎自動化的方法。Expect 裡面的有一用以在玩 rogue 
+	(一個 Unix 中的古老遊戲）時取得較佳初始情況，然後將控制權還回給使用者
+	的例子。用這個 script 你就能得到『成功的一半』。
+
+	再者，有一些已經寫好的程式可以幫你這類與 pseudo-tty 有關的東西，所
+	以你只要在 script 中執行這些程式就可以幫你處理這些東西。
+
+	有兩個方法可以取得 'expect':
+	1.送一封 email 給~library@cme.nist.gov 內容就寫~"send 
+	  pub/expect/expect.shar.Z"
+	2. \url{ftp://ftp.cme.nist.gov/pub/expect/expect.shar.Z}
+
+	另一個做法是用一隻叫 pty 4.0 曾貼在 comp.sources.unix volume25 的東
+	西。這個程式會提供一個 pseudo-tty session 給需要 tty 的程式用。若使
+	用 named pipe 配合 pty 4.0 來做上例，則看起來可能如下：
+\begin{verbatim}
+ 	       #!/bin/sh
+	        /etc/mknod out.$$ p; exec 2>&1
+	        ( exec 4<out.$$; rm -f out.$$
+	        <&4 waitfor 'password:'
+	            echo "$2"
+	        <&4 waitfor 'password:'
+	            echo "$2"
+	        <&4 cat >/dev/null
+	        ) | ( pty passwd "$1" >out.$$ )
+\end{verbatim}
+
+	上面的 'waitfor' 是簡單的 C 程式，功用為等到 input 有與所等待的字串
+	相同時再往下做。
+
+	下面是一個更簡單的做法，不過缺點是與 'passwd' 程式的互動可能無法同
+	步。
+\small
+\begin{verbatim}
+	        #!/bin/sh
+	        ( sleep 5; echo "$2"; sleep 5; echo "$2") | pty passwd "$1"
+\end{verbatim}
+\normalsize
+
+\subsection{在~shell script 或~C 程式當中，要怎樣才能找到某個程式的~process ID 
+        呢？}
+
+	在~shell script 當中:
+
+	沒有現成的程式可以用來查詢程式名稱與 process ID 之間的對應。此外，
+	如果有對應的話，通常也都不太可信，因為可能會有多個 process 執行同一
+	個名稱的程式，而且 process 在啟動之後仍可修改自己的名稱。然而，如果
+	您真的想要得知執行某個特定程式的所有 process, 可以利用以下命令行達
+	成：
+\begin{verbatim}
+		ps ux | awk '/name/ && !/awk/ {print $2}'
+\end{verbatim}
+	您可以把~"name" 換成您想尋找的程式名稱。
+
+	這個命令行的基本觀念是分析 ps 程式的輸出，然後用 awk或grep等公用
+	程式來搜尋具有特定名稱的文字行，然後把這些文字行當中的 PID 欄位印
+	出來。值得注意的是此例的命令行用了 "!/awk/" 以避免 awk 的 process 
+	也被列出來。
+
+	您可能要根據您所用的 Unix 種類來調整 ps 所用的參數。
+
+	在 C 語言程式裡面：
+
+	在 C 的程式庫裡面一樣沒有（具有可攜性）的函數可以找出程式名稱與 
+	process IDs。
+
+	然而有些廠商提供函數讓您能讀取 Kernel 的記憶體，例如 Sun 提供了 
+	kvm\_ 開頭的函數，Data General 則提供了 dg\_ 開頭的函數。如果您的系
+	統管理員未限定 Kernel 記憶體的讀取權力的話（一般只有 super user 或 
+	kmem 群組裡的人員才能讀取 Kernel 記憶體），一般使用者也可以利用這
+	些特殊函數來達到目的。然而，這些函數通常沒有正式的文件說明，就算有
+	的話也都寫得艱深難懂，甚至會隨著系統版本的更新而改變。
+
+	有些廠商會提供 /proc 檔案系統，此檔案系統存在的方式為一個內含多個檔
+	案的目錄。每個檔名都是一個數字，對應於 process ID，您可以開啟這個檔
+	案並且讀取關於這個 process 的資訊。再次提醒一下，有時候您會因為存取
+	權限的限制而無法使用這些功能，而且使用這些功能的方式也隨著系統而
+	變。
+
+	如果您的廠商並沒有提供特殊的程式庫或者 /proc 來處理這些事，但是您又
+	想要在 C 裡面完成這些功能，那麼您可能要自己在Kernel 記憶體當中費心
+	搜尋。如果您想看看這些功能在某些系統上是怎麼做到的，可以參考 ofiles 
+	的原始程式，您可以從 comp.source.sources.unix 的歷年歸檔文章當中取
+	得。（有一個稱為 kstuff 的套裝程式曾經在 1991 年五月發表於 
+	alt.sources，它可以幫您在 kernel 當中搜尋有用的資訊，您可以到 
+	wuarchive.wustl.edu 利用匿名 ftp 取回 
+	usenet/alt.sources/articles/{329{6,7,8,9},330{0,1}}.Z。）
+
+------------------------------
+
+Subject: How do I check the exit status of a remote command executed via "rsh"?
+Date: Thu Mar 18 17:16:55 EST 1993
+
+\subsection{我要怎樣經由~rsh 執行遠方指令時，檢查遠方指令的結束狀態？}
+
+	以下指令行是行不通的：
+
+	        rsh some-machine some-crummy-command || echo "Command failed"
+
+	如果 rsh 程式本身能成功地執行，那麼 rsh 程式的結束狀態就是 0，但這
+	也許不是您真正想要的結果。
+	如果您想檢查遠方程式的執行狀態，您可以試試 Maarten Litmaath 於 1994
+	年十月在 alt.sources發表的 "ersh" script，ersh 是一個呼叫 rsh 的 shell 
+	script，它會安排遠方的機器回應遠方指令的結束狀態，並傳回此結束狀態。
+
+\subsection{能不能把~shell 變數傳進~awk 程式當中呢？}
+
+	這個問題有兩個可行的方法，第一個方法只是把程式當中需要用到此變數的
+	地方直接展開，例如要得知您目前使用哪些 tty，可以使用：
+\footnotesize
+\begin{verbatim}
+        who | awk '/^'"$USER"'/ { print $2 }'                           (1)
+\end{verbatim}
+\normalsize
+	awk 程式的程式通常會用單引號括起來，因為~awk 程式裡面經常會用到 \$ 
+	字元，如果使用雙引號的話，shell 本身會解釋這個字元。所以啦，在這種
+	特殊情形下，我們想要~shell 解釋~\$USER 當中的~\$ 字元時，就必需先用
+	單引號把前半段的句子暫時括起來，然後用雙引號把~\$USER 括起來，再用
+	單引號把隨後的句子括起來。請注意，雙引號在某些狀況下可以略去不寫，
+	也就是說，可以寫成：
+\footnotesize
+\begin{verbatim}
+        who | awk '/^'$USER'/ { print $2 }'                             (2)
+\end{verbatim}
+\normalsize
+	然而，如果 shell 變數的內容含有特殊字元或空白字元時，就不適用了。
+
+	第二種把變數的設定傳進 awk 的方式是利用 awk 當中一個無文件說明的
+	功能，它允許您從命令列透過「假造的檔案名稱」來設定變數，例如：
+\footnotesize
+\begin{verbatim}
+        who | awk '$1 == user { print $2 }' user="$USER" -              (3)
+\end{verbatim}
+\normalsize
+	由於命令行中的變數設定是在 awk 真正處理到的時候才會生效，因此您可
+	以利用這種技巧讓 awk 在遇到不同檔名的時候做不同的動作。例如：
+
+\footnotesize
+\begin{verbatim}
+        awk '{ program that depends on s }' s=1 file1 s=0 file2         (4)
+\end{verbatim}
+\normalsize
+
+	請注意有些 awk 的版本會在 BEGIN 區塊執行之前，就讓真實檔案名稱之
+	前所敘述的變數設定生效，但有些不會，所以您不可以依賴其中一種。
+
+	再進一步提醒，當您指定變數的設定時，如果沒有指定真實的檔案名稱，
+	awk 將不會自動從標準輸入讀取，所以您要在命令之後加上一個 - 參數，
+	就跟 (3) 的指令行內容一樣。
+
+	第三種做法是使用較新版的awk (nawk)，您可以在 nawk 當中直接取用環
+	境變數。例如：
+\footnotesize
+\begin{verbatim}
+        nawk 'END { print "Your path variable is " ENVIRON["PATH"] }' /dev/null
+\end{verbatim}
+\normalsize
+
+\subsection{要怎樣才能避免在記憶體中留下~zombie processes？}
+
+	很不幸地，對於死掉的子~process 應有的行為特性並沒有辦法做一般化，因
+	為這些特定的機制會隨著~Unix 的種類不同而有所差異。      
+
+	首先，在各種~Unix 上面您都必需使用~wait() 來處理子~process。也就是
+	說，我還沒看過有一種~Unix 會自動把結束的子~process 幹掉，即使您不告
+	訴它該怎麼做。
+
+	其次，在某些從~SysV 衍生的系統當中，如果您執行了~signal(SIGCHLD, 
+	SIG\_IGN)"，（嗯，事實上應該是~SIGCLD 而非~SIGCHLD，但大多數新出
+	爐的~SysV 系統都會在表頭檔當中加上 \#define SIGCHLD SIGCLD），那
+	麼子~processes 都會自動被清除得乾乾淨淨，您什麼事都不用做。看看這個
+	方式是否可行的最佳做法就是自己在機器上試試看。如果您想試著寫出具可
+	攜性的程式碼，那麼依賴這種特殊處理方式可能不是好主意。不幸的是，在 
+	POSIX 並不允許您這樣做；把~SIGCHLD 的行為特性設成~SIG\_IGN 在~POSIX 
+        當中並沒有定義，所以如果要讓您的程式合乎~POSIX 的要求時，就不可以
+        這樣做。
+
+	那麼怎樣才算是 POSIX 的做法呢？如同前面所述，您必需設定一個 signal 
+	的處理函數，然後讓它去 wait。在 POSIX 當中 signal 處理函數是經由 
+	sigaction 設定，由於您只對終止的子 process 感興趣，而不是那些 stopped 
+	的子 process，所以可以在 sa\_flags 當中加上 SA\_NOCLDSTOP。如果要 
+	wait 子 process 而本身不因此被擋 (block)，可以使用 waitpid()。第一
+        個參數必需是 -1 (代表 wait 任何 pid)，第三個參數必需是 WNOHANG，這是
+	最具可攜性的做法，也是可能會成為未來最具可攜性的寫法。
+
+	如果您的系統不支援~POSIX，那就有很多做法了。最簡單的方式就是先試
+	試~signal(SIGCHLD, SIG\_IGN) 是否可行，可以的話那就好了。如果 
+	~SIG\_IGN 無法用來強制自動收拾殘骸，那麼您就要自己寫一個~signal 處理
+	函數來收拾殘骸了。要寫出一個適用於每一種~Unix 的~singal 處理函數來
+	做這件事是不容易的事，因為有下列不一致的地方：
+
+	在一些~Unix 中，一個或一個以上的子~process 死時，會呼叫~SIGCHLD 的 
+	~signal 處理函數。也就是說，如果你的~signal 處理函數只有一個~wait() 
+        時，並不會把所有的子~process 都收拾乾淨。不過還好，我相信這類的 
+        ~Unix 都會有~wait3() 或~waitpid()，這兩者都有可在~option 參數中使用
+        ~WNOHNAG 可用來檢查是否有子~process 尚待收拾。所以在一個有 
+        ~wait3()/waitpid() 的系統中，你可以一再重複使用~wait3()/waitpid() 
+        以確定所有的子~process 都已收拾乾淨。最好是用~waitpid() 因為
+        它在~POSIX 標準中。
+
+	在一些 SysV-derived 的系統中，再 SIGCHLD 的 signal 處理函數結束後， 
+	若還有子 process 等待清除，還是會產生 SIGCHLD signal。 因此，在大部
+	份的 SysV 系統中，在 signal 處理函數裡可以假設要處理的 signal 只有一
+	個， 反正若還有等待處理者，signal 會一再的產生，系統也會一再的呼叫 
+	signal 處理函數。
+
+	在一些比較舊的系統中，無法防止 signal 處理函數在被呼叫後 signal 處理
+	函數被自動設為 SIG\_DFL。在這類的系統中，要在你的signal 處理函數中
+	的最後加入 "signal(SIGCHLD,catcher\_func)"("catcher\_func" 是處理函數的
+	名字）。
+
+	還好新一點的系統中在 signal 處理函數被呼叫後並不會從設為 
+	SIG\_DFL。所以在沒有 wait3()/waitpid() 而有 SIGCLD 的系統中，要處理
+	此問題，當在處理函數呼叫了一次 wait() 以後就得用 signal() 從新設定 
+	signal 處理函數。為了向前相容之故， System V 的 signal() 維與以前相同
+	的作法。所以，應該要用 sigaction() 或 sigset() 來安裝 signal 處理函數。
+
+	總結來說，在有 waitpid()(POSIX) 或wait3() 的系統了，你應該要用它們而
+	你的 signal 處理函數裡也要 loop，在沒有 waitpid() 與 wait3() 的系統
+	中，則每次呼叫 signal 處理函數都要有 wait()。
+
+	最後提供一個~portable 但是效率較差的做法。這個方法是~parent process 在 
+        ~fork() 後要~wait() 它的~child process 的結束。而此~child process 
+	馬上又 ~fork()，這時你就有一~child process與一~grandchild process。
+	將此 ~child process 馬上結束，則 ~parent process 也會跟著結束。
+	讓 ~grandchild 來做原先要 ~child 做的事情。此時 ~grandchild 的因為其
+	~parent (child) 已死，~parent 就變成了~init，~init 就會幫你處理 ~wait() 相關事宜。這個方
+        法多用了一個~fork() 所以比較沒有效率，但這絕對是個~portable 的方法。 
+
+\subsection{當我要從~pipe 讀一行輸入時，要如何才能讓這行資料像是直接從鍵盤輸
+      入而非從一個大~block buffer 來的？}
+
+	stdio 這個~library 會自己判斷它是否是在~tty 下執行，並藉以決定採用何種 
+	~buffering 方式。如果它認為是在~tty 模式下，那麼它就會以一次一行來做 
+	~buffering；反之，則用一個較大的~buffer 而非一行一行的做。
+
+	如果你能拿到你所想要取消 buffering 的軟體的原始程式，那麼你就可以用 
+	setbuf() 或 setvbuf() 來改變 buffering 的方式。
+
+	如果你無法拿到原始程式，那麼你就只能試著去說服這個正在 pty 下執行
+	的程式，讓它以為它是在 tty 下執行。例如，用先前在問題 3.9 中所提過
+	的 pty 程式。
+
+\subsection{我要如何在檔案名字中加入日期？}
+
+	這其實並不難，但是看起來有一點神秘。我們就從 date 這個命令開始說
+	起：date 能接收一個格式字串，並根據此字串來決定它的輸出是什麼。這
+	個格式字串必需用單引號括起來，以避免 shell 自己去解釋這個字串。
+	試試以下這個命令：
+
+		date '+%d%m%y'
+
+	你應該會得到類似 130994 的結果。如果你還想把它加上標點符號，你只要
+	直接把這些字元加入格式字串中就行了（不要用斜線 '/'）：
+
+		date '+%d.%m.%y'
+
+	在這個格式字串中還有很多 token 可供使用：建議讀 date 的 man page 就
+	可以找到有關的說明。
+
+	現在，就可以把上述 date 命令的結果放到檔名裡去了。譬如，要造一個名
+	為 report.130994（反正就是代表今天日期的意思）的檔案：
+
+		FILENAME=report.`date '+%d%m%y'`
+
+	注意一點，這裡一共用了兩組引號：裡面的引號是為了避免格式字串被 shell 
+	用去做其他解釋；外面那組引號則是用來告訴 shell 包起來的部份要去執
+	行，並把執行的輸出代換到這整行命令中（command substitution）。
+
+\subsection{為什麼有一些~script 是用 \#! ... 做為檔案的開端?}
+
+	我想有些人可能會把兩種以 '\#' 這個字元開始的機制搞混了。這兩種機制
+	用來解決不同情況下的同一問題。
+
+	背景知識：當 UNIX 的 kernel 開始要執行一隻程式(使用 exec() 中的任一
+	個），會先偷看檔案開頭的 16 個 bit。這 16 個 bit 稱為 'magic number'。
+	Magic number 有幾個重要的功能。首先，kernel 再執行一個檔案之前會先
+	看看它的 magic number，如果 kernel 不認得那個 magic number，就不會
+	去執行之並且會 return 回 ENOEXEC。
+
+	再者，隨著時代進步，~magic number 不只可以用來辨別是否為執行檔，更
+	可以用來辨別該如何執行此檔。舉例來說，假如你在~SCO XENIX/386 上 
+	~compile 了一個程式，然後將這個程式拿到~SysV/386 UNIX 上去執行， 
+	SysV/386 UNIX 的 kernel 會認得它的~magic number，說「啊哈！這是一個 
+	~x.out 格式的可執行檔」，然後會設定自己去使用~XENIX 相容的~system 
+	call。
+
+	既然 kernel 只能執行 binary executable image。你或許會問，那 script 
+        又是怎麼執行的呢？當我在 shell prompt 下打 'my.script' 並不會得到 
+	ENOEXEC啊！這是因為 script 的執行是由 shell 做的而非由 kernel 來做
+	的。在 shell 中執行程式的部份可能是長得這個樣子：
+\begin{verbatim}
+	        /* try to run the program */
+	        execl(program, basename(program), (char *)0);
+
+	        /* the exec failed -- maybe it is a shell script? */
+	        if (errno == ENOEXEC)
+	            execl ("/bin/sh", "sh", "-c", program, (char *)0);
+
+	        /* oh no mr bill!! */
+	        perror(program);
+	        return -1;
+
+	            (This example is highly simplified.  There is a lot
+	            more involved, but this illustrates the point I'm
+	            trying to make.)
+\end{verbatim}
+	在上例中，若第一個 execl() 成功的話，那在 execl() 底下的的部份就不必
+	看了，因為 execl() 執行後就不再回頭了。
+
+	假如第一個 execl() 失敗的話，那就表示這不是一個 binary executable，
+	shell 會試著把它當成 shell script 來執行。
+
+	在柏克萊的人們對於如何擴充 kernel 執行程式的能力想到的了一個非常棒
+	的法子。他們讓 kernel 認得 '\#!' 這個 magic number。（兩個 8-bit 的字元
+	構成一個 16 bits 的 magic numbre。)如果一個檔案是以 '\#!' 開始的，則 
+	kernel 會把第一行其它的內容當成要用來執行此檔案內容的命令。有了這個
+	處理後，我們就有了如下的作法：
+\begin{verbatim}
+	        #! /bin/sh
+
+	        #! /bin/csh
+
+	        #! /bin/awk -F:
+\end{verbatim}
+	這種處理只有存在於 Berkeley 系統，USG 系統的是直到 SVR4 才把這種
+	作法加入 kernel 中。所以若你用 System V 在 R4 之前的版本，除非廠商
+	有做修改，否則就只能執行 binary executable image。
+
+	講到這裡讓我們先把時光倒流，回到 USG based UNIX 還沒有 csh 的年
+	代。因為，有愈來愈多的的使用者說：「作為一個 interactive user 
+        interface 而言 sh 真的是一個失敗之作，我要用 csh 啦！」所以呢，有許
+        多的廠商就把 csh 與其 magic number 加入他們的產品中。
+
+	這種做法造成了一個問題。這麼說吧，你把 login shell 換成了 /bin/csh。
+        更進一步的假設你是個堅持要寫 csh script 的白癡笨蛋。你當然會希望只要
+        打 'my.script' 就能執行一個 csh script。而且希望不必經過 /bin/sh 而是
+        經由如下的作法執行：
+\begin{verbatim}
+	        execl ("/bin/csh", "csh", "-c", "my.script", (char *)0);
+\end{verbatim}
+
+	但是如過這麼做的話會有大麻煩的。想想原先系統裡還有不少 sh 的 shell 
+	sript，一旦用 csh 來執行這些 sript，那是必死無疑。所以得有一個可以有
+	時候用 csh，有時候用 sh 來執行 script 的方法。
+
+	當時想到的作法是讓 csh 去檢查要執行的~script 的第一個字元。假若這個
+	字元是~'\#' 那~csh 會用~/bin/csh 去執行這個~script，否則就用~/bin/sh 
+        去執行這個~script。上述的作法可能長得像這個樣子：
+\small
+\begin{verbatim}
+	        /* try to run the program */
+	        execl(program, basename(program), (char *)0);
+
+	        /* the exec failed -- maybe it is a shell script? */
+	        if (errno == ENOEXEC && (fp = fopen(program, "r")) != NULL) {
+        	    i = getc(fp);
+	            (void) fclose(fp);
+	            if (i == '#')
+	                execl ("/bin/csh", "csh", "-c", program, (char *)0);
+	            else
+        	        execl ("/bin/sh", "sh", "-c", program, (char *)0);
+	        }
+
+	        /* oh no mr bill!! */
+	        perror(program);
+	        return -1;
+\end{verbatim}
+\normalsize
+	有兩點要注意的是。第一，這是由~'csh' 動手腳，沒有動到~kernel 也沒有
+	改到別的~shell。所以如果要~execl(）一個~script，不管它是不是以~'\#' 開
+	始，你都會得到的~return value 都會是ENOEXEC。假如你從~csh 以外的 
+	~shell （如~/bin/sh ) 的~script，執行這個~script 的還是~sh 而非~csh。
+
+	第二，這個做法只判斷第一個字元是否為 '\#'，所以只要不是 '\#' 其他不管
+	是啥東西都送給~sh 去處理。底下是幾個例子：
+\begin{verbatim}
+	        :
+
+	        : /bin/sh
+
+	                        <--- a blank line
+
+	        : /usr/games/rogue
+
+	        echo "Gee...I wonder what shell I am running under???"
+\end{verbatim}
+
+	同裡只要是以 '\#' 為開端的 script，如下：
+\begin{verbatim}
+	        #
+
+	        # /bin/csh
+
+	        #! /bin/csh
+
+	        #! /bin/sh
+
+	        # Gee...I wonder what shell I am running under???
+\end{verbatim}
+	如果是在~csh 裡執行之，則會用~/bin/csh 來執行。
+
+	(註解:如果你用的~ksh，那把上述的~'sh' 換成~'ksh' 即可。因為，
+	理論上來說~Korn shell 應該是與~Bourne shell 相容的。如果你用的
+	是~zsh, bash 等其它的~shell，那自己看著辦吧。）
+
+	如果你的~kernel 有支援~'\#!' 那~'\#' 顯然就是多餘的做法。而且，還會造成
+	混淆，譬如當你用~'\#! /bin/sh' 應該要怎麼辦呢？
+
+	還好，'\#!' 日漸盛行。System V Release 4 已經將其加入。而有一些~System 
+	V Release 3.2 的廠商，也正把~V.4 中這類比較顯而易見的特性加入產品中，
+	並且嘗試著說服你說這些特性就夠了，你並不需要其他如一個真正 streams 
+	或是動態調節~kernel 參數這類的東西。
+
+	XENIX 並不支援 '\#!'。不過~XENIX 的~/bin/csh 有支援~'\#' 的作法。 如
+	果~XENIX 支援~'\#!' 當然不錯，可是我對此不抱任何希望。
+
+
+\section{自以為已經知道所有答案的人可能會問的高級問題}
+\subsection{要如何在使用者不必按~RETURN 的情況下從~terminal 讀進東西？}
+
+	在~BSD 中用~cbreak 模式，在~SysV 中則用~~ICANON 模式。
+
+	如果你懶得用~"ioctl(2)" 來設定~terminal 的參數，也可以用~stty 來做，
+        不過有點慢又沒有效率就是了。底下的程式自己看著辦吧：
+\small
+\begin{verbatim}
+	      #include <stdio.h>
+	      main()
+	      {
+        	    int c;
+
+	            printf("Hit any character to continue\n");
+        	    /*
+	             * ioctl() would be better here; only lazy
+        	     * programmers do it this way:
+	             */
+        	    system("/bin/stty cbreak");        /* or "stty raw" */
+	            c = getchar();
+	            system("/bin/stty -cbreak");
+	            printf("Thank you for typing %c.\n", c);
+
+	            exit(0);
+	      }
+\end{verbatim}
+\normalsize
+	有好幾個人送給我更正確的解法。不過很抱歉我不想把它們加進去，因為這已經
+	超出這份文件的範圍了。
+
+	通常對這個問題有興趣的人，都是想要做一些控制螢幕顯示之類的事情。如果你
+	也是的話，那請參考~"curses" 的相關文件。~"curses" 是一個~portable 的螢
+        幕控制函數庫。
+
+\subsection{我要如何在未曾真的讀進東西的情況下檢查是否有字元等待讀取？}
+
+	某些版本的~UNIX 提供了檢查某個~file descriptor 目前是否有東西待讀取的
+        方法。在~BSD 中，可以用~"select(2)，也可以用~FIONREAD ioctl，檢查有幾
+        個字元等待讀取，不過這只對~terminal, pipe, 與~socket 有用。在~System 
+        V Release 3 中可以用~poll(2)，不過只對~stream 有用。在~Xenix 與~Sys V 
+        r3.2 及其以後的版本裡，有一個名叫~rdchk() 的~system call 可以用來檢查
+        對一個~file descriptor 做~read() 會不會卡住。
+
+	沒有方法可以用來判斷是否有字元在~FILE pointer 中待讀取。(你可以直接查
+	看~stdio 的資料結構，看看是否~input buffer 是空的，但是這方法有時會失
+        效，因為你沒有辦法知道當你下一次要填滿這個~buffer 時會發生什麼事。)
+
+	有時人們問這個問題是因為想寫
+\begin{verbatim}
+		if (characters available from fd)
+                    read(fd, buf, sizeof buf);
+\end{verbatim}
+	以達成~nonblocking read。這不是一種好的做法，因為可能測的時候有東西，
+        要讀的時候，已經沒有東西可讀了。正確的做法應該是用~fcntl(2) 裡的 
+       ~F\_SETFL 設定~O\_NDELAY。在一些比較舊的系統~(例如: Version 7, 4.1 BSD)
+	裡，並沒有 ~O\_NDELAY 可用，就得用~alarm(2) 來設定~read 的~timeout，以達成近似 
+       ~nonblocking read 的功能。
+
+\subsection{要怎樣才能得知一個已~open 檔案之檔名？}
+
+	這個是非常困難的。若是這個~file descriptor 是對應到~pipe 或~pty 就沒
+        有名字了。這個~file descriptor 對應的檔案也有可能已被刪除。若是有 
+        ~symbolic link 或~hard link，則可能有許多個名字。
+ 
+	如果你經過一再考慮後別無選擇一定要這麼做的話，可以用~find 的~-inum 與 
+	~-xdev 選項，或用~ncheck，或用自己寫類似的程式來做。在這麼做時要耐心的
+	等，因為在一個幾百~megabyte 甚至幾~gigabyte 的~file system中找一個檔
+        案，一定得花不少時間。
+
+\subsection{一個執行中的程式如何知道自己的~pathname?}
+
+	若果~argv[0] 是以~"/" 開始的字，它可能就是你的程式所在地的絕對路徑。
+        如果不是那就得照順序檢查~PATH 裡的每一個目錄看看裡面是否有與~argv[0]
+        一樣的程式。如果找得到的話將那個目錄與程式名稱兜起來可能就是你要的
+	~pathname 了。
+
+	不過，用上述方法找到的名字並不一定是對的，因為在程式中用到
+	~exec() 時， 
+        ~argv[0] 是可以隨便給的。將~argv[0] 設為與要執行的程式名稱相同只
+	是一種慣用法罷了！
+
+	以下的例子可能會使你更清楚些：
+\small
+\begin{verbatim} 
+	        #include <stdio.h>
+        	main()
+	        {
+        	    execl("/usr/games/rogue", "vi Thesis", (char *)NULL);
+	        }
+\end{verbatim} 
+\normalsize
+	這個被執行的程式就會認為它的名字(argv[0] 之值)是 "vi Thesis"）。
+
+\subsection{如何用~popen() 對一個~process 做讀寫的動作？}
+
+	用~pipe 把一個~process 的輸出、輸入轉給任意的~process 所可能會發生的
+        問題就是~deadlock，譬如這兩個~processes 剛好同時都在等待「尚未產生」
+        的輸入時。唯一能避免~deadlock 的方法就是在~pipe 的兩端都要遵循嚴格的
+	~deadlock-free 協定，但是需要這些~processes 之間的互相合作才能達成，
+        而對於像~popen() 這類的函數來說並不太適合。
+
+	在~'expect' 這個軟體中附有一個能夠讓~C 程式直接引用的函式庫。其中有
+        一個函式不管是在讀或寫都能達到和~popen 相同的功能。但是這個函式是使
+        用~ptys 而不是~pipes，也沒有~deadlock 的問題，並且在~BSD 或~SV 中都
+        能使用。若想對~'expect' 有進一步的瞭解，可參考下一個問題的解答。
+
+\subsection{在~C 程式中要怎麼用~sleep() 才能夠~sleep 小於一秒？}
+
+	首先要注意的是，你只能指定~delay 的「最短」時間；實際上會~delay 多久和
+	系統的~scheduling 方式有關，例如系統當時的負載。如果你倒楣的話，它還可
+	能會~delay 蠻長的時間。
+
+	並沒有一個標準函式能夠在「小睡」（很短的~sleep）期間提供你計數的功能。
+	某些系統有提供~usleep(n) 的函式，它能夠暫停執行 n 微秒~(microsecond)
+        的時間。如果你所使用的系統沒有提供~usleep() 函式，那麼以下有可在~BSD，
+	~System V 使用中的作法。
+
+	接下來的這段程式碼是~Doug Gwyn 在~System V 中模擬~4BSD 並利用~4BSD 
+	中的~select() 系統呼叫。Doung 自己都叫它為~'nap()' ；你也可以把它叫做 
+	~"usleep()"；
+\footnotesize
+\begin{verbatim}
+	/*
+            usleep -- support routine for 4.2BSD system call emulations
+            last edit:  29-Oct-1984     D A Gwyn
+	*/
+
+      extern int        select();
+
+      int
+      usleep( usec )                            /* returns 0 if ok, else -1 */
+       	    long                usec;           /* delay in microseconds */
+            {
+       	    static struct                       /* `timeval' */
+               	    {
+                    long        tv_sec;         /* seconds */
+       	            long        tv_usec;        /* microsecs */
+               	    }   delay;          /* _select() timeout */
+
+            delay.tv_sec = usec / 1000000L;
+       	    delay.tv_usec = usec % 1000000L;
+
+            return select( 0, (long *)0, (long *)0, (long *)0, &delay );
+       	    }
+
+      On System V you might do it this way:
+
+      /*
+      subseconds sleeps for System V - or anything that has poll()
+      Don Libes, 4/1/1991
+
+      The BSD analog to this function is defined in terms of
+      microseconds while poll() is defined in terms of milliseconds.
+      For compatibility, this function provides accuracy "over the long
+      run" by truncating actual requests to milliseconds and
+      accumulating microseconds across calls with the idea that you are
+      probably calling it in a tight loop, and that over the long run,
+      the error will even out.
+
+      If you aren't calling it in a tight loop, then you almost
+      certainly aren't making microsecond-resolution requests anyway,
+      in which case you don't care about microseconds.  And if you did,
+      you wouldn't be using UNIX anyway because random system
+      indigestion (i.e., scheduling) can make mincemeat out of any
+      timing code.
+
+      Returns 0 if successful timeout, -1 if unsuccessful.
+
+      */
+
+      #include <poll.h>
+
+      int
+      usleep(usec)
+      unsigned int usec;                /* microseconds */
+      {
+            static subtotal = 0;        /* microseconds */
+            int msec;                   /* milliseconds */
+
+            /* 'foo' is only here because some versions of 5.3 have
+             * a bug where the first argument to poll() is checked
+             * for a valid memory address even if the second argument is 0.
+             */
+            struct pollfd foo;
+
+            subtotal += usec;
+            /* if less then 1 msec request, do nothing but remember it */
+            if (subtotal < 1000) return(0);
+            msec = subtotal/1000;
+            subtotal = subtotal%1000;
+            return poll(&foo,(unsigned long)0,msec);
+      }
+\end{verbatim}
+\normalsize
+	在~System V 或其他 非-BSD 的~Unix 中要使用這類的「小睡」程式，可以用 
+       ~Jon Zeeff 發表在~comp.sources.misc, volume 4 中的~s5nap， 它需要安裝
+	一個驅動程式，但是裝好後就可以跑得很好。（它的精確度會受到~kernel 中 
+	~HZ 這個變數的影響，因為它是用到了~kernel 中的~delay() 函式。）
+
+	現在很多較新版本的~Unix 都有提供這類的「小睡」功能了。
+
+\subsection{如何讓~setuid 的~shell script 可以使用？}
+
+	[ 這個問題的回答很長，但是這是一個複雜又常問的問題。在此要謝謝~Maarten 
+	Litmaath 所提供的答案和以下所提到的~"indir" 程式。]
+
+	先假設你所用的~UNIX 是能認得「可執行的~shell script」的變異過的~UNIX
+       （如 4.3BSD 或 SunOS）。這類~script 的第一行一定是如以下一般：
+\begin{verbatim}
+		#!/bin/sh
+\end{verbatim}
+	這樣的~script 就是所謂可執行的~script，因為它和一般可執行的~binary 檔
+        一樣有~magic number 做開頭。在我們所用的例子中，~magic number 為 
+        '\#!'，~OS 會把這行接下來的部份當作這整個~script 的解譯程式，其後可能還
+        會有一些~option 如：
+\begin{verbatim}
+		#!/bin/sed -f
+\end{verbatim}
+	假設這個 script 的名字叫做 'foo'，並且放在 /bin 下，那麼如果你用：
+\begin{verbatim}
+		foo arg1 arg2 arg3
+\end{verbatim}
+	那麼 OS 實際在執行時會把它看成是：
+\begin{verbatim}
+		/bin/sed -f foo arg1 arg2 arg3
+\end{verbatim}
+	有一點不同的是：如果 'foo' 設定成 setuid，那麼 OS 會把它以第一種格
+        式來解釋；如果你硬是以第二種格式輸入，那麼 OS 會以 /bin/sed 的 
+        permission 為準，而它當然不會是 setuid。
+
+        ----------
+
+	好吧，那如果我的 shell script 並不是以~'\#!' 做開頭，
+	或是我的~OS 根本就不認得它呢？
+
+	嗯，如果這個~shell（或是其他的解譯程式）試著要去執行它，那麼~OS 會傳回
+	一個錯誤訊息，表示這個檔案不是以合法的~magic number 做開頭。收到這個錯
+	誤訊息後，~shell 會把這個檔案認定成是~shell script，並以另一種方式來執行
+\begin{verbatim}
+		/bin/sh shell_script arguments
+\end{verbatim}
+	但是我們在前面已經看到了，在這樣的情形下，設成為~setuid 的 
+        ~shell\_script 並不會發生作用。
+
+        ----------
+
+	那麼，設成~setuid 的~shell script 到底有什麼安全上的問題呢？
+
+	嗯，假設這個~script 叫做~'/etc/shell\_script'，它的開頭是：
+\begin{verbatim}
+		#!/bin/sh
+\end{verbatim}
+	現在我們來看看以下的命令會發生什麼事：
+\begin{verbatim}
+		$ cd /tmp
+	        $ ln /etc/setuid_script -i
+        	$ PATH=.
+	        $ -i
+\end{verbatim}
+	我們可以看出來，以上的最後一個命令會被解釋成：
+\begin{verbatim}
+		#!/bin/sh -i
+\end{verbatim}
+	而這樣的命令會讓我們得到一個可以輸入命令的 shell，並且會被 setuid 成
+        這個  script 的擁有者。
+	幸好，這樣的安全漏洞可以很輕易地防止，只需要把第一行改成：
+\begin{verbatim}
+		#!/bin/sh -
+\end{verbatim}
+	'-' 這個符號代表著它是整個~option list 的結尾：所以如果再用前述的方法
+        的話，'-i' 就會如本來所期望的被解釋成~script 檔案的名字。
+
+        ----------
+
+	然而，還有更嚴重的問題：
+\begin{verbatim}
+		$ cd /tmp
+	        $ ln /etc/setuid_script temp
+        	$ nice -20 temp &
+	        $ mv my_script temp
+\end{verbatim}
+	第三個命令會被解釋成：
+\begin{verbatim}
+		nice -20 /bin/sh - temp
+\end{verbatim}
+	而因為這個命令的優先權被設得很低，那麼第四個命令可能就有機會搶先在 
+	~shell 開啟~'temp' 之前就用~'my\_script' 把~'temp' 給蓋掉！有四種方法
+        可以修補這個安全上的漏洞：
+
+	1)  讓~OS 用另一個比較安全的方式執行~setuid script。如~System V R4 和 
+	   ~4.4BSD 利用~/dev/fd 來把該~script 的~file descriptor 傳給解譯程式。
+
+	2)  透過一個前端程式來間接解譯要執行的~script，以確定在真正的解譯程式
+            啟動前一切正常。例如，你可以用~comp.sources.unix 中的~'indir' 程
+            式，那麼你的~script 開頭就會像這樣：
+\begin{verbatim}
+			#!/bin/indir -u
+	                #?/bin/sh /etc/setuid_script
+\end{verbatim}
+	3)  造一個~'binary wrapper'：一個真正的~setuid 可執行程式，這個程式的
+            唯一功能就是用來執行~script 中所指定的解譯程式，並以該~script 的檔
+            名為參數傳給解譯程式。
+
+	4)  造一個~'setuid script server' ，並把一些要用到、檢查過的~setuid 
+           ~script 存放在~database 中。當成功地被呼叫後，會去執行正確的解譯程
+            式及正確的~script。
+
+        ---------
+
+	現在我們已經能確定所解譯到的~script 是正確的，那麼還有其他的危險嗎？
+
+	很抱歉，當然還有！在使用~shell scipt 的時候，你一定不能忘記要把~PATH 
+        這個變數很明確地設到正確的路徑去。你能夠指出這是為什麼嗎？除此之外，
+        還有~IFS 這個變數如果沒設好也可能會造成麻煩。其他的環境變數也可能會造
+        成安全上的問題，如~SHELL... 更重要的，你必須要確定在 script 中沒有命
+        令會讓它產生出可下命令的~shell（interactive shell escape）！還有就是，
+       ~umask 可能被設成奇怪的值等等...
+
+	除此之外，你應該要知道~setuid script 會「繼承」所有它所用到的命令的 
+       ~bug 及安全問題。
+
+	總而言之，你應該知道~setuid shell script 真的是件非常危險的事吧！
+        最好還是寫~C 程式啦。
+
+\subsection{我要如何得知有哪些~process 開了某一檔案，或者某一~process 
+	正在使用哪一個~fileystem(以至於我無法~unmount 這個~filesystem)?}
+
+	你可以用~fuser(system V)，~fstat(BSD)，~ofiles(public domain) 或是
+	~pff (public domain)。這些程式可以告訴你哪些~processes 正在使用哪些
+	檔案。
+
+	4.3BSD 的~fstat，有一份~Dynix，~SunOS 與~Ultrix 都可以用的~port。
+	你可以找找放 comp.sources.unix, volume 18的地方。
+
+	Pff 是~kstuff 這套軟體的一部分，很多系統上都可以用。欲取得~kstuff 請參
+        考問題~3.10。
+
+\subsection{我要怎麼知道是誰在~finger 我啊？}
+
+	一般來說，你是無法找出在遠端機器 finger 你的那個人的 userid 的。你大概
+        只能找出在從哪台機器 finger 的。另外有一種可行的方法，如果你的系統支援
+        並且假設 finger daemon 不反對的話，那麼可以把你的 .plan 檔用 "named 
+        pipe" 而不用一般的文字檔。（用 'mknod' 來造）
+
+	接下來，你執行一個程式去寫（open for writing）你的 .plan 檔；但是由於
+        你的 .plan 是一個 "named pipe"，所以這個開檔的動作要一直等到有其他的 
+	process 去讀（open for reading）你的 .plan 檔時才會成功。現在你就可以
+        任意地把你所想讓人 finger 到的 .plan 內容寫入這個 pipe。在 
+        comp.sources.misc, volumn 41 中有個 "planner" 的程式可以做這件事。
+
+	當然，如果你的系統不支援 "named pipe"，或是你所用的 finger 程式只接受
+        純文字的 .plan 檔，那麼以上的方法就行不通了。
+
+	你的程式也可以藉由查看 "netstat" 的輸出，來找出這次的 finger 是從那裡
+        連過來的，但是這並無法看出遠端執行 finger 的人是誰。
+
+	想要知道遠端的人是誰，必須要遠端的機器有跑支援如 RFC 931 的識別程式才
+	行。
+
+	現在，在常見的~BSD 系統上就有三種~RFC 931 的實做程式，同時也有許多的
+	應用程式（如~wuarchive ftpd）支援。如果你想得到更多有關~RFC 931 的資
+        訊，可以加入~rfc931-user 的~mailing list，
+        \url{rfc931-users-request@kramden.acf.nyu.edu}。
+
+	另外還有三個注意事項。第一，有許多的 NFS 系統無法正確地處理 "named 
+	pipe"。這個意思是，當你要去讀放在另一部機器上的 pipe 時，可能會被系統 
+	block 住直到time out，或是因為 pipe 的檔案長度是 0 所以系統就不把它的
+        內容列出來。
+
+	第二，在許多的系統中，fingerd 會在讀 .plan 檔之前先去檢查它裡面是否真
+        的有資料並且是可以讀的。這樣就會造成遠端 finger 你的人根本就看不到你
+        的 .plan 檔，因為你的 .plan 長度是 0。
+
+	第三，支援 "named pipe" 的系統通常在同一個時間裡只允許系統中存在某個固
+	定數目的 pipes，檢查 kernel 的 config 檔和 FIFOCNT 選項即可得知。如果
+        系統中的 pipe 數目超過了 FIFOCNT，那麼系統就會暫停所有新的 pipe 直到有
+        人關掉他先前所開的 pipe。這是因為 pipe 所用到的 buffer 是放在 
+        non-paged 的記憶體中。
+
+\subsection{能不能在一個~process 和~terminal 的連接已經斷掉之後再接回來，例如
+       在~background 跑一個程式然後就~logout 而斷掉的程式？}
+
+	大部份版本的~Unix 都不像~VMS 和~Multics 等作業系統支援~"detaching" 和 
+	~"attaching" process。不過，有兩個免費的軟體能夠幫你達成這個目的。
+
+	第一個是 "screen"，在 comp.sources.unix 中的標題是 "Screen, multiple 
+        windows on a CRT"。（你可以在 comp.sources.misc, volumn 28 中發表的 
+        "screen-3.2" 中找到）這個軟體在 BSD，System V r3.2 及 SCO UNIX 皆可執
+        行。
+
+	第二個是 "pty"，在 comp.sources.unix 中的標題是 "Run a program under 
+        a pty session"。（可以在 volumn 23 發表的 "pty" 中找到）"pty" 只能在 
+        BSD 的系統中執行。
+
+	以上這兩個軟體都沒有溯及既往的能力，也就是說，你如果想對某個~process
+        做~detach 或~attach 的動作，那麼就必須要先在~screen 或~pty 下啟動它才
+        行。
+
+\subsection{有沒有辦法可以偷聽一個~terminal，就是說將其輸出複製一份至其他的 
+     ~terminal。}
+
+	有幾種方法可以達成這個目的，不過沒有一個是完美的：
+\begin{itemize}
+	\item  kibitz 允許兩個（或更多）的人透過~shell（或其他的程式）彼此溝通。
+           它的用途有：
+	   \begin{itemize}
+		\item  監視或援助令一人的~terminal session；
+		\item  記錄所有的輸出入以用來能捲頁回去，儲存整個輸出入，甚至是可
+                   以直接編輯它。
+		\item  當團隊合作時，如製作 game、撰寫文件等工作，每個人都各有所長
+                   各有所短，就可用此種方式彼此互補。
+	   \end{itemize}
+	kibitz 是~'expect' 軟體的一部份，請查看問題~3.9。
+
+	kibitz 需要有被監視人的同意才能進行。如果想不取得同意就進行監視，那就
+        得用一些比較令人討厭的方法了：
+
+	\item  你可以自己寫一個程式去搜查整個~kernel 的結構，監視~terminal 所
+	   用的~output buffer，然後把它所輸出的字全抓下來。很明顯的，這是熟悉
+	   ~Unix kernel 的人才可能做得到的。但是，不論你是用什麼方法大概都無法
+           拿到其他的~Unix 去用。
+
+	\item 如果你是想要隨時監視一個特定、實際拉線連上的~terminal（例如，你想讓
+	   管理者能夠從其他機器的終端機查看某部機器的~console），那你可以乾脆
+           接一台監視器在通往那台~terminal 的線上。舉例來說，把你的監視器的輸
+           出接到另一台機器的~serial port，然後執行一個程式去收集那個 port 的
+           輸入並把它轉到另一個~port 去，而這個~port 就真的連到你所要監視的 
+          ~terminal 去。這樣做的話，你必須確定從該~terminal 來的輸出會隨著線傳
+           回去，即使你只是插接在電腦和~terminal 的中間，這並不會太難做到。 用
+           這個方法，對~terminal 佈線不太熟悉的人是無法發覺的。
+
+	\item  在最近一版的~screen 中有一種~multi-user 模式可以用。若想多了解一
+           點~screen，請看問題 4.10。
+
+	\item  如果你所使用的系統有提供~stream（如~SunOS，SVR4）那麼你可以使用
+	   發表在~comp.sources.misc, volumn 28 中的~advise 程式。它並不需要先
+           執行。（但是，你必須要事先把你的系統設定成在開啟~tty 或~pty 時會自
+           動把~advise 模組放入~stream 中。）
+\end{itemize}
+
+\section{關於各種~shell 的問題}
+\subsection{shell 要如何分類呢？}
+
+	一般來說，shell 可以分成兩類。第一類是由~Bourne shell 衍生出來的包括 
+	~sh，ksh，bash，與~zsh。第二類是由~C shell 衍生出來的，包括~csh 與 
+	~tcsh。除此之外還有一個~rc，有人認為該自成一類，有人認為該歸類在 
+	~Bourne shell。
+
+	把上面的分類法記住，就可以寫出所有~Bourne shell類的~shell 或是所有~C 
+	shell 類的~shell 都可用的~script。
+
+\subsection{在一個~shell script 裡面要如何~"include" 另一個~shell script 呢？}
+
+	由~Bourne shell 衍生者(包括~rc)用~"." 這個指令。由~C shell 衍生者則使
+        用~"source"。
+
+\subsection{是不是所有~shell 都有~alias，有沒別的替代方案呢？ }
+
+	除了~sh 外，主要的~shell 都有~alias，不過用法不大一樣。例如有些~alias 
+        不接受參數。
+
+	Bourne shell 類中~shell function 雖然嚴格說來不是~alias，不過也差不多
+	了。Shell function 還可以做到一些~alias 所做不到的事情。從~Version 7 
+	Unix 的衍生出來的系統(包括 System III 與 4.2BSD) 裡面的~Bourne shell 
+	沒有~shell function。System V 與~4.3BSD 的~sh 都有~shell function。
+
+	用~unalias 來去除~alias, 用~unset 來去除~shell function。
+
+\subsection{要如何設定~shell 的變數呢？}
+
+	在~C shell 類的~shell 中用~"set variable=value" 來設定只給這個~shell 
+        看的變數，用~"setenv variable value" 來設定環境變數。要去除變數則以 
+       ~unset 與~unsetenv 為之。在~Bourne shell 類的~shell 中則用 
+       ~"variable=value" 來設定變數，若要將一變數並成環境變數則用~"export 
+       VARIABLE\_NAME"。要去除一個變數則用~unset。 
+
+\subsection{要如何得知是否是在一~interactive shell 中？}
+
+	在~C shell 類中，看看~\$prompt 這個變數便知分曉。
+
+	在~Bourne shell 類中，可以看~\$PS1 這個變數，不過最好是檢查~\$- 這個變
+	數。假如\$- 裡有~i，那就表示是在~interactive shell 中。作法如下：
+\begin{verbatim}
+          case $- in
+          *i*)    # do things for interactive shell
+                  ;;
+          *)      # do things for non-interactive shell
+                  ;;
+          esac
+\end{verbatim}
+\subsection{那些以~"." 開始其檔名的檔案在各種~shell 中的用途為何？}
+     下面的說明或許不盡完整，但應該講的都講了。
+\begin{description}
+      \item[csh]
+\begin{quote}
+	有一些版本在系統中所有使用者都必須讀取的~.cshrc 與~.login。不
+	過，每一個版本放置這些檔案的地方不大相同。
+	\begin{itemize}
+        \item  啟動 (依照所列順序):
+	  \begin{itemize}
+          \item   .cshrc   - 每次都會讀取
+          \item   .login   - login shell 才會讀取
+	  \end{itemize}
+
+        \item  結束之前:
+	  \begin{itemize}
+            \item   .logout  - login shells.
+	  \end{itemize}
+
+        \item  其他:
+	  \begin{itemize}
+             \item  .history - 儲存history (根據 \$savehist 的值決定大小).
+	  \end{itemize}
+	\end{itemize}
+\end{quote}
+
+      \item[tcsh]
+\begin{quote}
+	\begin{itemize}
+	  \item 啟動 (依照所列順序):
+	  \begin{itemize}
+             \item /etc/csh.cshrc - 每次都會讀取
+             \item /etc/csh.login - login shells 才會讀取
+             \item .tcshrc        - 每次都會讀取
+             \item .cshrc         - 假如沒有 .tcshrc 在的話
+             \item .login         - login shells 才會讀取
+	  \end{itemize}
+
+	  \item 結束之前:
+	  \begin{itemize}
+             \item .logout        - login shells 才會讀取.
+	  \end{itemize}
+
+	  \item 其他:
+	  \begin{itemize}
+             \item .history       - saves the history (based on \$savehist).
+             \item .cshdirs       - saves the directory stack.
+	  \end{itemize}
+	\end{itemize}
+\end{quote}
+
+      \item[sh]
+\begin{quote}
+	\begin{itemize}
+          \item 啟動 (依照所列順序):
+	  \begin{itemize}
+             \item /etc/profile - login shell 才會讀取
+             \item .profile     - login shell 才會讀取
+	  \end{itemize}
+
+          \item 結束之前:
+	  \begin{itemize}
+             \item any command (or script) specified using the command:
+                 trap "command" 0
+	  \end{itemize}
+	\end{itemize}
+\end{quote}
+
+      \item[ksh]
+\begin{quote}
+	\begin{itemize}
+	\item 啟動 (依照所列順序):
+	  \begin{itemize}
+              \item /etc/profile - login shells 才會讀取
+              \item .profile     - login shells 才會讀取
+              \item \$ENV        - always, if it is set.
+	  \end{itemize}
+
+          \item 結束之前:
+	  \begin{itemize}
+            \item 如果你用了~trap "command" 0，則結束之際會去執行~"command"。
+	  \end{itemize}
+	\end{itemize}
+\end{quote}
+
+      \item[bash]
+\begin{quote}
+	\begin{itemize}
+         \item 啟動 (依照所列順序):
+	 \begin{itemize}
+           \item   /etc/profile  - login shell 才會讀取
+           \item   .bash\_profile - login shell 才會讀取
+           \item   .profile      - 如果沒有 .bash\_profile，則會在 login 時讀取
+           \item   .bashrc       - interactive non-login shell 才會讀取
+           \item   \$ENV          - 若有設定則讀取之
+	 \end{itemize}
+
+         \item 結束之前:
+	 \begin{itemize}
+            \item  .bash\_logout  - login shell 讀取之
+	 \end{itemize}
+         \item 其他:
+	 \begin{itemize}
+            \item  .inputrc      - Readline 初始化之時
+	 \end{itemize}
+	\end{itemize}
+\end{quote}
+      \item[zsh]
+\begin{quote}
+	\begin{itemize}
+          \item 啟動 (依照所列順序):
+	\begin{itemize}
+             \item  .zshenv - 若無 -f  就會讀取
+             \item .zprofile - login shell 才會讀取
+             \item  .zshrc    - interactive shell 若無 -f  就會讀取
+             \item .zlogin   - login shell 結束之前
+	\end{itemize}
+
+          \item 結束之前:
+	\begin{itemize}
+             \item .zlogout  - login shell 才會讀取
+	\end{itemize}
+	\end{itemize}
+\end{quote}
+      \item[rc]
+\begin{quote}
+	\begin{itemize}
+          \item 啟動 (依照所列順序):
+	   \begin{itemize}
+             \item .rcrc - login shell 才會讀取
+	   \end{itemize}
+	\end{itemize}
+\end{quote}
+\end{description}
+
+\subsection{我想要知道更多各種~shell 的相異之處。請指點明路。}
+
+	你可以用~anonymous ftp 在下列地點取得一份有關~sh、tcsh、ksh、
+	bash、zsh 與~rc 的詳細比較。
+
+      \url{ftp://cs.uwp.edu/pub/vi/docs/shell-101.BetaA.Z} 和~
+      \url{ftp://utsun.s.u-tokyo.ac.jp/misc/vi-archive/docs/shell-101.BetaA.Z}
+
+	這個檔案中比較了呼叫~shell 時的旗號、程式的文法、輸出/入之轉向、與環
+	境變數。不過這個檔案並不討論以 "." 為檔名開頭的檔案以及環境變數與
+	函數的繼承。
+
+\section{各式各樣的 Unix}
+\subsection{聲明，介紹及感謝。}
+
+    我並無法保證以下內容的完整性及正確性。我只是利用有限的時間盡量去做
+    （常碰到互相衝突的資料），未來還有很多要做。我希望能持續改進這份文
+    件。歡迎您的批評與指教：lew@bnr.ca。
+    
+    首先讓我們先為 UNIX 下個簡短的定義。我們所提的 Unix 指的是一個通
+    常是由 C 寫成的作業系統，它有階層式的檔案系統，統合了檔案和裝置(device)
+    I/O，其系統函式呼叫（system call）介面包含了如 fork()，pipe() 等服務，
+    而且它的使用者介面包含 cc，troff，grep，awk 之類的工具及某一種
+    shell。UNIX 過去是 USL(AT\&T) 的註冊商標，現在則是 X/Open 的註冊
+    商標。本文所指的 UNIX 是一般通用的意義，而不是那個註冊商標。
+    
+    絕大多數的 Unix 或多或少都用了來自 AT\&T（現在則是 Novell）的程式
+    碼（大部分的 Unix 裡面可能都還有使用第一版 C 語言所寫的程式），
+    但是也有些是自己從頭寫一個一模一樣的 Unix。（就是寫得和 Unix 完全
+    相容但是卻沒有用到 AT\&T 的程式碼。）
+    
+    此外還有一些建構於別種 OS 上的 Unix-like 環境，例如 VOS；以及向 UNIX
+    借用靈感的的 OS，例如 MS-DOS。這些都不在本文的討論範圍裡。對即時（
+    real-time）的 Unix 本文也討論得不多。
+    
+    UNIX 的流派實在多得令人難以置信。主要的原因是因為 Unix 的原始程式容易
+    取得、修改與移植。一般廠商的典型作法是以某一流派為主體再加入其他流
+    派的特色。如此一來又產生了另一個新的流派。目前 Unix 有數百款，如果
+    說有一種可當成圭臬的話,那應該是 System V 吧。
+    
+    本文的內容大部份取自於網路上流傳的資訊。如果取自其他來源,則會在適當的章
+    節中加以說明。
+   
+    \urlstyle{rm} 
+    特別感謝：
+    ~\url{pat@bnr.ca,guy@auspex.com}, \url{pen@lysator.liu.se}, 
+    \url{mikes@ingres.com}, \url{mjd@saul.cis.upenn.edu}, 
+    \url{root%candle.uucp@ls.com}
+    \url{ee@atbull.bull.co.at}, \url{Aaron_Dailey@stortek.com}, 
+    \url{ralph@dci.pinetree.org},
+    \url{sbdah@mcshh.hanse.de}, \url{macmach@andrew.cmu.edu}, 
+    \url{jwa@alw.nih.gov} [4.4BSD],
+    \url{roeber@axpvms.cern.ch}, \url{bob@pta.pyramid.com.au},
+    \url{bad@flatlin.ka.sub.org}, 
+    \url{m5@vail.tivoli.com}, \url{dan@fch.wimsey.bc.ca}, 
+    \url{jlbrand@uswnvg.com},
+    \url{jpazer@usl.com},
+    \url{ym@satelnet.org},
+    \url{merritt@gendev.slc.paramax.com},
+    \url{quinlan@ygg.drasil.com},
+    \url{steve@rudolph.ssd.csd.harris.com},
+    \url{bud@heinous.isca.uiowa.edu}, \url{pcu@umich.edu}, 
+    \url{quinlan@yggdrasil.com},
+    \url{Dan_Menchaca@quickmail.apple.com},
+    \url{D.Lamptey@sheffield.ac.uk}, 
+    \url{derekn@vw.ece.cmu.edu}, \url{gordon@PowerOpen.org}, 
+    還有許多我忘了名字的人，以及許多我曾拜讀他們文章的人。
+
+
+\subsection{Unix 簡史}
+
+    Unix 的歷史開始於~1969，Ken Thompson、Dennis Ritchie (K\&R 裡的那個 
+    R) 與一群人在一部『位於角落且乏人問津的~PDP-7』上進行的一些工
+    作，後來這個系統變成了~Unix。"UNIX" 這個字（最初是寫成~Unics, 
+    Uniplexed Information and Computering System)有一點玩弄~"Multics" 這個字
+    的意味。
+
+    最初十年間，Unix 的發展基本上都是在~Bell Labs 裡完成的。最初的幾個
+    版本稱為~"Version n" 或~"Nth Edition" ，是給~DEC 的~PDP-11(16 bits) 與
+    其下一代產品~Vax(32 bits)用的。主要的幾個版本為：
+\begin{itemize}
+    \item V1 (1971):  第一版的 Unix，以 PDP-11/20 的組合語言寫成。包括檔案系統
+        (file system)、fork()、roff、ed 等東西。是用來給 AT\&T 的專利部門
+        處理文件用的。Pipe() 出現於 V2。
+      
+    \item V4 (1973):  以 C 語言從頭寫過，這或許是 OS 歷史上最重要的一個事
+        件，這表示 Unix 修改容易，可以幾個月內移植到新的硬體架構上。最
+        初 C 語言是為 Unix 設計的，所以 C 與 Unix 間有緊密的關係。
+
+    \item V6 (1975):  第一個在 Bell Labs 外（尤其是大學中）廣為流傳的 Unix 版
+        本。這也是 Unix 歧異的起點與廣受歡迎的開始。1.xBSD(PDP-11) 就
+        是由這個版本衍生出來的。J. Lions 的“A Commentary on the Unix 
+        Operating System" 也是以 V6 為本。
+
+    \item V7 (1979):  在許多~Unix 玩家的心目中,這是『最後一個真正的~UNIX』，
+        也是『空前絕後的一個~Unix』[Bourne 說的]，這個版本包括一個完整
+        K\&R C、Bourne shell。V7 移植到~VAX 上稱為~32V。~V7 的~kernel 
+        只有~40 Kbytes！
+    
+    底下列出 V7 的系統呼叫,供「後進之輩」們憑弔瞻仰：
+	\begin{quote}
+        \_exit, access, acct, alarm, brk, chdir, chmod, chown,
+        chroot, close, creat, dup, dup2, exec*, exit, fork, fstat,
+        ftime, getegid, geteuid, getgid, getpid, getuid, gtty,
+        indir, ioctl, kill, link, lock, lseek, mknod, mount,
+        mpxcall, nice, open, pause, phys, pipe, pkoff, pkon,
+        profil, ptrace, read, sbrk, setgid, setuid, signal, stat,
+        stime, stty, sync, tell, time, times, umask, umount,
+        unlink, utime, wait, write.
+	\end{quote}
+\end{itemize}
+    以上這些~"Vn" 版都是由~Bell Labs 裡的~Computer Research Group(CRG) 
+    發展的。另一個~Unix Support Group(USG) 負責支援服務。Bell Labs 裡還
+    有另一個與~Unix 發展相關的團體~Programmer's WorkBench(PWB) 則做出
+    了~sccs、named pipe 及一些其它的東西。USG 與~PWB 後來於 1983 年
+    合併成~Unix System Developement Lab。
+
+    此外~Bell Labs 在~Columbus 的分支機構，負責發展~Operations Support 
+    System 也做了一版的~Unix 稱為~CB Unix (Columbus Unix)。System V IPC 
+    就是從~CB Unix 來的。
+
+    到了1980 年代~Bell labs 並未放棄~Unix。CRG 仍繼續發展~V 系列的
+    ~Unix (Stroustrrup 在它的 C++ 第二版裡就提到了~V10)，不過並未對外發
+    表。目前發展 Unix(System V) 的公司是~Unix System Laboratories(USL)。
+    USL 本為~AT\&T 所有，'93 年初被~Novell 收購。Novell 於 '93 年末將
+    ~"UNIX" 這個註冊商標轉給~X/Open。
+
+    除了 AT\&T 所屬的機構外，有不少地方也對 Unix 的改進做出了貢獻，例
+    如 Berkeley 就自成一大流派。有不少廠商（尤其是賣工作站的）也對 Unix 
+    的發展有所貢獻（如 Sun 的 NFS)。
+    
+    對任何對 Unix 有興趣的人而言 Don Libes 與 Sandy Ressler 所寫的 "Life
+    with Unix" 是一本有趣的書。
+    \footnote{Life with Unix 在台灣並沒有書局代理進口, 非常可惜！
+       這本書裡面有很多關於 Unix 的故事, 有興趣可以來我們這兒泡泡茶,
+       看看這本故事書。} 此書講了許多 Unix 的歷史與發展及一些軼
+    事。本文多採此書之說。
+
+\subsection{主要的~Unix 流派}
+
+    目前為止，UNIX 有兩大流派：那就是 AT\&T 的 System V (讀 five, 不讀 v)
+    與 BSD (Berkeley Software Distribution)。SVR4 是兩大流派融合後的產物。
+    '91 年底，與 System V 針鋒相對的 Open Software Foundation 推出了 OSF/1，
+    或許 OSF/1 會改變市場生態。
+    \footnote{由今日(\today)觀之，OSF/1 應該是無法挑戰 System V 了}
+
+    以下是~System V、BSD、OSF/1 的主要版本以及特色。
+    
+    AT\&T 的 System V。Intel 系列的機器多半使用此系列。移植版本最多的 Unix，
+    當然在移植時都會加入一些由 BSD 發展的有用功能,例如 csh、job control、
+    termcap、curses、vi、symbolic link。目前 System V 的發展是由 Unix
+    International(UI) 負責監控。UI 的成員包括 AT\&T、Sun 等。
+    網路討論區: comp.unix.sysv[23]86。主要版本:
+\begin{itemize}
+         \item  System III (1982): AT\&T 第一個拿來賣錢的 UNIX
+	 \begin{itemize}
+           \item FIFOs (named pipes)  (later?)
+	 \end{itemize}
+
+         \item System V (1983):
+	 \begin{itemize}
+           \item IPC package (shm, msg, sem)
+	 \end{itemize}
+
+         \item SVR2 (1984):
+	 \begin{itemize}
+           \item shell 函數 (sh)
+           \item SVID (System V Interface Definition)
+	 \end{itemize}
+
+         \item SVR3 (1986) for ? platforms:
+	 \begin{itemize}
+           \item STREAMS (從 V8 得來的靈感), poll(), TLI (網路軟體)
+           \item RFS
+           \item 共用程式庫（shared libs）
+           \item SVID 2
+           \item demand paging (如果硬體有支援的話)
+	 \end{itemize}
+
+         \item SVR3.2:
+	 \begin{itemize}
+           \item 併入 Xenix (Intel 80386)
+           \item 網路
+	 \end{itemize}
+
+         \item SVR4 (1988), 融合了 System V、BSD、SunOS 是各種 UNIX 中 
+           的主流
+	 \begin{itemize}
+           \item 取自 SVR3 者: 系統管理, terminal 界面, 印表機 (from BSD?),
+             RFS, STREAMS, uucp
+           \item 取自 BSD 者: FFS, TCP/IP, sockets, select(), csh
+           \item 取自 SunOS 者: NFS, OpenLook GUI, X11/NeWS,
+             具有記憶體映對檔案的虛擬記憶體子系統（virtual memory
+             subsystem with memory-mapped files）, 共用程式庫
+             (!= SVR3 ones?)
+           \item ksh
+           \item ANSI C
+           \item 國際化（Internationalization） (8-bit clean)
+           \item ABI (Application Binary Interface -- routines instead of traps)
+           \item POSIX, X/Open, SVID3
+	 \end{itemize}
+
+         \item SVR4.1
+	 \begin{itemize}
+           \item 非同步 I/O (from SunOS?)
+	 \end{itemize}
+
+         \item SVR4.2 (based on SVR4.1ES)
+	 \begin{itemize}
+           \item Veritas FS, ACLs
+           \item 動態載入核心模組
+	 \end{itemize}
+
+         \item Future:
+	 \begin{itemize}
+           \item SVR4 MP (多處理器)
+           \item 使用 Chorus 微核心?
+	 \end{itemize}
+\end{itemize}
+
+    Berkeley Software Distribution (BSD)。VAX、RISC、各式工作站多用之。
+    比起 System V 來 BSD 的變動比較快而且學術研究的味道比較濃一點。
+    Unix 之所以能夠流行,BSD 居功闕偉。許多對 Unix 的加強改進都是由
+    BSD 先做出來的。在 UCB (University of California at Berkeley) 中負責 BSD 
+    的是 Computer System Research Group(CSRG)。CSRG 已於 1992 年關門大吉。
+    網路討論區: comp.unix.bsd。主要的版本如下：
+\begin{itemize}
+         \item 2.xBSD (1978) 給 PDP-11 用的, 這個系統好像還活著的樣子(1992 
+           還推出了 2.11BSD!).
+	   \begin{itemize}
+           \item csh
+	   \end{itemize}
+
+         \item 3BSD (1978):
+	   \begin{itemize}
+           \item 虛擬記憶體
+	   \end{itemize}
+
+         \item 4.?BSD:
+	   \begin{itemize}
+           \item termcap, curses
+           \item vi
+	   \end{itemize}
+
+         \item 4.0BSD (1980):
+
+         \item 4.1BSD (?): 後來 AT\&T CRG 版本皆以此為本
+	   \begin{itemize}
+           \item job 控制
+           \item automatic kernel config
+           \item vfork()
+	   \end{itemize}
+
+         \item 4.2BSD (1983):
+	   \begin{itemize}
+           \item TCP/IP, sockets, ethernet
+           \item UFS: 長檔名, symbolic links
+           \item 新的 reliable signals (SVR3 採用了 4.1 的 reliable signals)
+           \item select()
+	   \end{itemize}
+
+         \item 4.3BSD (1986) for VAX, ?:
+         \item 4.3 Tahoe (1988): 4.3BSD 附加對 Tahoe(一款32位元的超級迷你電腦)
+           的支援及一些新東西
+	   \begin{itemize}
+           \item Fat FFS
+           \item 新的 TCP 演算法
+	   \end{itemize}
+         \item 4.3 Reno (1990) for VAX, Tahoe, HP 9000/300:
+	   \begin{itemize}
+           \item 大部份的 P1003.1
+           \item NFS (from Sun)
+           \item MFS (記憶體檔案系統)
+           \item OSI: TP4, CLNP, ISODE's FTAM, VT and X.500;  SLIP
+           \item Kerberos
+	   \end{itemize}
+
+         \item Net1 (?) 與 Net2 (June 1991) 磁帶: BSD 中不侵犯 USL 版權的部份
+
+         \item 4.4BSD (alpha June 1992) for HP 9000/300, Sparc, 386, DEC, others;
+           已經不支援 VAX 與 Tahoe; 有兩個版本, 一個是 lite (大約是 Net2 的
+           內容,加上修正與新的架構); 另一個是 encumbered (內容一應俱全,但需
+           USL 授權):
+	   \begin{itemize}
+           \item 以 Mach 2.5 為基礎的新型虛擬記憶體系統 (VMS),
+           \item 虛擬檔案系統介面, log-structured 檔案系統, 本地檔案系統
+             的大小可達 $2^63$, NFS (可以免費流傳,可以跟 Sun 的 NFS 並存,
+             架在 UDP 或 TCP 之上)
+           \item 支援 ISO/OSI 網路架構~(以~ISODE 此一~implementation 為基礎): TP4/CLNP/802.3 以及
+             ~TP0/CONS/X.25, session 及更高層的協定則放在~user space;
+             FTAM, VT, X.500。
+	     \footnote{FTAM 跟~TCP/IP 網路的~ftp 協定相當,
+                      ~VT 則跟~telnet 相當,~X.500 則是~directory service}
+
+           \item 大部分是 POSIX.1 (特別是新增的 SV 形式終端機驅動程式),有很多
+             POSIX.2, 改進過的 job control; ANSI C 表頭檔
+           \item Kerberos 以整合入系統內許多地方 (包含 NFS)
+           \item TCP/IP 加強 (包含表頭預測, SLIP)
+           \item 重要的核心修改 (新式系統呼叫慣例, ...)
+           \item 其他改進: FIFOs, 以位元組為範圍做檔案鎖定
+	   \end{itemize}
+           正式的 4.4BSD 版本原來預計在 alpha 版 6 個月後發表。
+           \footnote{結果是在 '93 年六七月間發表}
+\end{itemize}
+
+    Open Software Foundation(OSF) 於~1991 年底推出了~OSF/1。OSF/1 需要 
+    ~SVR2 授權。符合~SVID 2、~SVID 3、~POSIX、~X/Open 等標準。
+    ~Apollo, Dec, HP, IBM 等大廠商都是~OSF 的成員。
+\begin{itemize}
+         \item OSF/1 (1991):
+	 \begin{itemize}
+           \item 以 ~Mach 2.5 的核心為基礎
+           \item 對稱式多重處理, 平行化的核心, 處理緒（thread)
+           \item 邏輯式容量（logical volumes), 磁碟鏡射(disk mirroring),
+             UFS (原生的), S5 FS, NFS
+           \item 系統安全之加強(B1 加一些 B2, B3 或 C2), 4.3BSD 的系統管理
+           \item STREAMS, TLI/XTI, sockets
+           \item 共用程式庫, 動態程式載入器 (包括核心)
+           \item Motif GUI
+	 \end{itemize}
+
+         \item Release 1.3 (Jun 94)
+	 \begin{itemize}
+           \item 以 MACH 3.0 的微核心為基礎
+           \item 符合目前規格 1170 草案的標准
+            （在 X/Open 的 Fast Track 程序中考慮過要將此標準化）
+           \item Data Capture I/F, Common Data Link I/F,
+           \item 支援ISO 10646 與 64-bit
+           \item 以 Mach 3.0 為基礎的 OSF/1 MK (mircokernel)
+	 \end{itemize}
+\end{itemize}
+
+    以上關於 Unix 主要流派的列表或許該把 Microsoft 的 Xenix 也列出，因
+    為有不少 Unix 的分支是拿 Xenix 去改的。Xenix 是從 V7、System III、
+    System V 改出來的，外觀沒什麼重大的改變，內部則為了求得在微電腦上
+    使用時有較好的表現而做了不小的更動。
+
+    關於~Unix 兩大流派的內部有兩本好書可供參考。
+\begin{itemize}
+      \item System V: "Design of the Unix Operating System", M.J. Bach.
+      \item BSD: "Design and Implementation of the 4.3BSD Unix Operating System",
+        Leffler, McKusick, Karels, Quaterman.
+\end{itemize}
+    關於~OSF/1 的介紹可參考~O'Reilly 出版的~"Guide to OSF/1, A Technical 
+    Synopsis" 一書。關於~SunOS，可參考~Summer 1989 USENIX Proceedings
+    裡的~"Virtual Memory Architecture in SunOS" 與~"Shared Libraries in 
+    SunOS"。
+
+    92 年~4 月號的~Unix Review 有一系列關於各種~Unix 之發展方向。BSD-
+    FAQ極有參考價值，本文中所提到的幾個網路討論區也值得看看。
+
+\subsection{Unix 的標準化}
+
+     目前~(95年初) ~Unix 標準化的主要參與者：
+\begin{itemize}
+      \item Novell 在~93 年初買下~USL 成為原始程式的擁有者。
+      \item X/Open 可決定誰能使用~"UNIX" 這個商標當產品名稱。
+      \item OSF 具有雙重身分：其一為~OSF/1 與~Motif 的發展者，其二為 COSE 
+        之發展的監控組織。 OSF 於~1994 年重組後，Sun 成為了~OSF 中
+        的一員，OSF 與~X/Open 之間的關係也正常化了。
+      \item IEEE 訂定~POSIX 與~LAN 的相關標準。
+      \item IBM、Apple、Motorola、Bull 以及其他廠商合組了~PowerOpen 來推動
+        PowperPC。別把它與一個也叫做~PowerOpen 的圖形環境搞混了。
+\end{itemize}
+
+     底下是一些與 Unix 有關的標準之簡述：
+
+\begin{itemize}
+      \item IEEE:
+      \begin{itemize}
+        \item 802.x (LAN) standards (LLC, ethernet, token ring, token bus)
+        \item  POSIX (ISO 9945?): Portable Operating System I/F (Unix, VMS
+          and OS/2!) (目前唯一已定案的標準?)
+        \begin{itemize}
+          \item 1003.1:  函數庫(大部分是 system call) -- 除了 signals 與 
+		     terminal 界面外多取自於 V7
+          \item 1003.2:  shell 與公用程式
+          \item 1003.3:  測試方法與合格標準
+          \item 1003.4:  real-time: binary semaphores, process memory
+                     locking, memory-mapped files, shared memory,
+                     priority scheduling, real-time signals, clocks and
+                     timers, IPC message passing, synchronized I/O,
+                     asynchronous I/O, real-time files
+                     \footnote{翻了反而看不懂... :)
+                     即時性: 雙態信號、執行體記憶體鎖定、記憶體映對檔案、
+                     共用記憶體、優先序排程、即時通告、時脈與定時器、
+                     IPC 訊息傳送、同步輸出入、非同步輸出入、即時檔案。}
+          \item 1003.5:  Ada language bindings
+          \item 1003.6:  系統安全
+          \item 1003.7:  系統管理(包括印表)
+          \item 1003.8:  透通式檔案存取（transparent file access）
+          \item 1003.9:  FORTRAN language bindings
+          \item 1003.10: 高速計算（super computing）
+          \item 1003.12: 與協定種類無關的介面（protocol-independent I/Fs）
+          \item 1003.13: 即時外觀（real-time profiles）
+          \item 1003.15: 高速計算批次處理介面（supercomputing batch I/Fs）
+          \item 1003.16: C-language bindings (?)
+          \item 1003.17: directory services
+          \item 1003.18: POSIX standardized profile
+          \item 1003.19: FORTRAN 90 language bindings
+        \end{itemize}
+      \end{itemize}
+
+      \item X/Open (由廠商籌設的組織, 成立於 1984 年):
+      \begin{itemize}
+        \item X/Open Portability Guides (XPGn):
+	\begin{itemize}
+          \item XPG2 (1987), 非常傾向 SV
+            Vol 1:  命令與公用程式
+            Vol 2:  系統呼叫與函數庫
+            Vol 3:  terminal 界面(curses, termio), IPC (SV),
+                    國際化
+            Vol 4:  程式語言 (C, COBOL!)
+            Vol 5:  資料管理(ISAM, SQL)
+          \item XPG3 (1989) adds: X11 API
+          \item XPG4 (1992) adds: XTI? 22 個元件
+	\end{itemize}
+        \item XOM 系列的介面：
+	\begin{itemize}
+          \item XOM (X/Open Object Management) 需遵循的通用介面機制（generic
+            I/F mechanisms for following）
+          \item XDS (X/Open Directory Service)
+          \item XMH (X/Open Mail ??)
+          \item XMP (X/Open Management Protocols) -- 不是 Bull's CM API?
+	\end{itemize}
+        \item X/Open 此時已有權管理 "UNIX" 商標 ('93 年底);
+        \item "Spec 1170"
+	\begin{itemize}
+          \item 此規格目前正在籌備當中,是一個共通的 API, 要使用 UNIX 這個
+            名稱的廠商必需遵循此 API 的規格。這是結合 SVID、OSF 的 AES
+            與其他東東而成。\footnote{請參考\url{http://www.UNIX-systems.org/}}
+	\end{itemize}
+      \end{itemize}
+
+      \item AT\&T
+        (在 1994 年後這些已經無關緊要了? 現在是誰負責~SVID, TLI, APLI?)
+	\begin{itemize}
+        \item System V Interface Definition (SVID)
+          \item SVID1 (1985, SVR2)
+	  \begin{itemize}
+            \item Vol 1:  系統呼叫與函數庫(類似XPG2.1)
+	  \end{itemize}
+          \item SVID2 (1986, SVR3)
+	  \begin{itemize}
+            \item Vol 1:  系統呼叫與函數庫(基礎,核心延伸)
+            \item Vol 2:  指令與公用程式 (基礎,進階,管理,軟體發展
+                    ), 終端機介面
+            \item Vol 3:  終端機介面(又來了), STREAMS and TLI, RFS
+	  \end{itemize}
+          \item SVID3 (19??, SVR4) adds
+	  \begin{itemize}
+            \item Vol 4:  ??  etc
+	  \end{itemize}
+	\end{itemize}
+	\begin{itemize}
+        \item APIs
+          \item Transport Library Interface (TLI)
+          \item ACSE/Presentation Library Interface (APLI)
+	\end{itemize}
+
+      \item COSE (COmmon Open Software Environment) [IBM, HP, SunSoft, others]:
+        目的在使不同的 Unix 平台可以更緊密的結合。
+        大概可以劃分為底下幾個項目:
+	\begin{itemize}
+          \item 桌面環境
+          \item 應用程式的~API (也就是~Spec 1170 -- 一個統一的程式介面) --
+          可能是目前為止最重要的成就。消彌了~SCO, AIX, Solaris,
+          HP-UX, UnixWare 間的差異。
+          \item 分散式計算環境~(OSF 的~DCE 與~SunSoft 的~ONC)
+          \item 物件技術~(OMG 的 CORBA)
+          \item 繪圖
+          \item 多媒體
+          \item 系統管理
+	\end{itemize}
+
+      \item PowerOpen Environment (POE)由~PowerOpen Association(POA) 所推動。
+        是個在~PowerPC 這顆~chip 上 用的~Unix-like OS 的標準。定義了： 
+	\begin{itemize}
+        \item 一個~API (應用程式介面，主要源於~AIX, 符合~POSIX,
+          XPG4,Motif 與~C 的標準) 與
+        \item 一個~ABI (application binary i/f)，這是與其他標準差異最大之處，
+          POSIX, XPG4, etc.都沒有這個東西。任何符合!POE 的系統應該可以
+          執行所有的~POE 軟體。
+	\end{itemize}
+        重要的特色：
+	\begin{itemize}
+        \item 建構於 PowerPC 上
+        \item 與硬體匯流排無關
+        \item 從膝上型電腦到超級電腦都可以用的系統
+        \item 必須是個多人多工的作業系統
+        \item 支援網路
+        \item X windows 的擴充, Motif
+        \item 是否符合標準由一個獨立的機構(POA)來測試與認定
+	\end{itemize}
+        AIX 4.1.1 將會符合PowerOpen。MacOS 目前不遵循 PowerOpen,也
+        不打算遵循 PowerOpen。
+        [以上取自於comp.sys.powerpc 的 powerpc-faq]
+
+        IBM 在~COSE 與~POE 中都摻了一腳，這兩個組織會有怎樣的關係頗
+        令人玩味。
+\end{itemize}
+
+\subsection{你所用的 Unix 是哪一種流派。}
+
+    這個小節列出一些材料供您參考,看看能不能讓您藉此找出您所用的~UNIX
+    屬於哪一種流派。由於各流派之間的程式碼或想法上都會大量交流,
+    而且廠商也會自行許多修改,因此,類似「本~Unix 是~SVR2」這一類的說法,
+    充其量只是統計上的敘述（但有些~SVRn 的移植除外）。
+
+    也有許多~Unix 同時提供這兩個世界的大多數功能（不論是像~SunOS 一樣
+    把這兩個世界融合在一起,或者像~Apollo 一樣把這兩個世界做嚴格的劃分）。
+    所以這個小節也許沒那麼有用...。
+
+    前一小節所列出的特性也有點兒幫助。例如,如果某一個系統有~poll(2) 但
+    沒有~select(2),那它很有可能是從~SRV3 衍生出來的。同時,您也可以從~OS
+    的命名或者從簽到訊息當中,找出一些蛛絲馬跡（例如~SGI 的~IRIX SVR3.3.2)
+    ;此外,您也可以利用~"uname -a" 指令的輸出。找尋某些指令是否存在也是
+    判斷的線索,但是直接探討核心的特性可能是比較可靠的做法。例如終端機
+    初始化的方式~(inittab 或~ttys) 就是一個較可靠的指示,這比起從列印
+    子系統判斷來的可靠。
+
+\footnotesize
+\begin{tabular}{|l|p{3.5cm}|p{4cm}|}
+\hline
+      特性          &   SVRx 的典型           & xBSD 的典型 \\
+\hline 
+      核心名稱      &   /unix                 & /vmunix \\
+      終端機啟動    &   /etc/inittab          & /etc/ttys (only getty to 4.3) \\
+      開機啟動      &   /etc/rc.d directories & /etc/rc.* files \\
+      加掛檔案系統  &   /etc/mnttab           & /etc/mtab \\
+      常用的shell   &   sh, ksh               & csh, \#! hack \\
+      原生檔案系統  &   S5 (blk: 512-2K) \newline
+                        檔案名稱~$<=$ 14 bytes & UFS (blk: 4K-8K) \newline
+						 檔案名稱~$<$ 255 bytes \\
+      群組          &   必須使用~newgrp(1) \newline
+                        SVR4: 多重群組        & 自動加入成員 \\
+      列印子系統    &   lp, lpstat, cancel    & lpr, lpq, lprm (lpd daemon) ?? \\
+      終端機控制    &   termio, terminfo, \newline
+                        SVR4: termios (POSIX) & termios (sgtty before 4.3reno) \newline
+					        termcap \\
+      工作控制      &   $>=$ SVR4             & yes \\
+      ps 指令       &   ps -ef                & ps -aux \\
+      多重等待      &   poll                  & select \\
+      字串函數      &   memset, memcpy        & bzero, bcopy \\
+      程序對映      &   /proc  (SVR4) & \\
+\hline
+\end{tabular}
+\normalsize
+
+      由於我們逐步跨入~90 年代末期,上述的差異已越來越不明顯了。
+
+\subsection{請簡要介紹一些知名的 (商業/PD) Unix}
+
+      我一點也不滿意這節的內容,很不幸地我既沒有時間也沒有文件讓它的
+      內容更為完善。在此只列出一些較多人使用的 Unix, 至於其他小型或
+      者非美國地區出品的 Unix 也歡迎補充,像是 Eurix。這部分還要再重
+      寫一次。\footnote{這一段我也翻得不太滿意, 也要跟著重譯一次 :)}
+
+      這個小節依字母順序列出一些廣為人知的 Unix,並且對他們的本性做
+      簡要的敘述。很不幸的,在定義上它幾乎過時了...
+
+      (只排列字母,但忽略數字與其他字元）
+\begin{description}
+      \item [AIX]: IBM 的~Unix, 是根據~SVR2 (最近已經出到~SVR3.2?) 以及程度不一的
+        ~BSD 延伸而來, 並加上各種硬體的支援。具備特有的系統管理~(SMIT)。
+         同時具有~850 與~Latin-1 CPs (Code Page, 內碼頁)。它不僅跟大多數的
+        ~Unix 不相同,連~AIX 各版本之間也有許多相異之處。
+         網路討論區: \url{comp.unix.aix}
+	\begin{itemize}
+         \item 1.x (for 386 PS/2)
+         \item 2.x (for PC RTs)
+         \item 3.x (for RS/6000), 分頁式核心,邏輯式容量管理程式,國際化;
+         \item 3.2 新增 TLI/STREAMS.  以 SV 為核心並加上許多改進。
+         \item 4.1 是最新版 (包括對 PowerPC 的支援?)
+         \item AIX/ESA, 原來是在 S/370 and S/390 大型主機上執行的,它是根據 OSF/1。
+           AIX 本來會成為 OSF/1 的基礎,但後來 OSF/1 選用 Mach 作為基礎。
+	\end{itemize}
+         我希望這個小節能寫到這裡就好 :-)
+
+      \item [AOS] (IBM):  移植到 IBM PC RT 的 4.3BSD (這是為教育單位做的).
+      它的名稱雖然 DG 專有的 OS 名稱相同,但兩者是截然不同的東西。
+
+      \item [Arix]:  SV
+
+      \item [A3000UX](Commodore): 以 68030 為基礎的 SVR4 Unix (?),用於 Amiga。
+
+      \item [A/UX (Apple)]: SV 加上柏克萊的加強功能, NFS, Mac GUI.  System 6
+         (也就是後來的 System 7) 可以當成~A/UX 的程式執行 (與~MachTen 相反)。
+         網路討論區: \url{comp.unix.aux}
+	\begin{itemize}
+         \item 2.0:  SVR2 加上 4.2BSD, system 6 Mac 應用程式。
+         \item 3.0 (1992): SVR2.2 with 4.3BSD and SVR3/4 延伸; X11R4,
+           MacX, TCP/IP, NFS, NIS, RPC/XDR, 各類 shells, UFS 或 S5FS.
+           System 7 應用程式.
+         \item 4.0 將包含 OSF/1（或者就是 OSF/1)。
+	\end{itemize}
+
+      
+      \item [3B1] (680x0): 根據~SV，是~Convergent 替 AT\&T 完成的。
+         網路討論區: \url{comp.sys.3b1}
+
+      \item [BNR/2]: 代表 BSD Net/2 Release? 包含 NetBSD/1, FreeBSD。
+
+      \item [BOS for Bull's DPX/2] (680x0)
+	\begin{itemize}
+         \item V1 (1990): SVR3 加上 BSD 延伸 (FFS, select, sockets),
+           對稱式 MP, X11R3
+         \item  V2 (1991): 加上工作控制, 磁碟鏡射, C2 系統安全,
+           DCE 延伸
+         \item  Bull's PPC 工作站也有 BOS/X, 以及與 AIX 相容的 Unix
+           至於上述兩者之間的關係則未知。
+	\end{itemize}
+
+      \item [386BSD]: Jolitz's 從~Net/2 software 移植過來的。支援~Posix, 32 位元,
+           仍在~alpha 測試階段。(目前版本為~0.1 版)。
+           \footnote{目前已出到 1.0 版, DDJ 要拿來賣錢的}
+
+      \item [BSD/386] (80386): 來自~BSDI, 附原始程式 (增強的~Net2 軟體)
+         網路討論區: comp.unix.bsd.
+        \footnote{改名為 BSD/OS, 版本 2.x 是以 4.4BSD 為基礎}
+
+      \item [Chorus/MiXV]: 架在~Chorus 核心之上的~Unix SVR3.2 (SVR4), 
+	ABI/BCS.
+
+      \item [Coherent] (80286): 
+	另一種~Unix,與~V7 相容, 有一些~SVR2 的東東(IPC).
+        ~V4.0 是~32 位元的。網路討論區: comp.os.coherent
+
+      \item [Consensys]: SVR4.2
+
+      \item [CTIX]: 根據 SV, 來自 Convergent
+
+      \item [D-NIX]:  SV
+
+      \item [DC/OSx] (Pyramid):  SVR4.
+
+      \item [DELL UNIX] [DELL 電腦公司.]: SVR4
+
+      \item [DomainIX]: 請參閱底下的 DomainOS。
+
+      \item [DomainOS] (Apollo, 後來被~HP併購): 專屬的~OS; 
+	上層架有~BSD4.3 與~SVR3 (使用者可以從兩層中任選
+	一層、或者全選,或者都不選)。雖然現
+      在已經不再發展了，但仍有些特性被~OSF/1 (與~NT) 引用。目前版本為
+      ~SR10.4。SR9.* 版本的名稱為~DomainIX。網路討論區~:\url{comp.sys.apollo}
+
+      \item [DVIX] (NT 的 DVS):  SVR2
+
+      \item [DYNIX] (Sequent): 以 4.2BSD 為基礎
+
+      \item [DYNIX/PTX]: 以 SVR3 為基礎
+
+      \item [Esix] (80386):  純種的 SVR4, X11, OpenLook (NeWS), Xview
+
+      \item [Eurix] (80?86):  SVR3.2 (德國)
+
+      \item [FreeBSD]: 綴補過的 386bsd 0.1 程式, 並且有許多更新的工具程式。
+      \footnote{以上是指 1.x 而言, FreeBSD 2.x 版是拿 4.4BSD lite 從頭改起的}
+
+      \item [FTX]: Stratus 容錯作業系統 (68K 或 i860-i960 硬體)
+
+      \item [Generics UNIX] (80386): SVR4.03 (德國)
+
+      \item [GNU Hurd (?)]: 謠傳已久的軟體,來自自由軟體基金會 (FSF):
+         架在 Mach 3.0 核心之上的 Unix 模擬器。有許多 GNU 的工具程式
+         非常受歡迎 (emacs) 並且用於許多 PD Unix。
+         \footnote{此時 GNU Hurd 已經有人使用, 目前在 alpha 測試階段,
+                 可從 ftp://alpha.gnu.ai.mit.edu/... 取得}
+
+      \item [HELIOS] (Perihelion Software): 用於 INMOS transputer 以及多種其他平台
+
+      \item [HP-UX] (HP):  舊系統是從 S III (SVRx), 現在是~SVR2 (4.2BSD?) 加上~SV
+         工具程式（他們可能很難下決心...）
+\begin{itemize}
+         \item 6.5: SVR2
+         \item 7.0: SVR3.2, symlinks
+         \item 7.5
+         \item 8.0: 以~BSD 為基礎~(?) 用於~HP-9000 CISC (300/400) 與
+		~RISC (800/700), 共用程式庫
+         \item 9.0: 加入~DCE
+         \footnote{HP-UX 已經出到 11.x 版了}
+\end{itemize}
+
+      \item [Interactive SVR3.2] (80x86): 純種~SVR3。Interactive 已經被~Sun 
+	購併;它們的系統會由於 Solaris 而繼續存活嗎?
+        \footnote{SunSoft 仍繼續銷售過一陣子~Interactive UNIX}
+
+      \item [Idris]: 第一個~Unix 相容產品,是由~Whitesmith 完成的。一個小型的
+	~Unix? 是給~INMOS transputer 與其他機器用的。
+
+      \item [IRIX] (SGI):  Version 4 是由 SVR3.2, 以及許多 BSD 的東西構成的。
+      Version 5.x (目前是 5.2) 是根據 SVR4。網路討論區: comp.sys.sgi。
+
+      \item [Linux] (386/486/586): 使用~GPL (雖然不是來自~FSF) 的~Unix。
+        可取得原始程式。遵循~POSIX 以及~SysV 及~BSD 的延伸。目前正進行
+       ~Alpha/AXP 與~PowerPC 的移植。(目前已有版本移植到~680x0 Amigas
+        and Ataris; 也有版本移植到~MIPS/4000)。
+        網路討論區: \url{comp.os.linux.{admin,announce,development,help,misc}}。
+
+      \item [MachTen], Tenon Intersystems: 當成 System 6 的一般程式來執行,沒有記憶體
+         保護, 4.3BSD 環境附有 TCP, NFS。
+
+      \item [MacMach] (Mac II): 架在~Mach 3.0 微核心之上的~4.3BSD。
+	有~X11, Motif, GNU 軟體、原始程式;實驗性的~System 7 是以
+	~Mach task 的方式執行。整套產品包含所有原始程式（但需要~Unix 授權）。
+
+      \item [Mach386]: 來自 Mt Xinu。以 Mach 2.5 為基礎,附加 4.3BSD-Tahoe
+         的增強功能。也有 2.6 MSD (Mach Source Distribution).
+
+      \item [Microport] (80x86): 純種的 SVR4, X11, OpenLook GUI
+
+      \item [Minix] (80x86, Atari, Amiga, Mac): 與~V7 相容的~Unix clone。
+         產品附原始程式。目前正進行修改,使其遵循~POSIX 標準。
+         適用於~PCs, 當然還有其他許許多多的機種。（如~INMOS transputer)。
+         網路討論區: comp.os.minix.
+
+      \item [MipsOS]: 有點兒~SV 的味道~(RISC/OS,現在已經不作了，
+		早期有點~BSD 的味道)
+
+      \item [more/BSD] (VAX, HP 9000/300):  Mt Xinu 的 Unix, 以 4.3BSD-Tahoe 為基礎。
+         網路討論區: comp.os.xinu?
+
+      \item [NCR UNIX]: SVR4 (4.2?)
+
+      \item [Net/2] 磁帶 (來自 Berkeley, 1991): BSD Unix, 本質上與 4.3BSD 相容,
+         裡面的程式碼完全不含 AT\&T 的程式,沒有低階的程式碼。請參閱上述的
+         386BSD 與 BSD/386。
+
+      \item [NetBSD] 0.8: 事實上只是幫 386bsd 換個新裝而已。已移植到 [34]86, MIPS,
+         Amiga, Sun, Mac。 它跟 Net/2 的關係?
+        \footnote{NetBSD 已經出到 1.3.3 版, 而且以~4.4BSD lite 為基礎。
+                 也移植到更多的硬體平台, 如~DEC Alpha}
+
+      \item [NEXTSTEP] (Intel Pentium and 86486, Hewlett-Packard PA-RISC, NeXT 68040):
+         架在~Mach 核心之上的~4.3BSD, 具有~GUI。
+	\begin{itemize}
+         \item 1.x, 2.0, 2.1, 2.2, 3.0, 3.1 (舊版本)
+         \item 3.2 (目前的版本
+	 \begin{itemize}
+            \item  Intel Pentium and 86486,
+            \item  Hewlett-Packard PA-RISC,
+            \item  NeXT 68040)
+	 \end{itemize}
+         \item 3.3 (近期內即將發表, 可能會有~Sun SPARC 的版本)
+         \item 4.0 (即將發表, 可能會有~Sun SPARC 的版本)
+         \item DEC Alpha 版本已經發表了
+         \item OPENSTEP 遵循~OpenStep 的標準 (請參閱~Solaris)
+	\end{itemize}
+
+      \item [NEWS-OS] (Sony)
+	\begin{itemize}
+         \item 3.2
+	\end{itemize}
+
+     \item [OSF/1] (DEC): DEC 對~OSF/1 的移植。我認為現在 (4/94) DEC 最新
+        的~Alpha AXP (64 位元機器）上應該已經有了。
+        \footnote{原作者說得沒錯}
+
+     \item [OSx] (Pyramid): 從 SysV.3 與 BSD4.3 兩者同時移植過來的。
+
+     \item [PC-IX] (IBM 8086):  SV
+
+      \item [Plan 9] (AT\&T): 在~1992 年發表, 是完全從頭改寫過的。
+      不清楚它跟~Unix 的相近程度如何。關鍵點:分散式、非常小、多種硬體
+      （~Sun, Mips, Next, SGI, generic hobbit, 680x0, PCs)，
+      ~C (而非謠傳的~C++）、新的編譯器、「八又二分之一」視窗系統（也非常小）、
+      ~16 位元的~Unicode、架在高速網路之上的~CPU/檔案伺服器。
+        \footnote{Plan9 在~95 年初又發表新版本, 從~'95 年~7 月開始賣錢,
+                 CDROM: US$ 350, Document: US$ 150。
+		 可參閱~\url{http://plan9.bell-labs.com/plan9/}。}
+
+      \item [SCO Xenix (80x86)]: 給 XT (不夠快!), 286, 386 (具有 demand paging）
+         使用的。現有的程式碼有很多都是從 System V 拿過來的。是一個
+         穩定的產品。
+
+      \item [SCO Unix (80x86)]:  SVR3.2 (目前已經停止取用 USL 的原始程式了)。
+
+      \item [Sinix] [Siemens]: System V base.
+
+      \item [Solaris] (Sparc, 80386):
+	\begin{itemize}
+         \item 1.0:  基本上跟~SunOS 4.1.1 是相同的，附有~OpenWindows 2.0 與
+           ~DeskSet 公用程式。
+         \item 1.0.1:  SunOS 4.1.2 加上多處理器的功能 (核心無多處理緒功能);
+           不適用於 386。
+         \item 2.0: (剛開始在 1988 年的時候是以 SunOS 5.0 的名義發表) 以 SVR4
+           為基礎(具有對稱式多重處理?), 將支援 386; 附
+           OpenWindows 3.0 (X11R4) 與 OpenLook, DeskSet, ONC, NIS.
+           支援 a.out (BSD) and elf (SVR4) 這兩種格式、Kerberos。不附
+           編譯器！
+         \item Solaris 遵循最新版~(1994?) 的~OpenStep 標準
+          (非~NeXT, 但具有~NEXTSTEP API)
+          \footnote{Solaris 已經出到 2.7, 目前的 OpenWindows 是 3.7 版,
+	         以 X11R6 為基礎。OpenStep 還沒出來，看樣子也不會出來了，
+		\today}。
+	\end{itemize}
+
+      \item [SunOS] (680x0, Sparc, i386):  根據~4.3BSD, 包含許多來自~System V 
+	的東西。Sun 的主要成果在於:~NFS (1984), ~SunView (1985), ~NeWS
+         (1986, display postscript, 現在用於~OpenWindows), OpenLook GUI 標準,
+         OpenWindows (NeWS, X11, SunView!).  網路討論區~: \url{comp.sys.sun.*}:
+	\begin{itemize}
+         \item 3.x:  SV IPC 套裝程式, FIFOs
+         \item.0.3: 輕量級程序, 新型的虛擬記憶體, 共用程式庫
+         \item.1: STREAMS \& TLI, 8-bit clean?, 非同步輸出入, ms-dos 檔案系統
+	\end{itemize}
+         (後續者為 Solaris -- 請參閱前幾項)。
+
+     \item [UHC] (80x86): 純種 SVR4, X11, Motif
+
+     \item [Ultrix](DEC):  根據~4.2BSD 再加上許多~4.3 的東西。
+         網路討論區: ~\url{comp.unix.ultrix}
+	\begin{itemize}
+          \item 4.4 是最新版
+	\end{itemize}
+
+      \item [UNICOS] (Cray):  以 System V 為基礎。網路討論區: comp.unix.cray
+	\begin{itemize}
+         \item 5.x, 6,x, 7.0
+	\end{itemize}
+
+      \item [UnixWare Release 4.2] [Univel]: SVR4.2; 架在 NetWare 上。
+           Univel 已經不存在了。
+
+      \item [UTEK] (Tektronix)
+	\begin{itemize}
+         \item 4.0
+	\end{itemize}
+
+      \item [VOLVIX] (Archipel S.A.): 以~UNIX 為基礎的作業系統,並配上一個
+      以通訊為基礎的分散式即時微核心。SVR3.2 系統呼叫、BSD4.4 檔案/網路系統
+      系統呼叫~(VFS,FFS)。也有~NFS 與~X11。Vanilla VOLVIX 是給~transputer
+      用的。
+
+      Xenix (80x86):  首度出現於 Intel 硬體平台的 Unix, 以 SVR2 為基礎
+         (先前是以 S III 甚至 V7 為基礎）。網路討論區: comp.unix.xenix。
+\end{description}
+
+\subsection{即時的 Unix}
+
+      警告: 這個小節需要大幅修訂,因為有很多錯誤,而且內容也不完整。我希望
+      能夠在今年冬天把它重新修訂一次。竊以為下面這些都是 UNIX,歡迎大家繼
+      續補充。這個列表也包含較常見,且具有即時特性的 UNIX 系統,以及有些
+      具有類似~UNIX API 的非~UNIX 系統。我不認為後者真的屬於這個範疇,但是
+      既然收集了這些資料（雞肋）,要捨棄掉還真有點可惜。
+      請順便參考~comp.realtime。
+\begin{description}
+      \item [AIX]: AIX/6000 具有即時支援。
+
+      \item [Concurrent OS] (Concurrent): 真正的 Unix,由 Concurrent 大幅更動過。
+
+      \item [CX/UX]: 真正的~UNIX,由~Harris 大幅修改以提供即時能力與效能。遵循
+             ~POSIX.4 決定版的標準。
+
+      \item [EP/LX] (Control Data): 是移植到 R3000 的 LynxOS,以前稱為 TC/IX。
+
+      \item [LynxOS] (Lynx Real-Time Systems, Inc): 與 Berkeley 及 SV 相容,
+         從頭到尾重寫過一次(專有的), 在 SVR4 時期之前。並不是 UNIX, 但支援
+         許多 UNIX I/Fs。完全的 preemptive, 固定式優先權。
+
+      \item [MiX]: SVR4 的微核心實作,是~Chorus 提供的。
+
+      \item [Motorola SVR4]具有即時能力。
+
+      \item [QNX] (Quantum Software): 與~unix 相容,而且是如假包換的即時作業系統。
+
+      \item [RTU] (Concurrent), 用於 68K 系列的機器。
+
+      \item [Solaris 2] 具有即時能力﹖
+
+      \item [Stellix] (Stardent); 它是~Unix, 但真的是即時作業系統嗎?
+
+      \item [Venix/386]: 交談式的~SVR3.2 附加即時延伸。
+
+      \item [VMEexec] (Motorola): 不是~Unix, 但也用了一些跟~Unix 相同介面。
+
+      \item [VxWorks] (Wind River Systems):~跟~Unix 相同的地方非常非常地少,
+         但還是有一些介面跟~Unix 相同(但檔案系統不同)。
+         網路討論區~\url{comp.os.vxworks}。
+\end{description}
+
+        (對於以下的系統,我一無所知)
+\begin{itemize}
+      \item Convex RTS
+
+      \item REAL/IX (AEG)
+
+      \item Sorix (Siemens)
+
+      \item System V/86 (Motorola)
+
+      \item TC/IX (CCD)
+
+      \item Velocity (Ready Systems):
+\end{itemize}
+
+
+\subsection{Unix 用語彙編}
+
+    底下提供~Unix 系統相關的概念與構成要素之簡單定義。
+\begin{description}
+    \item[Chorus] 訊息傳遞的微核心, 有可能成為未來~SV 的基礎。SVR4 已經可以
+         架在~Chorus 上面跑了（二進位相容）。\footnote{結果~Chorus
+	已經快不見了:-) 有興趣請看~\url{http://www.chorus.com}}
+
+    \item [CORBA] (Common Object Request Broker Architecture)
+	\footnote{http://www.omg.org/}
+
+    \item [COSE](Common Open Software Environment) [Sun, HP, IBM]: common look and
+         feel (Motif -- Sun will let OpenLook fade away), common API.
+         Reaction against Windows NT. See section 6.4 above.
+
+    \item[DCE](分散式計算環境 -- Distributed Computing Environment, 來自 OSF):
+         包含 RPC (Apollo's NCS), 目錄服務 (區域性使用是以 DNS 為基礎,
+         全球性使用則是以 X.500 為基礎), 時間, 系統安全, 以及處理緒 (thread)
+         服務, DFS (分散式檔案系統 -- distrib. file system), ....
+         與 OS 種類無關。
+
+    \item [DME] (分散式管理環境 -- Distributed Management Environment, 來自 OSF):
+         未來。
+
+    \item [DO] (Distributed Objects [Enterprise]): ???.
+
+    \item [FFS] (高速檔案系統 -- Fast File System): 於 1983 年出自 Berkeley。
+         與 SunOS 的 UFS 等義 (或完全相同?)。具有一些像是
+         磁柱群組（cylinder groups), 碎屑 (fragments) 等觀念。
+
+    \item [Mach] 來自 CMU （卡內基美濃大學）的新式核心,許多 Unix 以及其他 OS
+        都以此為基底（例如 OSF/1, MacMach):
+         - 2.5: 集成式（monolithic）核心, 附有 4.2BSD
+         - 3.0: 微核心,附有在使用者空間的 BSD Unix 伺服器 (以及其他 OSs,
+           例如 MS-DOS)
+         網路討論區: comp.os.mach
+
+    \item [MFS](記憶體檔案系統 -- Memory File System):
+
+    \item [NeWS](Network extensible Window System), 來自 Sun?: 以 PostScript 為基礎,
+         網路化, 工具程式組(甚至客戶程式)是在伺服器端載入。是 OpenWindows 的
+         一部份。
+
+    \item [NFS] (網路檔案系統 -- Network File System):  由 Sun 貢獻給 BSD 的禮物,
+         無狀態式伺服器。
+
+    \item [ONC] (開放式網路計算 -- Open Network Computing): 來自 Sun(?), 包含 RPC, 
+        名稱服務(NIS 也稱為 YP), NFS, ...(可以在許多 Unix 或其他 OS 當中發現）
+
+    \item [OpenStep] [NeXT, Sun]: ???
+
+    \item [PowerOpen]: 既是一種標準, 也是一個推廣 PowerPC 的組織。
+         成員包括 IBM, Apple 與 Motorola; 還有其他廠商?
+         請參閱之前的 6.4 節。
+
+    \item [PowerPC (PPC)]: 一種 RISC CPU 晶片 [IBM, Motorola].
+
+    \item [RFS] (遠端檔案系統 -- Remote File System):  SV, 會記憶狀態的伺服器,
+         與~NFS 不相容。
+
+    \item [RPC] (遠端程序呼叫 -- Remote Procedure Call): 高階的~IPC (Inter-Process
+         communication) 機制。有兩種流派。
+         - ONC: 架在~TCP 或~UDP 之上(後來也架在~OSI 之上), 使用~XDR 來
+           做資料的編碼。
+         - DCE: 具有不同的~RPC 機制 (根據 Apollo 的 NCS)
+
+    \item [S5 FS]:  原生於~System V 的檔案系統, 一個區塊的大小為~512 到~2K。
+
+    \item [sockets]:  BSD 使用網路的介面機制 (請與~TLI 比較)。
+
+    \item [STREAMS]:  一種用於訊息傳遞的核心機制, 是從 SVR3 開始有的, 它提供了
+         一個非常適用於發展協定的介面。
+
+    \item [TFS] (半透明檔案系統 -- Translucent File System): Sun, COW 應用到檔案上。
+
+    \item [TLI] (Transport Library Interface):  SV 傳送服務(TCP, OSI) 的介面,
+         UI 也定義一個 APLI (ACSE/Presentation Library Interface --
+         呈現層程式庫介面）
+
+    \item [UFS] (?): BSD 的原生檔案系統,就是我們在 SunOS 看到的那一種,區塊
+         大小為 4K to 8K, 具有磁柱群組與碎屑的觀念。
+
+    \item [XTI] (X/Open Transport Interface):  加強型的 TLI
+
+    \item [X11]: MIT 所發展的以畫素組成的視窗系統
+\end{description}
+
+\end{CJK*}
+\end{document}

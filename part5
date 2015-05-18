@@ -1,0 +1,252 @@
+這七篇文章包含一些在 comp.unix.questions 和 comp.unix.shell 常見到的問
+題。請不要再問這些問題，因為這些問題已經回答過太多次了。但也請不要因為
+有人問這些問題而發火，因為他們可能尚未讀過這些文章。
+
+This collection of documents is Copyright (c) 1994, Ted Timar, except 
+Part 6, which is Copyright (c) 1994, Pierre Lewis and Ted Timar.
+
+All rights reserved. Permission to distribute the collection is 
+hereby granted providing that distribution is electronic, no money is 
+involved, reasonable attempts are made to use the latest version and 
+all credits and this copyright notice are maintained.
+
+Other requests for distribution will be considered.
+
+All reasonable requests will be granted.
+
+中文翻譯 by {chenjl,freedom,jjyang}@csie.nctu.edu.tw
+若您對中文翻譯有任何意見請發 e-mail 給 cfaq@csie.nctu.edu.tw
+
+我們希望這些文件中的資訊能對你有所幫助﹐但是並不保証是正確的。若發生損
+害請自行負責。
+
+您可以在 rtfm.mit.edu 的 pub/usenet/news.answers 找到包括此文件在內的
+許多 FAQ。 在此目錄下的 FAQ 的名字可在文章的頂端的 "Archive-Name:" 
+那一行找到。
+
+/* 譯注: 在台灣請用 NCTUCCA.edu.tw:/USENET/FAQ，在交大的話 
+         ftp.csie.nctu.edu.tw:/pub/Documents/FAQ 是從 CCCA mirror 來的 */
+
+  此一 FAQ 是以"unix-faq/faq/part[1-7]" 為名。
+
+這些文章大約分成：
+
+      1.*）一般性的問題
+      2.*）初學者可能會問的基本問題
+      3.*) 中級的問題
+      4.*) 自以為已經知道所有答案的人可能會問的高級問題
+      5.*) 關於各種 shell 的問題
+      6.*) 各式各樣的 Unix
+      7.*) An comparison of configuration management systems (RCS, SCCS).
+
+This article includes answers to:
+
+      5.1)  shell 要如何分類呢？
+      5.2)  在一個 shell script 裡面要如何 "include" 另一個 shell script 呢？
+      5.3)  是不是所有 shell 都有 alias，有沒別的替代方案呢？ 
+      5.4)  要如何設定 shell 的變數呢？
+      5.5)  要如何得知是否是在一 interactive shell 中？
+      5.6)  那些以 "." 開始其檔名的檔案在各種 shell 中的用途為何？
+      5.7)  我想要知道更多各種 shell 的相異之處。請指點明路。
+
+
+若要找問題 5.5 的答案, 用 regular expression 往前找 "^5.5)" 即可。
+
+因為這些都是正當合理的問題, 所以在 comp.unix.questions 或是 
+comp.unix.shell 中。每隔一陣子, 就會有這些問題與答案出現, 緊接著就會
+有人對同樣問題一再出現發牢騷。關於 UNIX 代表啥呢? 請參考每月 post 在 
+news.announce.newusers 中名為 "Answers to Frequently Asked Questions" 
+的文章。
+
+因為 Unix 有太多不同的種類了, 所以很難保證此文件所提供的答案必然會有
+用。在嘗試本文件提供的作法前, 請先讀讀你所使用系統的手冊。若你對答案
+有任何建議或更正, 請送 email 給 tmtaimar@isgtec.com.
+
+----------------------------------------------------------------------
+
+Subject: Can shells be classified into categories?
+>From: wicks@dcdmjw.fnal.gov (Matthew Wicks)
+Date: Wed, 7 Oct 92 14:28:18 -0500
+
+
+5.1)  shell 要如何分類呢？
+
+	一般來說，shell 可以分成兩類。第一類是由 Bourne shell 衍生出來的包括 
+	sh，ksh，bash，與 zsh。第二類是由 C shell 衍生出來的，包括 csh 與 
+	tcsh。除此之外還有一個 rc，有人認為該自成一類，有人認為該歸類在 
+	Bourne shell。
+
+	把上面的分類法記住，就可以寫出所有 Bourne shell類的 shell 或是所有 C 
+	shell 類的 shell 都可用的 script。
+
+------------------------------
+
+Subject: How do I "include" one shell script from within another shell script?
+>From: wicks@dcdmjw.fnal.gov (Matthew Wicks)
+Date: Wed, 7 Oct 92 14:28:18 -0500
+
+5.2)  在一個 shell script 裡面要如何 "include" 另一個 shell script 呢？
+
+	由 Bourne shell 衍生者(包括 rc)用 "." 這個指令。由 C shell 衍生者則使
+        用 "source"。
+
+------------------------------
+
+Subject: Do all shells have aliases?  Is there something else that can be used?
+>From: wicks@dcdmjw.fnal.gov (Matthew Wicks)
+Date: Wed, 7 Oct 92 14:28:18 -0500
+
+5.3)  是不是所有 shell 都有 alias，有沒別的替代方案呢？ 
+
+	除了 sh 外，主要的 shell 都有 alias，不過用法不大一樣。例如有些 alias 
+        不接受參數。
+
+	Bourne shell 類中 shell function 雖然嚴格說來不是 alias，不過也差不多
+	了Shell function 還可以做到一些 alias 所做不到的事情。從 Version 7 
+	Unix 的衍生出來的系統(包括 System III 與 4.2BSD) 裡面的 Bourne shell 
+	沒有 shell function。System V 與 4.3BSD 的 sh 都有 shell function。
+
+	用 unalias 來去除 alias, 用 unset 來去除 shell function。
+
+------------------------------
+
+Subject: How are shell variables assigned?
+>From: wicks@dcdmjw.fnal.gov (Matthew Wicks)
+Date: Wed, 7 Oct 92 14:28:18 -0500
+
+5.4)  要如何設定 shell 的變數呢？
+
+	在 C shell 類的 shell 中用 "set variable=value" 來設定只給這個 shell 
+        看的變數，用 "setenv variable value" 來設定環境變數。要去除變數則以 
+        unset 與 unsetenv 為之。在 Bourne shell 類的 shell 中則用 
+        "variable=value" 來設定變數，若要將一變數並成環境變數則用 "export 
+        VARIABLE_NAME"。要去除一個變數則用 unset。 
+
+------------------------------
+
+Subject: How can I tell if I am running an interactive shell?
+>From: wicks@dcdmjw.fnal.gov (Matthew Wicks)
+>From: dws@ssec.wisc.edu (DaviD W. Sanderson)
+Date: Fri, 23 Oct 92 11:59:19 -0600
+
+5.5)  要如何得知是否是在一 interactive shell 中？
+
+	在 C shell 類中，看看 $prompt 這個變數便知分曉。
+
+	在 Bourne shell 類中，可以看 $PS1 這個變數，不過最好是檢查 $- 這個變
+	數。假如 $- 裡有 i，那就表示是在 interactive shell 中。作法如下：
+
+          case $- in
+          *i*)    # do things for interactive shell
+                  ;;
+          *)      # do things for non-interactive shell
+                  ;;
+          esac
+
+------------------------------
+
+Subject: What "dot" files do the various shells use?
+>From: wicks@dcdmjw.fnal.gov (Matthew Wicks)
+>From: tmb@idiap.ch (Thomas M. Breuel)
+Date: Wed, 28 Oct 92 03:30:36 +0100
+
+5.6)  那些以 "." 開始其檔名的檔案在各種 shell 中的用途為何？
+
+	下面的說明或許不盡完整，但應該講的都講了。
+
+      csh
+	有一些版本在系統中所有使用者都必須讀取的 .cshrc 與 .login。不
+	過，每一個版本放置這些檔案的地方不大相同。
+
+          啟動 (依照所列順序):
+              .cshrc   - 每次都會讀取
+              .login   - login shell 才會讀取
+
+          結束之前:
+              .logout  - login shells.
+
+          其他:
+              .history - 儲存history (根據 $savehist 的值決定大小).
+
+      tcsh
+	  啟動 (依照所列順序):
+              /etc/csh.cshrc - 每次都會讀取
+              /etc/csh.login - login shells 才會讀取
+              .tcshrc        - 每次都會讀取
+              .cshrc         - 假如沒有 .tcshrc 在的話
+              .login         - login shells 才會讀取
+
+	  結束之前:
+              .logout        - login shells 才會讀取.
+
+	  其他:
+              .history       - saves the history (based on $savehist).
+              .cshdirs       - saves the directory stack.
+
+      sh
+          啟動 (依照所列順序):
+              /etc/profile - login shell 才會讀取
+              .profile     - login shell 才會讀取
+
+          結束之前:
+              any command (or script) specified using the command:
+                 trap "command" 0
+
+      ksh
+          啟動 (依照所列順序):
+              /etc/profile - login shells 才會讀取
+              .profile     - login shells 才會讀取
+              $ENV         - always, if it is set.
+
+          結束之前:
+              如果你用了 trap "command" 0，則結束之際會執行 "command" (
+
+      bash
+          啟動 (依照所列順序):
+              /etc/profile  - login shell 才會讀取
+              .bash_profile - login shell 才會讀取
+              .profile      - 如果沒有 .bash_profile，則會在 login 時讀取
+              .bashrc       - interactive non-login shell 才會讀取
+              $ENV          - 若有設定則讀取之
+
+          結束之前:
+              .bash_logout  - login shell 讀取之
+
+          其他:
+              .inputrc      - Readline 初始化之時
+      zsh
+          啟動 (依照所列順序):
+              .zshenv - 若無 -f  就會讀取
+              .zprofile - login shell 才會讀取
+              .zshrc    - interactive shell 若無 -f  就會讀取
+              .zlogin   - login shell 結束之前
+
+          結束之前:
+              .zlogout  - login shell 才會讀取
+
+      rc
+          啟動 (依照所列順序):
+              .rcrc - login shell 才會讀取
+
+------------------------------
+
+Subject: I would like to know more about the differences ... ?
+>From: wicks@dcdmjw.fnal.gov (Matthew Wicks)
+Date: Wed, 7 Oct 92 14:28:18 -0500
+
+5.7)  我想要知道更多各種 shell 的相異之處。請指點明路。
+
+	你可以用 anonymous ftp 在下列地點取得一份有關 sh、tcsh、ksh、
+	bash、zsh 與 rc 的詳細比較。
+
+      cs.uwp.edu (131.210.1.4):pub/vi/docs/shell-101.BetaA.Z
+      utsun.s.u-tokyo.ac.jp:misc/vi-archive/docs/shell-101.BetaA.Z
+
+	這個檔案中比較了呼叫 shell 時的旗號、程式的文法、輸出/入之轉向、與環
+	境變數。不過這個檔案並不討論以 "." 為檔名開頭的檔案以及環境變數與
+	函數的繼承。
+
+------------------------------
+
+unix / faq 第 5 部份結束
+**********************************

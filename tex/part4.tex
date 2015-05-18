@@ -1,0 +1,503 @@
+\documentclass{article}
+\usepackage{CJK}
+\usepackage{url}
+
+\begin{document}
+\begin{CJK*}{Bg5}{ming} 
+這七篇文章包含一些在~comp.unix.questions 和~comp.unix.shell 常見到的問
+題。請不要再問這些問題，因為這些問題已經回答過太多次了。但也請不要因為
+有人問這些問題而發火，因為他們可能尚未讀過這些文章。
+
+This collection of documents is Copyright (c) 1994, Ted Timar, except 
+Part 6, which is Copyright (c) 1994, Pierre Lewis and Ted Timar.
+
+All rights reserved. Permission to distribute the collection is 
+hereby granted providing that distribution is electronic, no money is 
+involved, reasonable attempts are made to use the latest version and 
+all credits and this copyright notice are maintained.
+
+Other requests for distribution will be considered.
+
+All reasonable requests will be granted.
+
+中文翻譯~by \url{{chenjl,freedom,jjyang}@csie.nctu.edu.tw}
+若您對中文翻譯有任何意見請發~e-mail 給~\url{cfaq@csie.nctu.edu.tw}
+
+我們希望這些文件中的資訊能對你有所幫助﹐但是並不保証是正確的。若發生損
+害請自行負責。
+
+您可以在~rtfm.mit.edu 的~pub/usenet/news.answers 找到包括此文件在內的
+許多~FAQ。 在此目錄下的~FAQ 的名字可在文章的頂端的~"Archive-Name:" 
+那一行找到。\footnote{ 在台灣請用~\url{ftp://NCTUCCA.edu.tw/USENET/FAQ}，
+若您人在交大的話 ~\url{ftp://ftp.csie.nctu.edu.tw/pub/Documents/FAQ} 是從
+~CCCA mirror  來的}
+
+此一~FAQ 是以~"unix-faq/faq/part[1-7]" 為名。
+
+這些文章大約分成：
+\begin{quote} 
+      1.*）一般性的問題 \newline
+      2.*）初學者可能會問的基本問題 \newline
+      3.*) 中級的問題 \newline
+      4.*) 自以為已經知道所有答案的人可能會問的高級問題 \newline
+      5.*) 關於各種~shell 的問題 \newline
+      6.*) 各式各樣的~Unix \newline
+      7.*) An comparison of configuration management systems (RCS, SCCS).
+\end{quote}
+這篇文章回答了以下問題：
+\tableofcontents
+
+因為這些都是正當合理的問題, 所以在 \url{comp.unix.questions} 或是 
+\url{comp.unix.shell} 中。每隔一陣子, 就會有這些問題與答案出現, 緊接著就會
+有人對同樣問題一再出現發牢騷。關於~UNIX 代表啥呢? 請參考每月 post 在 
+\url{news.announce.newusers} 中名為~"Answers to Frequently Asked Questions" 
+的文章。
+
+因為~Unix 有太多不同的種類了, 所以很難保證此文件所提供的答案必然會有
+用。在嘗試本文件提供的作法前, 請先讀讀你所使用系統的手冊。若你對答案
+有任何建議或更正, 請送~email 給 tmtaimar@isgtec.com.
+
+\setcounter{section}{3}
+\section{自以為已經知道所有答案的人可能會問的高級問題}
+\subsection{要如何在使用者不必按~RETURN 的情況下從~terminal 讀進東西？}
+
+	在~BSD 中用~cbreak 模式，在~SysV 中則用~~ICANON 模式。
+
+	如果你懶得用~"ioctl(2)" 來設定~terminal 的參數，也可以用~stty 來做，
+        不過有點慢又沒有效率就是了。底下的程式自己看著辦吧：
+\small
+\begin{verbatim}
+	      #include <stdio.h>
+	      main()
+	      {
+        	    int c;
+
+	            printf("Hit any character to continue\n");
+        	    /*
+	             * ioctl() would be better here; only lazy
+        	     * programmers do it this way:
+	             */
+        	    system("/bin/stty cbreak");        /* or "stty raw" */
+	            c = getchar();
+	            system("/bin/stty -cbreak");
+	            printf("Thank you for typing %c.\n", c);
+
+	            exit(0);
+	      }
+\end{verbatim}
+\normalsize
+	有好幾個人送給我更正確的解法。不過很抱歉我不想把它們加進去，因為這已經
+	超出這份文件的範圍了。
+
+	通常對這個問題有興趣的人，都是想要做一些控制螢幕顯示之類的事情。如果你
+	也是的話，那請參考~"curses" 的相關文件。~"curses" 是一個~portable 的螢
+        幕控制函數庫。
+
+\subsection{我要如何在未曾真的讀進東西的情況下檢查是否有字元等待讀取？}
+
+	某些版本的~UNIX 提供了檢查某個~file descriptor 目前是否有東西待讀取的
+        方法。在~BSD 中，可以用~"select(2)，也可以用~FIONREAD ioctl，檢查有幾
+        個字元等待讀取，不過這只對~terminal, pipe, 與~socket 有用。在~System 
+        V Release 3 中可以用~poll(2)，不過只對~stream 有用。在~Xenix 與~Sys V 
+        r3.2 及其以後的版本裡，有一個名叫~rdchk() 的~system call 可以用來檢查
+        對一個~file descriptor 做~read() 會不會卡住。
+
+	沒有方法可以用來判斷是否有字元在~FILE pointer 中待讀取。(你可以直接查
+	看~stdio 的資料結構，看看是否~input buffer 是空的，但是這方法有時會失
+        效，因為你沒有辦法知道當你下一次要填滿這個~buffer 時會發生什麼事。)
+
+	有時人們問這個問題是因為想寫
+\begin{verbatim}
+		if (characters available from fd)
+                    read(fd, buf, sizeof buf);
+\end{verbatim}
+	以達成~nonblocking read。這不是一種好的做法，因為可能測的時候有東西，
+        要讀的時候，已經沒有東西可讀了。正確的做法應該是用~fcntl(2) 裡的 
+       ~F\_SETFL 設定~O\_NDELAY。在一些比較舊的系統~(例如: Version 7, 4.1 BSD)
+	裡，並沒有 ~O\_NDELAY 可用，就得用~alarm(2) 來設定~read 的~timeout，以達成近似 
+       ~nonblocking read 的功能。
+
+\subsection{要怎樣才能得知一個已~open 檔案之檔名？}
+
+	這個是非常困難的。若是這個~file descriptor 是對應到~pipe 或~pty 就沒
+        有名字了。這個~file descriptor 對應的檔案也有可能已被刪除。若是有 
+        ~symbolic link 或~hard link，則可能有許多個名字。
+ 
+	如果你經過一再考慮後別無選擇一定要這麼做的話，可以用~find 的~-inum 與 
+	~-xdev 選項，或用~ncheck，或用自己寫類似的程式來做。在這麼做時要耐心的
+	等，因為在一個幾百~megabyte 甚至幾~gigabyte 的~file system中找一個檔
+        案，一定得花不少時間。
+
+\subsection{一個執行中的程式如何知道自己的~pathname?}
+
+	若果~argv[0] 是以~"/" 開始的字，它可能就是你的程式所在地的絕對路徑。
+        如果不是那就得照順序檢查~PATH 裡的每一個目錄看看裡面是否有與~argv[0]
+        一樣的程式。如果找得到的話將那個目錄與程式名稱兜起來可能就是你要的
+	~pathname 了。
+
+	不過，用上述方法找到的名字並不一定是對的，因為在程式中用到
+	~exec() 時， 
+        ~argv[0] 是可以隨便給的。將~argv[0] 設為與要執行的程式名稱相同只
+	是一種慣用法罷了！
+
+	以下的例子可能會使你更清楚些：
+\small
+\begin{verbatim} 
+	        #include <stdio.h>
+        	main()
+	        {
+        	    execl("/usr/games/rogue", "vi Thesis", (char *)NULL);
+	        }
+\end{verbatim} 
+\normalsize
+	這個被執行的程式就會認為它的名字(argv[0] 之值)是 "vi Thesis"）。
+
+\subsection{如何用~popen() 對一個~process 做讀寫的動作？}
+
+	用~pipe 把一個~process 的輸出、輸入轉給任意的~process 所可能會發生的
+        問題就是~deadlock，譬如這兩個~processes 剛好同時都在等待「尚未產生」
+        的輸入時。唯一能避免~deadlock 的方法就是在~pipe 的兩端都要遵循嚴格的
+	~deadlock-free 協定，但是需要這些~processes 之間的互相合作才能達成，
+        而對於像~popen() 這類的函數來說並不太適合。
+
+	在~'expect' 這個軟體中附有一個能夠讓~C 程式直接引用的函式庫。其中有
+        一個函式不管是在讀或寫都能達到和~popen 相同的功能。但是這個函式是使
+        用~ptys 而不是~pipes，也沒有~deadlock 的問題，並且在~BSD 或~SV 中都
+        能使用。若想對~'expect' 有進一步的瞭解，可參考下一個問題的解答。
+
+\subsection{在~C 程式中要怎麼用~sleep() 才能夠~sleep 小於一秒？}
+
+	首先要注意的是，你只能指定~delay 的「最短」時間；實際上會~delay 多久和
+	系統的~scheduling 方式有關，例如系統當時的負載。如果你倒楣的話，它還可
+	能會~delay 蠻長的時間。
+
+	並沒有一個標準函式能夠在「小睡」（很短的~sleep）期間提供你計數的功能。
+	某些系統有提供~usleep(n) 的函式，它能夠暫停執行 n 微秒~(microsecond)
+        的時間。如果你所使用的系統沒有提供~usleep() 函式，那麼以下有可在~BSD，
+	~System V 使用中的作法。
+
+	接下來的這段程式碼是~Doug Gwyn 在~System V 中模擬~4BSD 並利用~4BSD 
+	中的~select() 系統呼叫。Doung 自己都叫它為~'nap()' ；你也可以把它叫做 
+	~"usleep()"；
+\footnotesize
+\begin{verbatim}
+	/*
+            usleep -- support routine for 4.2BSD system call emulations
+            last edit:  29-Oct-1984     D A Gwyn
+	*/
+
+      extern int        select();
+
+      int
+      usleep( usec )                            /* returns 0 if ok, else -1 */
+       	    long                usec;           /* delay in microseconds */
+            {
+       	    static struct                       /* `timeval' */
+               	    {
+                    long        tv_sec;         /* seconds */
+       	            long        tv_usec;        /* microsecs */
+               	    }   delay;          /* _select() timeout */
+
+            delay.tv_sec = usec / 1000000L;
+       	    delay.tv_usec = usec % 1000000L;
+
+            return select( 0, (long *)0, (long *)0, (long *)0, &delay );
+       	    }
+
+      On System V you might do it this way:
+
+      /*
+      subseconds sleeps for System V - or anything that has poll()
+      Don Libes, 4/1/1991
+
+      The BSD analog to this function is defined in terms of
+      microseconds while poll() is defined in terms of milliseconds.
+      For compatibility, this function provides accuracy "over the long
+      run" by truncating actual requests to milliseconds and
+      accumulating microseconds across calls with the idea that you are
+      probably calling it in a tight loop, and that over the long run,
+      the error will even out.
+
+      If you aren't calling it in a tight loop, then you almost
+      certainly aren't making microsecond-resolution requests anyway,
+      in which case you don't care about microseconds.  And if you did,
+      you wouldn't be using UNIX anyway because random system
+      indigestion (i.e., scheduling) can make mincemeat out of any
+      timing code.
+
+      Returns 0 if successful timeout, -1 if unsuccessful.
+
+      */
+
+      #include <poll.h>
+
+      int
+      usleep(usec)
+      unsigned int usec;                /* microseconds */
+      {
+            static subtotal = 0;        /* microseconds */
+            int msec;                   /* milliseconds */
+
+            /* 'foo' is only here because some versions of 5.3 have
+             * a bug where the first argument to poll() is checked
+             * for a valid memory address even if the second argument is 0.
+             */
+            struct pollfd foo;
+
+            subtotal += usec;
+            /* if less then 1 msec request, do nothing but remember it */
+            if (subtotal < 1000) return(0);
+            msec = subtotal/1000;
+            subtotal = subtotal%1000;
+            return poll(&foo,(unsigned long)0,msec);
+      }
+\end{verbatim}
+\normalsize
+	在~System V 或其他 非-BSD 的~Unix 中要使用這類的「小睡」程式，可以用 
+       ~Jon Zeeff 發表在~comp.sources.misc, volume 4 中的~s5nap， 它需要安裝
+	一個驅動程式，但是裝好後就可以跑得很好。（它的精確度會受到~kernel 中 
+	~HZ 這個變數的影響，因為它是用到了~kernel 中的~delay() 函式。）
+
+	現在很多較新版本的~Unix 都有提供這類的「小睡」功能了。
+
+\subsection{如何讓~setuid 的~shell script 可以使用？}
+
+	[ 這個問題的回答很長，但是這是一個複雜又常問的問題。在此要謝謝~Maarten 
+	Litmaath 所提供的答案和以下所提到的~"indir" 程式。]
+
+	先假設你所用的~UNIX 是能認得「可執行的~shell script」的變異過的~UNIX
+       （如 4.3BSD 或 SunOS）。這類~script 的第一行一定是如以下一般：
+\begin{verbatim}
+		#!/bin/sh
+\end{verbatim}
+	這樣的~script 就是所謂可執行的~script，因為它和一般可執行的~binary 檔
+        一樣有~magic number 做開頭。在我們所用的例子中，~magic number 為 
+        '\#!'，~OS 會把這行接下來的部份當作這整個~script 的解譯程式，其後可能還
+        會有一些~option 如：
+\begin{verbatim}
+		#!/bin/sed -f
+\end{verbatim}
+	假設這個 script 的名字叫做 'foo'，並且放在 /bin 下，那麼如果你用：
+\begin{verbatim}
+		foo arg1 arg2 arg3
+\end{verbatim}
+	那麼 OS 實際在執行時會把它看成是：
+\begin{verbatim}
+		/bin/sed -f foo arg1 arg2 arg3
+\end{verbatim}
+	有一點不同的是：如果 'foo' 設定成 setuid，那麼 OS 會把它以第一種格
+        式來解釋；如果你硬是以第二種格式輸入，那麼 OS 會以 /bin/sed 的 
+        permission 為準，而它當然不會是 setuid。
+
+        ----------
+
+	好吧，那如果我的 shell script 並不是以~'\#!' 做開頭，
+	或是我的~OS 根本就不認得它呢？
+
+	嗯，如果這個~shell（或是其他的解譯程式）試著要去執行它，那麼~OS 會傳回
+	一個錯誤訊息，表示這個檔案不是以合法的~magic number 做開頭。收到這個錯
+	誤訊息後，~shell 會把這個檔案認定成是~shell script，並以另一種方式來執行
+\begin{verbatim}
+		/bin/sh shell_script arguments
+\end{verbatim}
+	但是我們在前面已經看到了，在這樣的情形下，設成為~setuid 的 
+        ~shell\_script 並不會發生作用。
+
+        ----------
+
+	那麼，設成~setuid 的~shell script 到底有什麼安全上的問題呢？
+
+	嗯，假設這個~script 叫做~'/etc/shell\_script'，它的開頭是：
+\begin{verbatim}
+		#!/bin/sh
+\end{verbatim}
+	現在我們來看看以下的命令會發生什麼事：
+\begin{verbatim}
+		$ cd /tmp
+	        $ ln /etc/setuid_script -i
+        	$ PATH=.
+	        $ -i
+\end{verbatim}
+	我們可以看出來，以上的最後一個命令會被解釋成：
+\begin{verbatim}
+		#!/bin/sh -i
+\end{verbatim}
+	而這樣的命令會讓我們得到一個可以輸入命令的 shell，並且會被 setuid 成
+        這個  script 的擁有者。
+	幸好，這樣的安全漏洞可以很輕易地防止，只需要把第一行改成：
+\begin{verbatim}
+		#!/bin/sh -
+\end{verbatim}
+	'-' 這個符號代表著它是整個~option list 的結尾：所以如果再用前述的方法
+        的話，'-i' 就會如本來所期望的被解釋成~script 檔案的名字。
+
+        ----------
+
+	然而，還有更嚴重的問題：
+\begin{verbatim}
+		$ cd /tmp
+	        $ ln /etc/setuid_script temp
+        	$ nice -20 temp &
+	        $ mv my_script temp
+\end{verbatim}
+	第三個命令會被解釋成：
+\begin{verbatim}
+		nice -20 /bin/sh - temp
+\end{verbatim}
+	而因為這個命令的優先權被設得很低，那麼第四個命令可能就有機會搶先在 
+	~shell 開啟~'temp' 之前就用~'my\_script' 把~'temp' 給蓋掉！有四種方法
+        可以修補這個安全上的漏洞：
+
+	1)  讓~OS 用另一個比較安全的方式執行~setuid script。如~System V R4 和 
+	   ~4.4BSD 利用~/dev/fd 來把該~script 的~file descriptor 傳給解譯程式。
+
+	2)  透過一個前端程式來間接解譯要執行的~script，以確定在真正的解譯程式
+            啟動前一切正常。例如，你可以用~comp.sources.unix 中的~'indir' 程
+            式，那麼你的~script 開頭就會像這樣：
+\begin{verbatim}
+			#!/bin/indir -u
+	                #?/bin/sh /etc/setuid_script
+\end{verbatim}
+	3)  造一個~'binary wrapper'：一個真正的~setuid 可執行程式，這個程式的
+            唯一功能就是用來執行~script 中所指定的解譯程式，並以該~script 的檔
+            名為參數傳給解譯程式。
+
+	4)  造一個~'setuid script server' ，並把一些要用到、檢查過的~setuid 
+           ~script 存放在~database 中。當成功地被呼叫後，會去執行正確的解譯程
+            式及正確的~script。
+
+        ---------
+
+	現在我們已經能確定所解譯到的~script 是正確的，那麼還有其他的危險嗎？
+
+	很抱歉，當然還有！在使用~shell scipt 的時候，你一定不能忘記要把~PATH 
+        這個變數很明確地設到正確的路徑去。你能夠指出這是為什麼嗎？除此之外，
+        還有~IFS 這個變數如果沒設好也可能會造成麻煩。其他的環境變數也可能會造
+        成安全上的問題，如~SHELL... 更重要的，你必須要確定在 script 中沒有命
+        令會讓它產生出可下命令的~shell（interactive shell escape）！還有就是，
+       ~umask 可能被設成奇怪的值等等...
+
+	除此之外，你應該要知道~setuid script 會「繼承」所有它所用到的命令的 
+       ~bug 及安全問題。
+
+	總而言之，你應該知道~setuid shell script 真的是件非常危險的事吧！
+        最好還是寫~C 程式啦。
+
+\subsection{我要如何得知有哪些~process 開了某一檔案，或某一~process 正在使用
+      哪一個~fileystem(以至於我無法~unmount 這個~filesystem)?}
+
+	你可以用~fuser(system V)，~fstat(BSD)，~ofiles(public domain) 或是
+	~pff (public domain)。這些程式可以告訴你哪些~processes 正在使用哪些
+	檔案。
+
+	4.3BSD 的~fstat，有一份~Dynix，~SunOS 與~Ultrix 都可以用的~port。
+	你可以找找放 comp.sources.unix, volume 18的地方。
+
+	Pff 是~kstuff 這套軟體的一部分，很多系統上都可以用。欲取得~kstuff 請參
+        考問題~3.10。
+
+\subsection{我要怎麼知道是誰在~finger 我啊？}
+
+	一般來說，你是無法找出在遠端機器 finger 你的那個人的 userid 的。你大概
+        只能找出在從哪台機器 finger 的。另外有一種可行的方法，如果你的系統支援
+        並且假設 finger daemon 不反對的話，那麼可以把你的 .plan 檔用 "named 
+        pipe" 而不用一般的文字檔。（用 'mknod' 來造）
+
+	接下來，你執行一個程式去寫（open for writing）你的 .plan 檔；但是由於
+        你的 .plan 是一個 "named pipe"，所以這個開檔的動作要一直等到有其他的 
+	process 去讀（open for reading）你的 .plan 檔時才會成功。現在你就可以
+        任意地把你所想讓人 finger 到的 .plan 內容寫入這個 pipe。在 
+        comp.sources.misc, volumn 41 中有個 "planner" 的程式可以做這件事。
+
+	當然，如果你的系統不支援 "named pipe"，或是你所用的 finger 程式只接受
+        純文字的 .plan 檔，那麼以上的方法就行不通了。
+
+	你的程式也可以藉由查看 "netstat" 的輸出，來找出這次的 finger 是從那裡
+        連過來的，但是這並無法看出遠端執行 finger 的人是誰。
+
+	想要知道遠端的人是誰，必須要遠端的機器有跑支援如 RFC 931 的識別程式才
+	行。
+
+	現在，在常見的~BSD 系統上就有三種~RFC 931 的實做程式，同時也有許多的
+	應用程式（如~wuarchive ftpd）支援。如果你想得到更多有關~RFC 931 的資
+        訊，可以加入~rfc931-user 的~mailing list，
+        \url{rfc931-users-request@kramden.acf.nyu.edu}。
+
+	另外還有三個注意事項。第一，有許多的 NFS 系統無法正確地處理 "named 
+	pipe"。這個意思是，當你要去讀放在另一部機器上的 pipe 時，可能會被系統 
+	block 住直到time out，或是因為 pipe 的檔案長度是 0 所以系統就不把它的
+        內容列出來。
+
+	第二，在許多的系統中，fingerd 會在讀 .plan 檔之前先去檢查它裡面是否真
+        的有資料並且是可以讀的。這樣就會造成遠端 finger 你的人根本就看不到你
+        的 .plan 檔，因為你的 .plan 長度是 0。
+
+	第三，支援 "named pipe" 的系統通常在同一個時間裡只允許系統中存在某個固
+	定數目的 pipes，檢查 kernel 的 config 檔和 FIFOCNT 選項即可得知。如果
+        系統中的 pipe 數目超過了 FIFOCNT，那麼系統就會暫停所有新的 pipe 直到有
+        人關掉他先前所開的 pipe。這是因為 pipe 所用到的 buffer 是放在 
+        non-paged 的記憶體中。
+
+\subsection{能不能在一個~process 和~terminal 的連接已經斷掉之後再接回來，例如
+       在~background 跑一個程式然後就~logout 而斷掉的程式？}
+
+	大部份版本的~Unix 都不像~VMS 和~Multics 等作業系統支援~"detaching" 和 
+	~"attaching" process。不過，有兩個免費的軟體能夠幫你達成這個目的。
+
+	第一個是 "screen"，在 comp.sources.unix 中的標題是 "Screen, multiple 
+        windows on a CRT"。（你可以在 comp.sources.misc, volumn 28 中發表的 
+        "screen-3.2" 中找到）這個軟體在 BSD，System V r3.2 及 SCO UNIX 皆可執
+        行。
+
+	第二個是 "pty"，在 comp.sources.unix 中的標題是 "Run a program under 
+        a pty session"。（可以在 volumn 23 發表的 "pty" 中找到）"pty" 只能在 
+        BSD 的系統中執行。
+
+	以上這兩個軟體都沒有溯及既往的能力，也就是說，你如果想對某個~process
+        做~detach 或~attach 的動作，那麼就必須要先在~screen 或~pty 下啟動它才
+        行。
+
+\subsection{有沒有辦法可以偷聽一個~terminal，就是說將其輸出複製一份至其他的 
+     ~terminal。}
+
+	有幾種方法可以達成這個目的，不過沒有一個是完美的：
+\begin{itemize}
+	\item  kibitz 允許兩個（或更多）的人透過~shell（或其他的程式）彼此溝通。
+           它的用途有：
+	   \begin{itemize}
+		\item  監視或援助令一人的~terminal session；
+		\item  記錄所有的輸出入以用來能捲頁回去，儲存整個輸出入，甚至是可
+                   以直接編輯它。
+		\item  當團隊合作時，如製作 game、撰寫文件等工作，每個人都各有所長
+                   各有所短，就可用此種方式彼此互補。
+	   \end{itemize}
+	kibitz 是~'expect' 軟體的一部份，請查看問題~3.9。
+
+	kibitz 需要有被監視人的同意才能進行。如果想不取得同意就進行監視，那就
+        得用一些比較令人討厭的方法了：
+
+	\item  你可以自己寫一個程式去搜查整個~kernel 的結構，監視~terminal 所
+	   用的~output buffer，然後把它所輸出的字全抓下來。很明顯的，這是熟悉
+	   ~Unix kernel 的人才可能做得到的。但是，不論你是用什麼方法大概都無法
+           拿到其他的~Unix 去用。
+
+	\item 如果你是想要隨時監視一個特定、實際拉線連上的~terminal（例如，你想讓
+	   管理者能夠從其他機器的終端機查看某部機器的~console），那你可以乾脆
+           接一台監視器在通往那台~terminal 的線上。舉例來說，把你的監視器的輸
+           出接到另一台機器的~serial port，然後執行一個程式去收集那個 port 的
+           輸入並把它轉到另一個~port 去，而這個~port 就真的連到你所要監視的 
+          ~terminal 去。這樣做的話，你必須確定從該~terminal 來的輸出會隨著線傳
+           回去，即使你只是插接在電腦和~terminal 的中間，這並不會太難做到。 用
+           這個方法，對~terminal 佈線不太熟悉的人是無法發覺的。
+
+	\item  在最近一版的~screen 中有一種~multi-user 模式可以用。若想多了解一
+           點~screen，請看問題 4.10。
+
+	\item  如果你所使用的系統有提供~stream（如~SunOS，SVR4）那麼你可以使用
+	   發表在~comp.sources.misc, volumn 28 中的~advise 程式。它並不需要先
+           執行。（但是，你必須要事先把你的系統設定成在開啟~tty 或~pty 時會自
+           動把~advise 模組放入~stream 中。）
+\end{itemize}
+
+\end{CJK*}
+\end{document}

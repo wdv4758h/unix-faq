@@ -1,0 +1,985 @@
+這七篇文章包含一些在 comp.unix.questions 和 comp.unix.shell 常見到的問
+題。請不要再問這些問題，因為這些問題已經回答過太多次了。但也請不要因為
+有人問這些問題而發火，因為他們可能尚未讀過這些文章。
+
+This collection of documents is Copyright (c) 1994, Ted Timar, except 
+Part 6, which is Copyright (c) 1994, Pierre Lewis and Ted Timar.
+
+All rights reserved. Permission to distribute the collection is 
+hereby granted providing that distribution is electronic, no money is 
+involved, reasonable attempts are made to use the latest version and 
+all credits and this copyright notice are maintained.
+
+Other requests for distribution will be considered.
+
+All reasonable requests will be granted.
+
+中文翻譯 by {chenjl,freedom,jjyang}@csie.nctu.edu.tw
+若您對中文翻譯有任何意見請發 e-mail 給 cfaq@csie.nctu.edu.tw
+
+我們希望這些文件中的資訊能對你有所幫助﹐但是並不保証是正確的。若發生損
+害請自行負責。
+
+您可以在 rtfm.mit.edu 的 pub/usenet/news.answers 找到包括此文件在內的
+許多 FAQ。 在此目錄下的 FAQ 的名字可在文章的頂端的 "Archive-Name:" 
+那一行找到。
+
+/* 譯注: 在台灣請用 NCTUCCA.edu.tw:/USENET/FAQ，在交大的話 
+         ftp.csie.nctu.edu.tw:/pub/Documents/FAQ 是從 CCCA mirror 來的 */
+
+  此一 FAQ 是以"unix-faq/faq/part[1-7]" 為名。
+
+這些文章大約分成：
+
+      1.*）一般性的問題
+      2.*）初學者可能會問的基本問題
+      3.*) 中級的問題
+      4.*) 自以為已經知道所有答案的人可能會問的高級問題
+      5.*) 關於各種 shell 的問題
+      6.*) 各式各樣的 Unix
+      7.*) An comparison of configuration management systems (RCS, SCCS).
+
+這篇文章以下問題的解答：
+
+      6.1)  聲明，介紹及感謝。
+      6.2)  Unix 簡史
+      6.3)  主要的 Unix 流派
+      6.4)  Unix 的標準化
+      6.5)  你所用的 Unix 是哪一種流派。
+      6.6)  請簡要介紹一些知名的 (商業化/PD) Unix
+      6.7)  即時的 Unix
+      6.8)  Unix 用語彙編
+
+若要找問題 6.5 的答案, 用 regular expression 往前找 "^6.5)" 即可。
+
+因為這些都是正當合理的問題, 所以在 comp.unix.questions 或是 
+comp.unix.shell 中。每隔一陣子, 就會有這些問題與答案出現, 緊接著就會
+有人對同樣問題一再出現發牢騷。關於 UNIX 代表啥呢? 請參考每月 post 在 
+news.announce.newusers 中名為 "Answers to Frequently Asked Questions" 
+的文章。
+
+因為 Unix 有太多不同的種類了, 所以很難保證此文件所提供的答案必然會有
+用。在嘗試本文件提供的作法前, 請先讀讀你所使用系統的手冊。若你對答案
+有任何建議或更正, 請送 email 給 tmtaimar@isgtec.com.
+
+---------------------------------------------------------------------
+
+Subject: Disclaimer, introduction and acknowledgements.
+>From: "Pierre (P.) Lewis" <lew@bnr.ca>
+Date: Mon Jan 11 16:59:14 EST 1995
+X-Version: 2.8
+
+6.1)  聲明，介紹及感謝。
+
+    我並無法保證以下內容的完整性及正確性。我只是利用有限的時間盡量去做
+    （常碰到互相衝突的資料），未來還有很多要做。我希望能持續改進這份文
+    件。歡迎您的批評與指教：lew@bnr.ca。
+    
+    首先讓我們先為 UNIX 下個簡短的定義。我們所提的 Unix 指的是一個通
+    常是由 C 寫成的作業系統，它有階層式的檔案系統，統合了檔案和裝置(device)
+    I/O，其系統函式呼叫（system call）介面包含了如 fork()，pipe() 等服務，
+    而且它的使用者介面包含 cc，troff，grep，awk 之類的工具及某一種
+    shell。UNIX 過去是 USL(AT&T) 的註冊商標，現在則是 X/Open 的註冊
+    商標。本文所指的 UNIX 是一般通用的意義，而不是那個註冊商標。
+    
+    絕大多數的 Unix 或多或少都用了來自 AT&T（現在則是 Novell）的程式
+    碼（大部分的 Unix 裡面可能都還有使用第一版 C 語言所寫的程式），
+    但是也有些是自己從頭寫一個一模一樣的 Unix。（就是寫得和 Unix 完全
+    相容但是卻沒有用到 AT&T 的程式碼。）
+    
+    此外還有一些建構於別種 OS 上的 Unix-like 環境，例如 VOS；以及向 UNIX
+    借用靈感的的 OS，例如 MS-DOS。這些都不在本文的討論範圍裡。對即時（
+    real-time）的 Unix 本文也討論得不多。
+    
+    UNIX 的流派實在多得令人難以置信。主要的原因是因為 Unix 的原始程式容易
+    取得、修改與移植。一般廠商的典型作法是以某一流派為主體再加入其他流
+    派的特色。如此一來又產生了另一個新的流派。目前 Unix 有數百款，如果
+    說有一種可當成圭臬的話,那應該是 System V 吧。
+    
+    本文的內容大部份取自於網路上流傳的資訊。如果取自其他來源,則會在適當的章
+    節中加以說明。
+    
+    特別感謝：pat@bnr.ca,guy@auspex.com, pen@lysator.liu.se, 
+    mikes@ingres.com,mjd@saul.cis.upenn.edu, root%candle.uucp@ls.com, 
+    ee@atbull.bull.co.at, Aaron_Dailey@stortek.com, ralph@dci.pinetree.org, 
+    sbdah@mcshh.hanse.de,macmach@andrew.cmu.edu, jwa@alw.nih.gov[4.4BSD],
+    roeber@axpvms.cern.ch,bob@pta.pyramid.com.au,bad@flatlin.ka.sub.org, 
+    m5@vail.tivoli.com,dan@fch.wimsey.bc.ca, jlbrand@uswnvg.com,
+    jpazer@usl.com,ym@satelnet.org,merritt@gendev.slc.paramax.com,
+    quinlan@ygg.drasil.com,steve@rudolph.ssd.csd.harris.com,
+    bud@heinous.isca.uiowa.edu,pcu@umich.edu,quinlan@yggdrasil.com,
+    Dan_Menchaca@quickmail.apple.com,D.Lamptey@sheffield.ac.uk, 
+    derekn@vw.ece.cmu.edu, gordon@PowerOpen.org, 許多我忘了名字的人，
+    以及許多我曾拜讀他們文章的人。
+
+
+------------------------------
+
+Subject: A very brief look at Unix history.
+>From: "Pierre (P.) Lewis" <lew@bnr.ca>
+Date: Mon May 30 15:44:28 EDT 1994
+X-Version: 2.6
+
+6.2)  Unix 簡史
+
+    Unix 的歷史開始於 1969，Ken Thompson、Dennis Ritchie (K&R 裡的那個 
+    R) 與一群人在一部『位於角落且乏人問津的 PDP-7』上進行的一些工
+    作，後來這個系統變成了 Unix。"UNIX" 這個字（最初是寫成 Unics, 
+    Uniplexed Information and Computering System)有一點玩弄 "Multics" 這個字
+    的意味。
+
+    最初十年間，Unix 的發展基本上都是在 Bell Labs 裡完成的。最初的幾個
+    版本稱為 "Version n" 或 "Nth Edition" ，是給 DEC 的 PDP-11(16 bits) 與
+    其下一代產品 Vax(32 bits)用的。主要的幾個版本為：
+
+    V1 (1971):  第一版的 Unix，以 PDP-11/20 的組合語言寫成。包括檔案系統
+        (file system)、fork()、roff、ed 等東西。是用來給 AT&T 的專利部門
+        處理文件用的。Pipe() 出現於 V2。
+      
+    V4 (1973):  以 C 語言從頭寫過，這或許是 OS 歷史上最重要的一個事
+        件，這表示 Unix 修改容易，可以幾個月內移植到新的硬體架構上。最
+        初 C 語言是為 Unix 設計的，所以 C 與 Unix 間有緊密的關係。
+
+    V6 (1975):  第一個在 Bell Labs 外（尤其是大學中）廣為流傳的 Unix 版
+        本。這也是 Unix 歧異的起點與廣受歡迎的開始。1.xBSD(PDP-11) 就
+        是由這個版本衍生出來的。J. Lions 的“A Commentary on the Unix 
+        Operating System" 也是以 V6 為本。
+
+    V7 (1979):  在許多 Unix 玩家的心目中,這是『最後一個真正的 UNIX』，
+        也是『空前絕後的一個 Unix』[Bourne 說的]，這個版本包括一個完整
+        K&R C、Bourne shell。V7 移植到 VAX 上稱為 32V。 V7 的 kernel 
+        只有 40 Kbytes！
+    
+    底下列出 V7 的系統呼叫,供「後進之輩」們憑弔瞻仰：
+        _exit, access, acct, alarm, brk, chdir, chmod, chown,
+        chroot, close, creat, dup, dup2, exec*, exit, fork, fstat,
+        ftime, getegid, geteuid, getgid, getpid, getuid, gtty,
+        indir, ioctl, kill, link, lock, lseek, mknod, mount,
+        mpxcall, nice, open, pause, phys, pipe, pkoff, pkon,
+        profil, ptrace, read, sbrk, setgid, setuid, signal, stat,
+        stime, stty, sync, tell, time, times, umask, umount,
+        unlink, utime, wait, write.
+
+    以上這些 "Vn" 版都是由 Bell Labs 裡的 Computer Research Group(CRG) 
+    發展的。另一個Unix Support Group(USG) 負責支援服務。Bell Labs 裡還
+    有另一個與 Unix 發展相關的團體 Programmer's WorkBench(PWB) 則做出
+    了 sccs、named pipe 及一些其它的東西。USG 與 PWB 後來於 1983 年
+    合併成 Unix System Developement Lab。
+
+    此外 Bell Labs 在 Columbus 的分支機構，負責發展 Operations Support 
+    System 也做了一版的 Unix 稱為 CB Unix (Columbus Unix)。System V IPC 
+    就是從 CB Unix 來的。
+
+    到了1980 年代 Bell labs 並未放棄 Unix。CRG 仍繼續發展 V 系列的
+    Unix (Stroustrrup 在它的 C++ 第二版裡就提到了 V10)，不過並未對外發
+    表。目前發展 Unix(System V) 的公司是 Unix System Laboratories(USL)。
+    USL 本為 AT&T 所有，'93 年初被 Novell 收購。Novell 於 '93 年末將
+    "UNIX" 這個註冊商標轉給 X/Open。
+
+    除了 AT&T 所屬的機構外，有不少地方也對 Unix 的改進做出了貢獻，例
+    如 Berkeley 就自成一大流派。有不少廠商（尤其是賣工作站的）也對 Unix 
+    的發展有所貢獻（如 Sun 的 NFS)。
+    
+    對任何對 Unix 有興趣的人而言 Don Libes 與 Sandy Ressler 所寫的 "Life
+    with Unix" 是一本有趣的書。此書講了許多 Unix 的歷史與發展及一些軼
+    事。本文多採此書之說。
+
+    /* 譯註: Life with Unix 在台灣並沒有書局代理進口, 非常可惜！
+       這本書裡面有很多關於 Unix 的故事, 有興趣可以來我們這兒泡泡茶,
+       看看這本故事書 */
+------------------------------
+
+Subject: Main Unix flavors.
+>From: "Pierre (P.) Lewis" <lew@bnr.ca>
+Date: Mon Jan  9 16:59:14 EST 1995
+X-Version: 2.7
+
+6.3)  主要的 Unix 流派
+
+    目前為止，UNIX 有兩大流派：那就是 AT&T 的 System V (讀 five, 不讀 v)
+    與 BSD (Berkeley Software Distribution)。SVR4 是兩大流派融合後的產物。
+    '91 年底，與 System V 針鋒相對的 Open Software Foundation 推出了 OSF/1，
+    或許 OSF/1 會改變市場生態。
+
+    /* 譯註：由今日('95)觀之，OSF/1 應該是無法挑戰 System V 了 */
+
+    以下是 System V、BSD、OSF/1 的主要版本以及特色。
+    
+    AT&T 的 System Ｖ。Intel 系列的機器多半使用此系列。移植版本最多的 Unix，
+    當然在移植時都會加入一些由 BSD 發展的有用功能,例如 csh、job control、
+    termcap、curses、vi、symbolic link。目前 System V 的發展是由 Unix
+    International(UI) 負責監控。UI 的成員包括 AT&T、Sun 等。
+    網路討論區: comp.unix.sysv[23]86。主要版本:
+
+         - System III (1982): AT&T 第一個拿來賣錢的 UNIX
+           - FIFOs (named pipes)  (later?)
+
+         - System V (1983):
+           - IPC package (shm, msg, sem)
+
+         - SVR2 (1984):
+           - shell 函數 (sh)
+           - SVID (System V Interface Definition)
+
+         - SVR3 (1986) for ? platforms:
+           - STREAMS (從 V8 得來的靈感), poll(), TLI (網路軟體)
+           - RFS
+           - 共用程式庫（shared libs）
+           - SVID 2
+           - demand paging (如果硬體有支援的話)
+
+         - SVR3.2:
+           - 併入 Xenix (Intel 80386)
+           - 網路
+
+         - SVR4 (1988), 融合了 System V、BSD、SunOS 是各種 UNIX 中 
+           的主流
+           - 取自 SVR3 者: 系統管理, terminal 界面, 印表機 (from BSD?),
+             RFS, STREAMS, uucp
+           - 取自 BSD 者: FFS, TCP/IP, sockets, select(), csh
+           - 取自 SunOS 者: NFS, OpenLook GUI, X11/NeWS,
+             具有記憶體映對檔案的虛擬記憶體子系統（virtual memory
+             subsystem with memory-mapped files）, 共用程式庫
+             (!= SVR3 ones?)
+           - ksh
+           - ANSI C
+           - 國際化（Internationalization） (8-bit clean)
+           - ABI (Application Binary Interface -- routines instead of traps)
+           - POSIX, X/Open, SVID3
+
+         - SVR4.1
+           - 非同步 I/O (from SunOS?)
+
+         - SVR4.2 (based on SVR4.1ES)
+           - Veritas FS, ACLs
+           - 動態載入核心模組
+
+         - Future:
+           - SVR4 MP (多處理器)
+           - 使用 Chorus 微核心?
+
+    Berkeley Software Distribution (BSD)。VAX、RISC、各式工作站多用之。
+    比起 System V 來 BSD 的變動比較快而且學術研究的味道比較濃一點。
+    Unix 之所以能夠流行,BSD 居功闕偉。許多對 Unix 的加強改進都是由
+    BSD 先做出來的。在 UCB (University of California at Berkeley) 中負責 BSD 
+    的是 Computer System Research Group(CSRG)。CSRG 已於 1992 年關門大吉。
+    網路討論區: comp.unix.bsd。主要的版本如下：
+
+         - 2.xBSD (1978) 給 PDP-11 用的, 這個系統好像還活著的樣子(1992 
+           還推出了 2.11BSD!).
+           - csh
+
+         - 3BSD (1978):
+           - 虛擬記憶體
+
+         - 4.?BSD:
+           - termcap, curses
+           - vi
+
+         - 4.0BSD (1980):
+
+         - 4.1BSD (?): 後來 AT&T CRG 版本皆以此為本
+           - job 控制
+           - automatic kernel config
+           - vfork()
+
+         - 4.2BSD (1983):
+           - TCP/IP, sockets, ethernet
+           - UFS: 長檔名, symbolic links
+           - 新的 reliable signals (SVR3 採用了 4.1 的 reliable signals)
+           - select()
+
+         - 4.3BSD (1986) for VAX, ?:
+         - 4.3 Tahoe (1988): 4.3BSD 附加對 Tahoe(一款32位元的超級迷你電腦)
+           的支援及一些新東西
+           - Fat FFS
+           - 新的 TCP 演算法
+         - 4.3 Reno (1990) for VAX, Tahoe, HP 9000/300:
+           - 大部份的 P1003.1
+           - NFS (from Sun)
+           - MFS (記憶體檔案系統)
+           - OSI: TP4, CLNP, ISODE's FTAM, VT and X.500;  SLIP
+           - Kerberos
+
+         - Net1 (?) 與 Net2 (June 1991) 磁帶: BSD 中不侵犯 USL 版權的部份
+
+         - 4.4BSD (alpha June 1992) for HP 9000/300, Sparc, 386, DEC, others;
+           已經不支援 VAX 與 Tahoe; 有兩個版本, 一個是 lite (大約是 Net2 的
+           內容,加上修正與新的架構); 另一個是 encumbered (內容一應俱全,但需
+           USL 授權):
+           - 以 Mach 2.5 為基礎的新型虛擬記憶體系統 (VMS),
+           - 虛擬檔案系統介面, log-structured 檔案系統, 本地檔案系統
+             的大小可達 2^63, NFS (可以免費流傳,可以跟 Sun 的 NFS 並存,
+             架在 UDP 或 TCP 之上)
+           - ISO/OSI 網路支援 (以 ISODE 為基礎): TP4/CLNP/802.3 以及
+             TP0/CONS/X.25, session 及更高層的協定則放在 user space;
+             FTAM, VT, X.500。
+
+             /*
+                譯註: FTAM 跟 TCP/IP 網路的 ftp 協定相當
+                      VT 則跟 telnet 相當, X.500 則是 directory service
+             */
+
+           - 大部分是 POSIX.1 (特別是新增的 SV 形式終端機驅動程式),有很多
+             POSIX.2, 改進過的 job control; ANSI C 表頭檔
+           - Kerberos 以整合入系統內許多地方 (包含 NFS)
+           - TCP/IP 加強 (包含表頭預測, SLIP)
+           - 重要的核心修改 (新式系統呼叫慣例, ...)
+           - 其他改進: FIFOs, 以位元組為範圍做檔案鎖定
+           正式的 4.4BSD 版本原來預計在 alpha 版 6 個月後發表。
+
+           /* 譯註: 結果是在 '93 年六七月間發表 */
+
+    Open Software Foundation(OSF) 於 1991 年底推出了OSF/1。OSF/1 需要 
+    SVR2 授權。符合 SVID 2、SVID 3、POSIX、X/Open 等標準。
+    Apollo、Dec、HP、IBM 等大廠商都是 OSF 的成員。
+
+         - OSF/1 (1991):
+           - 以 Mach 2.5 的核心為基礎
+           - 對稱式多重處理, 平行化的核心, 處理緒（thread)
+           - 邏輯式容量（logical volumes), 磁碟鏡射(disk mirroring),
+             UFS (原生的), S5 FS, NFS
+           - 系統安全之加強(B1 加一些 B2, B3 或 C2), 4.3BSD 的系統管理
+           - STREAMS, TLI/XTI, sockets
+           - 共用程式庫, 動態程式載入器 (包括核心)
+           - Motif GUI
+
+         - Release 1.3 (Jun 94)
+           - 以 MACH 3.0 的微核心為基礎
+           - 符合目前規格 1170 草案的標准
+            （在 X/Open 的 Fast Track 程序中考慮過要將此標準化）
+           - Data Capture I/F, Common Data Link I/F,
+           - 支援ISO 10646 與 64-bit
+           - 以 Mach 3.0 為基礎的 OSF/1 MK (mircokernel)
+
+    以上關於 Unix 主要流派的列表或許該把 Microsoft 的 Xenix 也列出，因
+    為有不少 Unix 的分支是拿 Xenix 去改的。Xenix 是從 V7、System III、
+    System V 改出來的，外觀沒什麼重大的改變，內部則為了求得在微電腦上
+    使用時有較好的表現而做了不小的更動。
+
+    關於 Unix 兩大流派的內部有兩本好書可供參考。
+      - System V: "Design of the Unix Operating System", M.J. Bach.
+      - BSD: "Design and Implementation of the 4.3BSD Unix Operating System",
+        Leffler, McKusick, Karels, Quaterman.
+    關於 OSF/1 的介紹可參考 O'Reilly 出版的 "Guide to OSF/1, A Technical 
+    Synopsis" 一書。關於 SunOS，可參考 Summer 1989 USENIX Proceedings
+    裡的“Virtual Memory Architecture in SunOS" 與 "Shared Libraries in 
+    SunOS"。
+
+    92 年 4 月號的 Unix Review 有一系列關於各種 Unix 之發展方向。BSD-
+    FAQ極有參考價值，本文中所提到的幾個網路討論區也值得看看。
+
+------------------------------
+
+Subject: Main Players and Unix Standards.
+>From: "Pierre (P.) Lewis" <lew@bnr.ca>
+Date: Mon Jan 21 16:59:14 EST 1995
+X-Version: 2.8
+
+6.4)  Unix 的標準化
+
+     目前（95年初） Unix 標準化的主要參與者：
+
+      - Novell 在 93 年初買下 USL 成為原始程式的擁有者。
+      - X/Open 可決定誰能使用 "UNIX" 這個商標當產品名稱。
+      - OSF 具有雙重身分：其一為 OSF/1 與 Motif 的發展者，其二為 COSE 
+        之發展的監控組織。 OSF 於 1994 年重組後，Sun 成為了 OSF 中
+        的一員，OSF 與 X/Open 之間的關係也正常化了。
+      - IEEE 訂定 POSIX 與 LAN 的相關標準。
+      - IBM、Apple、Motorola、Bull 以及其他廠商合組了 PowerOpen 來推動
+        PowperPC。別把它與一個也叫做 PowerOpen 的圖形環境搞混了。
+
+     底下是一些與 Unix 有關的標準之簡述：
+
+      - IEEE:
+        - 802.x (LAN) standards (LLC, ethernet, token ring, token bus)
+        - POSIX (ISO 9945?): Portable Operating System I/F (Unix, VMS
+          and OS/2!) (目前唯一已定案的標準?)
+          - 1003.1:  函數庫(大部分是 system call) -- 除了 signals 與 
+		     terminal 界面外多取自於 V7
+          - 1003.2:  shell 與公用程式
+          - 1003.3:  測試方法與合格標準
+          - 1003.4:  real-time: binary semaphores, process memory
+                     locking, memory-mapped files, shared memory,
+                     priority scheduling, real-time signals, clocks and
+                     timers, IPC message passing, synchronized I/O,
+                     asynchronous I/O, real-time files
+
+                     /* 譯註: 翻了反而看不懂... :)
+                     即時性: 雙態信號、執行體記憶體鎖定、記憶體映對檔案、
+                     共用記憶體、優先序排程、即時通告、時脈與定時器、
+                     IPC 訊息傳送、同步輸出入、非同步輸出入、即時檔案。
+                     */
+
+          - 1003.5:  Ada language bindings
+          - 1003.6:  系統安全
+          - 1003.7:  系統管理(包括印表)
+          - 1003.8:  透通式檔案存取（transparent file access）
+          - 1003.9:  FORTRAN language bindings
+          - 1003.10: 高速計算（super computing）
+          - 1003.12: 與協定種類無關的介面（protocol-independent I/Fs）
+          - 1003.13: 即時外觀（real-time profiles）
+          - 1003.15: 高速計算批次處理介面（supercomputing batch I/Fs）
+          - 1003.16: C-language bindings (?)
+          - 1003.17: directory services
+          - 1003.18: POSIX standardized profile
+          - 1003.19: FORTRAN 90 language bindings
+
+      - X/Open (由廠商籌設的組織, 成立於 1984 年):
+        - X/Open Portability Guides (XPGn):
+          - XPG2 (1987), 非常傾向 SV
+            Vol 1:  命令與公用程式
+            Vol 2:  系統呼叫與函數庫
+            Vol 3:  terminal 界面(curses, termio), IPC (SV),
+                    國際化
+            Vol 4:  程式語言 (C, COBOL!)
+            Vol 5:  資料管理(ISAM, SQL)
+          - XPG3 (1989) adds: X11 API
+          - XPG4 (1992) adds: XTI? 22 個元件
+        - XOM 系列的介面：
+          - XOM (X/Open Object Management) 需遵循的通用介面機制（generic
+            I/F mechanisms for following）
+          - XDS (X/Open Directory Service)
+          - XMH (X/Open Mail ??)
+          - XMP (X/Open Management Protocols) -- 不是 Bull's CM API?
+        - X/Open 此時已有權管理 "UNIX" 商標 ('93 年底);
+        - "Spec 1170"
+          - 此規格目前正在籌備當中,是一個共通的 API, 要使用 UNIX 這個
+            名稱的廠商必需遵循此 API 的規格。這是結合 SVID、OSF 的 AES
+            與其他東東而成。
+
+      - AT&T
+        (在 1994 年後這些已經無關緊要了? 現在是誰負責 SVID, TLI, APLI?)
+        - System V Interface Definition (SVID)
+          - SVID1 (1985, SVR2)
+            Vol 1:  系統呼叫與函數庫(類似XPG2.1)
+          - SVID2 (1986, SVR3)
+            Vol 1:  系統呼叫與函數庫(基礎,核心延伸)
+            Vol 2:  指令與公用程式 (基礎,進階,管理,軟體發展
+                    ), 終端機介面
+            Vol 3:  終端機介面(又來了), STREAMS and TLI, RFS
+          - SVID3 (19??, SVR4) adds
+            Vol 4:  ??  &c
+        - APIs
+          - Transport Library Interface (TLI)
+          - ACSE/Presentation Library Interface (APLI)
+
+      - COSE (COmmon Open Software Environment) [IBM, HP, SunSoft, others]:
+        目的在使不同的 Unix 平台可以更緊密的結合。
+        大概可以劃分為底下幾個項目:
+        - 桌面環境
+        - 應用程式的API (也就是Spec 1170 -- 一個統一的程式介面) --
+          可能是目前為止最重要的成就。消彌了SCO、AIX、Solaris、
+          HP-UX、UnixWare 間的差異。
+        - 分散式計算環境(OSF 的DCE 與 SunSoft 的ONC)
+        - 物件技術 (OMG 的 CORBA)
+        - 繪圖
+        - 多媒體
+        - 系統管理
+
+      - PowerOpen Environment (POE)由 PowerOpen Association(POA) 所推動。
+        是個在 PowerPC 這顆 chip 上 用的 Unix-like OS 的標準。定義了： 
+        - 一個API (應用程式介面，主要源於 AIX, 符合 POSIX、
+          XPG4、Motif、與 C 的標準) 與
+        - 一個ABI (application binary i/f)，這是與其他標準差異最大之處，
+          POSIX, XPG4, &c.都沒有這個東西。任何符合 POE 的系統應該可以
+          執行所有的 POE 軟體。
+        重要的特色：
+        - 建構於 PowerPC 上
+        - 與硬體匯流排無關
+        - 從膝上型電腦到超級電腦都可以用的系統
+        - 必須是個多人多工的作業系統
+        - 支援網路
+        - X windows 的擴充, Motif
+        - 是否符合標準由一個獨立的機構(POA)來測試與認定
+        AIX 4.1.1 將會符合PowerOpen。MacOS 目前不遵循 PowerOpen,也
+        不打算遵循 PowerOpen。
+        [以上取自於comp.sys.powerpc 的 powerpc-faq]
+
+        IBM 在 COSE 與 POE 中都摻了一腳，這兩個組織會有怎樣的關係頗
+        令人玩味。
+
+------------------------------
+
+Subject: Identifying your Unix flavor.
+>From: "Pierre (P.) Lewis" <lew@bnr.ca>
+Date: Mon May 30 15:44:28 EDT 1994
+X-Version: 2.6
+
+6.5)  你所用的 Unix 是哪一種流派。
+
+    這個小節列出一些材料供您參考,看看能不能讓您藉此找出您所用的 UNIX
+    屬於哪一種流派。由於各流派之間的程式碼或想法上都會大量交流,
+    而且廠商也會自行許多修改,因此,類似「本 Unix 是 SVR2」這一類的說法,
+    充其量只是統計上的敘述（但有些 SVRn 的移植除外）。
+
+    也有許多 Unix 同時提供這兩個世界的大多數功能（不論是像 SunOS 一樣
+    把這兩個世界融合在一起,或者像 Apollo 一樣把這兩個世界做嚴格的劃分）。
+    所以這個小節也許沒那麼有用...。
+
+    前一小節所列出的特性也有點兒幫助。例如,如果某一個系統有 poll(2) 但
+    沒有 select(2),那它很有可能是從 SRV3 衍生出來的。同時,您也可以從 OS
+    的命名或者從簽到訊息當中,找出一些蛛絲馬跡（例如 SGI 的 IRIX SVR3.3.2)
+    ;此外,您也可以利用 "uname -a" 指令的輸出。找尋某些指令是否存在也是
+    判斷的線索,但是直接探討核心的特性可能是比較可靠的做法。例如終端機
+    初始化的方式（inittab 或 ttys) 就是一個較可靠的指示,這比起從列印
+    子系統判斷來的可靠。
+
+      特性              SVRx 的典型             xBSD 的典型
+
+      核心名稱          /unix                   /vmunix
+      終端機啟動        /etc/inittab            /etc/ttys (only getty to 4.3)
+      開機啟動          /etc/rc.d directories   /etc/rc.* files
+      加掛檔案系統      /etc/mnttab             /etc/mtab
+      常用的shell       sh, ksh                 csh, #! hack
+      原生檔案系統      S5 (blk: 512-2K)        UFS (blk: 4K-8K)
+                        檔案名稱 <= 14 bytes    檔案名稱 < 255 bytes
+      群組              必須使用 newgrp(1)      自動加入成員
+                        SVR4: 多重群組
+      列印子系統        lp, lpstat, cancel      lpr, lpq, lprm (lpd daemon) ??
+      終端機控制        termio, terminfo,       termios (sgtty before 4.3reno)
+                        SVR4: termios (POSIX)   termcap
+      工作控制          >= SVR4                 yes
+      ps 指令           ps -ef                  ps -aux
+      多重等待          poll                    select
+      字串函數          memset, memcpy          bzero, bcopy
+      程序對映          /proc  (SVR4)
+
+      由於我們逐步跨入 90 年代末期,上述的差異已越來越不明顯了。
+
+------------------------------
+
+Subject: Brief notes on some well-known (commercial/PD) Unices.
+>From: "Pierre (P.) Lewis" <lew@bnr.ca>
+Date: Mon Jan 11 16:59:14 EST 1995
+X-Version: 2.8
+
+6.6)  請簡要介紹一些知名的 (商業化/PD) Unix
+
+      我一點也不滿意這節的內容,很不幸地我既沒有時間也沒有文件讓它的
+      內容更為完善。在此只列出一些較多人使用的 Unix, 至於其他小型或
+      者非美國地區出品的 Unix 也歡迎補充,像是 Eurix。這部分還要再重
+      寫一次。
+      /* 譯註: 這一段我也翻得不太滿意, 也要跟著重譯一次 :) */
+
+      這個小節依字母順序列出一些廣為人知的 Unix,並且對他們的本性做
+      簡要的敘述。很不幸的,在定義上它幾乎過時了...
+
+      (只排列字母,但忽略數字與其他字元）
+
+      AIX:  IBM 的 Unix, 是根據 SVR2 (最近已經出到 SVR3.2?) 以及程度不一的
+         BSD 延伸而來, 並加上各種硬體的支援。具備特有的系統管理(SMIT)。
+         同時具有 850 與 Latin-1 CPs (Code Page, 內碼頁)。它不僅跟大多數的
+         Unix 不相同,連 AIX 各版本之間也有許多相異之處。
+         網路討論區: comp.unix.aix.
+         - 1.x (for 386 PS/2)
+         - 2.x (for PC RTs)
+         - 3.x (for RS/6000), 分頁式核心,邏輯式容量管理程式,國際化;
+           3.2 新增 TLI/STREAMS.  以 SV 為核心並加上許多改進。
+           4.1 是最新版 (包括對 PowerPC 的支援?)
+         - AIX/ESA, 原來是在 S/370 and S/390 大型主機上執行的,它是根據 OSF/1。
+           AIX 本來會成為 OSF/1 的基礎,但後來 OSF/1 選用 Mach 作為基礎。
+         我希望這個小節能寫到這裡就好 :-)
+
+      AOS (IBM):  移植到 IBM PC RT 的 4.3BSD (這是為教育單位做的).
+      它的名稱雖然 DG 專有的 OS 名稱相同,但兩者是截然不同的東西。
+
+      Arix:  SV
+
+      A3000UX (Commodore): 以 68030 為基礎的 SVR4 Unix (?),用於 Amiga。
+
+      A/UX (Apple): SV 加上柏克萊的加強功能, NFS, Mac GUI.  System 6
+         (也就是後來的 System 7) 可以當成 A/UX 的程式執行 (與 MachTen 相反)。
+         網路討論區: comp.unix.aux.
+         - 2.0:  SVR2 加上 4.2BSD, system 6 Mac 應用程式。
+         - 3.0 (1992): SVR2.2 with 4.3BSD and SVR3/4 延伸; X11R4,
+           MacX, TCP/IP, NFS, NIS, RPC/XDR, 各類 shells, UFS 或 S5FS.
+           System 7 應用程式.
+         - 4.0 將包含 OSF/1（或者就是 OSF/1)。
+
+      3B1 (680x0): 根據 SV,是 Convergent 替 AT&T 完成的。
+         網路討論區: comp.sys.3b1.
+
+      BNR/2: 代表 BSD Net/2 Release? 包含 NetBSD/1, FreeBSD。
+
+      BOS for Bull's DPX/2 (680x0)
+         - V1 (1990): SVR3 加上 BSD 延伸 (FFS, select, sockets),
+           對稱式 MP, X11R3
+         - V2 (1991): 加上工作控制, 磁碟鏡射, C2 系統安全,
+           DCE 延伸
+         - Bull's PPC 工作站也有 BOS/X, 以及與 AIX 相容的 Unix
+           至於上述兩者之間的關係則未知。
+
+      386BSD: Jolitz's 從 Net/2 software 移植過來的。支援 Posix, 32 位元,
+           仍在 alpha 測試階段。(目前版本為 0.1 版)。
+
+        /* 譯註: 目前已出到 1.0 版, DDJ 要拿來賣錢的  */
+
+      BSD/386 (80386): 來自 BSDI, 附原始程式 (增強的 Net2 軟體)
+         網路討論區: comp.unix.bsd.
+
+        /* 改名為 BSD/OS, 版本 2.x 是以 4.4BSD 為基礎 */
+
+      Chorus/MiXV: 架在 Chorus 核心之上的 Unix SVR3.2 (SVR4), ABI/BCS.
+
+      Coherent (80286):  另一種 Unix,與 V7 相容, 有一些 SVR2 的東東(IPC).
+         V4.0 是 32 位元的。網路討論區: comp.os.coherent
+
+      Consensys: SVR4.2
+
+      CTIX: 根據 SV, 來自 Convergent
+
+      D-NIX:  SV
+
+      DC/OSx (Pyramid):  SVR4.
+
+      DELL UNIX [DELL 電腦公司.]: SVR4
+
+      DomainIX: 請參閱底下的 DomainOS。
+
+      DomainOS (Apollo, now HP): 專屬的 OS; 上層架有 BSD4.3 與 SVR3
+      （process 可以從兩層中任選一層、或者全選,或者都不選）。雖然現
+      在已經不再發展了,但仍有些特性被 OSF/1 (與 NT) 引用。目前版本為
+      SR10.4。SR9.* 版本的名稱為 DomainIX。網路討論區: comp.sys.apollo.
+
+      DVIX (NT 的 DVS):  SVR2
+
+      DYNIX (Sequent): 以 4.2BSD 為基礎
+
+      DYNIX/PTX: 以 SVR3 為基礎
+
+      Esix (80386):  純種的 SVR4, X11, OpenLook (NeWS), Xview
+
+      Eurix (80?86):  SVR3.2 (德國)
+
+      FreeBSD: 綴補過的 386bsd 0.1 程式, 並且有許多更新的工具程式。
+
+      /* 譯註: 以上是指 1.x 而言, FreeBSD 2.x 版是拿 4.4BSD lite 從頭改起的 */
+
+      FTX: Stratus 容錯作業系統 (68K 或 i860-i960 硬體)
+
+      Generics UNIX (80386): SVR4.03 (德國)
+
+      GNU Hurd (?): 謠傳已久的軟體,來自自由軟體基金會 (FSF):
+         架在 Mach 3.0 核心之上的 Unix 模擬器。有許多 GNU 的工具程式
+         非常受歡迎 (emacs) 並且用於許多 PD Unix。
+
+        /* 譯註: 此時 GNU Hurd 已經有人使用, 目前在 alpha 測試階段,
+                 可從 ftp://alpha.gnu.ai.mit.edu/... 取得
+        */
+
+      HELIOS (Perihelion Software): 用於 INMOS transputer 以及多種其他平台
+
+      HP-UX (HP):  舊系統是從 S III (SVRx), 現在是 SVR2 (4.2BSD?) 加上 SV
+         工具程式（他們可能很難下決心...）
+         - 6.5: SVR2
+         - 7.0: SVR3.2, symlinks
+         - 7.5
+         - 8.0: 以 BSD 為基礎? 用於 HP-9000 CISC (300/400) 與 RISC (800/700),
+           共用程式庫
+         - 9.0: 加入 DCE
+
+        /* 譯註: HP-UX 已經出到 10.0 版了 */
+
+      Interactive SVR3.2 (80x86): 純種 SVR3。Interactive 已經被 Sun 購併;
+      它們的系統會由於 Solaris 而繼續存活嗎?
+
+        /* 譯註: SunSoft 仍繼續銷售 Interactive UNIX 中 */
+
+      Idris: 第一個 Unix 相容產品,是由 Whitesmith 完成的。一個小型的 Unix?
+      是給 INMOS transputer 與其他機器用的。
+
+      IRIX (SGI):  Version 4 是由 SVR3.2, 以及許多 BSD 的東西構成的。
+      Version 5.x (目前是 5.2) 是根據 SVR4。網路討論區: comp.sys.sgi。
+
+      Linux (386/486/586): 使用 GPL (雖然不是來自 FSF) 的 Unix。
+        可取得原始程式。遵循 POSIX 以及 SysV 及 BSD 的延伸。目前正進行
+        Alpha/AXP 與 PowerPC 的移植。(目前已有版本移植到 680x0 Amigas
+        and Ataris; 也有版本移植到 MIPS/4000)。
+        網路討論區: comp.os.linux.{admin,announce,development,help,misc}。
+
+      MachTen, Tenon Intersystems: 當成 System 6 的一般程式來執行,沒有記憶體
+         保護, 4.3BSD 環境附有 TCP, NFS。
+
+      MacMach (Mac II): 架在 Mach 3.0 微核心之上的 4.3BSD。有 X11、Motif、GNU
+         軟體、原始程式;實驗性的 System 7 是以 Mach task 的方式執行。整套產
+         品包含所有原始程式（但需要 Unix 授權）。
+
+      Mach386: 來自 Mt Xinu。以 Mach 2.5 為基礎,附加 4.3BSD-Tahoe
+         的增強功能。也有 2.6 MSD (Mach Source Distribution).
+
+      Microport (80x86): 純種的 SVR4, X11, OpenLook GUI
+
+      Minix (80x86, Atari, Amiga, Mac): 與 V7 相容的 Unix clone。
+         產品附原始程式。目前正進行修改,使其遵循 POSIX 標準。
+         適用於 PCs, 當然還有其他許許多多的機種。（如 INMOS transputer)。
+         網路討論區: comp.os.minix.
+
+      MipsOS: 有點兒 SV 的味道 (RISC/OS,現在已經不作了,早期有點 BSD 的味道)
+
+      more/BSD (VAX, HP 9000/300):  Mt Xinu 的 Unix, 以 4.3BSD-Tahoe 為基礎。
+         網路討論區: comp.os.xinu?
+
+      NCR UNIX: SVR4 (4.2?)
+
+      Net/2 磁帶 (來自 Berkeley, 1991): BSD Unix, 本質上與 4.3BSD 相容,
+         裡面的程式碼完全不含 AT&T 的程式,沒有低階的程式碼。請參閱上述的
+         386BSD 與 BSD/386。
+
+      NetBSD 0.8: 事實上只是幫 386bsd 換個新裝而已。已移植到 [34]86, MIPS,
+         Amiga, Sun, Mac。 它跟 Net/2 的關係?
+
+        /* 譯註: NetBSD 已經出到 1.0 版, 而且以 4.4BSD lite 為基礎。
+                 也移植到更多的硬體平台, 如 DEC Alpha */
+
+      NEXTSTEP (Intel Pentium and 86486, Hewlett-Packard PA-RISC, NeXT 68040):
+         架在 Mach 核心之上的 4.3BSD, 具有 GUI。
+         - 1.x, 2.0, 2.1, 2.2, 3.0, 3.1 (舊版本)
+         - 3.2 (目前的版本
+              Intel Pentium and 86486,
+              Hewlett-Packard PA-RISC,
+              NeXT 68040)
+         - 3.3 (近期內即將發表, 可能會有 Sun SPARC 的版本)
+         - 4.0 (即將發表, 可能會有 Sun SPARC 的版本)
+         - NEXTSTEP DEC Alpha 版本已經發表了
+         - NEXTSTEP 遵循 OpenStep 的標準 (請參閱 Solaris)
+
+      NEWS-OS (Sony)
+         - 3.2
+
+      OSF/1 (DEC): DEC 對 OSF/1 的移植。我認為現在 (4/94) DEC 最新
+        的 Alpha AXP (64 位元機器）上應該已經有了。
+
+        /* 譯註: 原作者說得沒錯 */
+
+      OSx (Pyramid): 從 SysV.3 與 BSD4.3 兩者同時移植過來的。
+
+      PC-IX (IBM 8086):  SV
+
+      Plan 9 (AT&T): 在 1992 年發表, 是完全從頭改寫過的。不清楚它跟 Unix 的
+      相近程度如何。關鍵點:分散式、非常小、多種硬體（Sun、Mips、Next、SGI、
+      generic hobbit、680x0、PCs),C (而非謠傳的 C++）、新的編譯器、「八又
+      二分之一」視窗系統（也非常小）、16 位元的 Unicode、架在高速網路
+      之上的 CPU/檔案伺服器。
+
+        /* 譯註: Plan9 在 95 年初又發表新版本, 從 '95 年 7 月開始賣錢,
+                 CDROM: US$ 350, Document: US$ 150。
+                 請參閱 http://plan9.att.com/plan9/distrib.html
+        */
+
+      SCO Xenix (80x86): 給 XT (不夠快!), 286, 386 (具有 demand paging）
+         使用的。現有的程式碼有很多都是從 System V 拿過來的。是一個
+         穩定的產品。
+
+      SCO Unix (80x86):  SVR3.2 (目前已經停止取用 USL 的原始程式了)。
+
+      Sinix [Siemens]: System V base.
+
+      Solaris (Sparc, 80386):
+         - 1.0:  基本上跟 SunOS 4.1.1 是相同的,附有 OpenWindows 2.0 與
+           DeskSet 公用程式。
+         - 1.0.1:  SunOS 4.1.2 加上多處理器的功能 (核心無多處理緒功能);
+           不適用於 386。
+         - 2.0: (剛開始在 1988 年的時候是以 SunOS 5.0 的名義發表) 以 SVR4
+           為基礎(具有對稱式多重處理?), 將支援 386; 附
+           OpenWindows 3.0 (X11R4) 與 OpenLook, DeskSet, ONC, NIS.
+           支援 a.out (BSD) and elf (SVR4) 這兩種格式、Kerberos。不附
+           編譯器！
+         - Solaris 遵循最新版(1994?) 的 OpenStep 標準
+          (非 NeXT, 但具有 NEXTSTEP API)
+
+        /* 譯註: Solaris 已經出到 2.5.1, 目前的 OpenWindows 是 3.5.1 版,
+	         以 X11R5 為基礎。OpenStep 還沒出來
+        */
+
+      SunOS (680x0, Sparc, i386):  根據 4.3BSD, 包含許多來自 System V 的
+         東西。Sun 的主要成果在於: NFS (1984), SunView (1985), NeWS
+         (1986, postscript 影像, 現在用於 OpenWindows), OpenLook GUI 標準,
+         OpenWindows (NeWS, X11, SunView!).  網路討論區: comp.sys.sun.*.
+         - 3.x:  SV IPC 套裝程式, FIFOs
+         - 4.0.3: 輕量級程序, 新型的虛擬記憶體, 共用程式庫
+         - 4.1: STREAMS & TLI, 8-bit clean?, 非同步輸出入, ms-dos 檔案系統
+         (後續者為 Solaris -- 請參閱前幾項)。
+
+      UHC (80x86): 純種 SVR4, X11, Motif
+
+      Ultrix (DEC):  根據 4.2BSD 再加上許多 4.3 的東西。
+         網路討論區: comp.unix.ultrix.
+         - 4.4 是最新版
+
+      UNICOS (Cray):  以 System V 為基礎。網路討論區: comp.unix.cray
+         - 5.x, 6,x, 7.0
+
+      UnixWare Release 4.2 [Univel]: SVR4.2; 架在 NetWare 上。
+           Univel 已經不存在了。
+
+      UTEK (Tektronix)
+         - 4.0
+
+      VOLVIX (Archipel S.A.): 以 UNIX 為基礎的作業系統,並配上一個以通訊
+      為基礎的分散式即時微核心。SVR3.2 系統呼叫、BSD4.4 檔案/網路系統
+      系統呼叫（VFS,FFS)。也有 NFS 與 X11。Vanilla VOLVIX 是給 transputer
+      用的。
+
+      Xenix (80x86):  首度出現於 Intel 硬體平台的 Unix, 以 SVR2 為基礎
+         (先前是以 S III 甚至 V7 為基礎）。網路討論區: comp.unix.xenix。
+
+------------------------------
+
+Subject: Real-time Unices.
+>From: "Pierre (P.) Lewis" <lew@bnr.ca>
+Date: Mon Jan  9 16:59:14 EST 1995
+X-Version: 2.7
+
+6.7)  即時的 Unix
+
+      警告: 這個小節需要大幅修訂,因為有很多錯誤,而且內容也不完整。我希望
+      能夠在今年冬天把它重新修訂一次。竊以為下面這些都是 UNIX,歡迎大家繼
+      續補充。這個列表也包含較常見,且具有即時特性的 UNIX 系統,以及有些
+      具有類似 UNIX API 的非 UNIX 系統。我不認為後者真的屬於這個範疇,但是
+      既然收集了這些資料（雞肋）,要捨棄掉還真有點可惜。
+      請順便參考 comp.realtime。
+
+      AIX: AIX/6000 具有即時支援。
+
+      Concurrent OS (Concurrent): 真正的 Unix,由 Concurrent 大幅更動過。
+
+      CX/UX: 真正的 UNIX,由 Harris 大幅修改以提供即時能力與效能。遵循
+             POSIX.4 決定版的標準。
+
+      EP/LX (Control Data): 是移植到 R3000 的 LynxOS,以前稱為 TC/IX。
+
+      LynxOS (Lynx Real-Time Systems, Inc): 與 Berkeley 及 SV 相容,
+         從頭到尾重寫過一次(專有的), 在 SVR4 時期之前。並不是 UNIX, 但支援
+         許多 UNIX I/Fs。完全的 preemptive, 固定式優先權。
+
+      MiX: SVR4 的微核心實作,是 Chorus 提供的。
+
+      Motorola SVR4 具有即時能力。
+
+      QNX (Quantum Software): 與 unix 相容,而且是如假包換的即時作業系統。
+
+      RTU (Concurrent), 用於 68K 系列的機器。
+
+      Solaris 2 具有即時能力﹖
+
+      Stellix (Stardent); 它是 Unix, 但真的是即時作業系統嗎?
+
+      Venix/386: 交談式的 SVR3.2 附加即時延伸。
+
+      VMEexec (Motorola): 不是 Unix, 但也用了一些跟 Unix 相同介面。
+
+      VxWorks (Wind River Systems): 跟 Unix 相同的地方非常非常地少,
+         但還是有一些介面跟 Unix 相同（但檔案系統不同）。
+         網路討論區 comp.os.vxworks。
+
+        (對於以下的系統,我一無所知)
+
+      Convex RTS
+
+      REAL/IX (AEG)
+
+      Sorix (Siemens)
+
+      System V/86 (Motorola)
+
+      TC/IX (CCD)
+
+      Velocity (Ready Systems):
+
+
+------------------------------
+
+Subject: Unix glossary.
+>From: "Pierre (P.) Lewis" <lew@bnr.ca>
+Date: Mon Jan 11 16:59:14 EST 1995
+X-Version: 2.8
+
+6.8)  Unix 用語彙編
+
+    底下提供 Unix 系統相關的概念與構成要素之簡單定義。
+
+    Chorus: 訊息傳遞的微核心, 有可能成為未來 SV 的基礎。SVR4 已經可以
+            架在 Chorus 上面跑了（二進位相容）。
+
+    CORBA (Common Object Request Broker Architecture).
+
+    COSE (Common Open Software Environment) [Sun, HP, IBM]: common look and
+         feel (Motif -- Sun will let OpenLook fade away), common API.
+         Reaction against Windows NT. See section 6.4 above.
+
+    DCE (分散式計算環境 -- Distributed Computing Environment, 來自 OSF):
+         包含 RPC (Apollo's NCS), 目錄服務 (區域性使用是以 DNS 為基礎,
+         全球性使用則是以 X.500 為基礎), 時間, 系統安全, 以及處理緒 (thread)
+         服務, DFS (分散式檔案系統 -- distrib. file system), ....
+         與 OS 種類無關。
+
+    DME (分散式管理環境 -- Distributed Management Environment, 來自 OSF):
+         未來。
+
+    DO (Distributed Objects [Enterprise]): ???.
+
+    FFS (高速檔案系統 -- Fast File System): 於 1983 年出自 Berkeley。
+         與 SunOS 的 UFS 等義 (或完全相同?)。具有一些像是
+         磁柱群組（cylinder groups), 碎屑 (fragments) 等觀念。
+
+    Mach: 來自 CMU （卡內基美濃大學）的新式核心,許多 Unix 以及其他 OS
+        都以此為基底（例如 OSF/1, MacMach):
+         - 2.5: 集成式（monolithic）核心, 附有 4.2BSD
+         - 3.0: 微核心,附有在使用者空間的 BSD Unix 伺服器 (以及其他 OSs,
+           例如 MS-DOS)
+         網路討論區: comp.os.mach
+
+    MFS (記憶體檔案系統 -- Memory File System):
+
+    NeWS (Network extensible Window System), 來自 Sun?: 以 PostScript 為基礎,
+         網路化, 工具程式組(甚至客戶程式)是在伺服器端載入。是 OpenWindows 的
+         一部份。
+
+    NFS (網路檔案系統 -- Network File System):  由 Sun 貢獻給 BSD 的禮物,
+         無狀態式伺服器。
+
+    ONC (開放式網路計算 -- Open Network Computing): 來自 Sun(?), 包含 RPC, 
+        名稱服務(NIS 也稱為 YP), NFS, ...(可以在許多 Unix 或其他 OS 當中發現）
+
+    OpenStep [NeXT, Sun]: ???
+
+    PowerOpen: 既是一種標準, 也是一個推廣 PowerPC 的組織。
+         成員包括 IBM, Apple 與 Motorola; 還有其他廠商?
+         請參閱之前的 6.4 節。
+
+    PowerPC (PPC): 一種 RISC CPU 晶片 [IBM, Motorola].
+
+    RFS (遠端檔案系統 -- Remote File System):  SV, 會記憶狀態的伺服器,
+         與 NFS 不相容。
+
+    RPC (遠端程序呼叫 -- Remote Procedure Call): 高階的 IPC (Inter-Process
+         communication) 機制。有兩種流派。
+         - ONC: 架在 TCP 或 UDP 之上(後來也架在 OSI 之上), 使用 XDR 來
+           做資料的編碼。
+         - DCE: 具有不同的 RPC 機制 (根據 Apollo 的 NCS)
+
+    S5 FS:  原生於 System V 的檔案系統, 一個區塊的大小為 512 到 2K。
+
+    sockets:  BSD 使用網路的介面機制 (請與 TLI 比較)。
+
+    STREAMS:  一種用於訊息傳遞的核心機制, 是從 SVR3 開始有的, 它提供了
+         一個非常適用於發展協定的介面。
+
+    TFS (半透明檔案系統 -- Translucent File System): Sun, COW 應用到檔案上。
+
+    TLI (Transport Library Interface):  SV 傳送服務(TCP, OSI) 的介面,
+         UI 也定義一個 APLI (ACSE/Presentation Library Interface --
+         呈現層程式庫介面）
+
+    UFS (?): BSD 的原生檔案系統,就是我們在 SunOS 看到的那一種,區塊
+         大小為 4K to 8K, 具有磁柱群組與碎屑的觀念。
+
+    XTI (X/Open Transport Interface):  加強型的 TLI
+
+    X11: MIT 所發展的以畫素組成的視窗系統
+
+------------------------------
+
+unix / faq 第 6 部份結束
+**********************************

@@ -1,0 +1,374 @@
+\documentclass{letter}
+\usepackage{CJK}
+\usepackage{url}
+
+\begin{document}
+\begin{CJK}{Bg5}{ming} 
+這七篇文章包含一些在 comp.unix.questions 和 comp.unix.shell 常見到的問
+題。請不要再問這些問題，因為這些問題已經回答過太多次了。但也請不要因為
+有人問這些問題而發火，因為他們可能尚未讀過這些文章。
+
+This collection of documents is Copyright (c) 1994, Ted Timar, except 
+Part 6, which is Copyright (c) 1994, Pierre Lewis and Ted Timar.
+
+All rights reserved. Permission to distribute the collection is 
+hereby granted providing that distribution is electronic, no money is 
+involved, reasonable attempts are made to use the latest version and 
+all credits and this copyright notice are maintained.
+
+Other requests for distribution will be considered.
+
+All reasonable requests will be granted.
+
+中文翻譯 by \url{{chenjl,freedom,jjyang}@csie.nctu.edu.tw}
+若您對中文翻譯有任何意見請發 e-mail 給 \url{cfaq@csie.nctu.edu.tw}
+
+我們希望這些文件中的資訊能對你有所幫助﹐但是並不保証是正確的。若發生損
+害請自行負責。
+
+您可以在 rtfm.mit.edu 的 pub/usenet/news.answers 找到包括此文件在內的
+許多 FAQ。 在此目錄下的 FAQ 的名字可在文章的頂端的 "Archive-Name:" 
+那一行找到。
+
+/* 譯注: 在台灣請用 \url{ftp://NCTUCCA.edu.tw/USENET/FAQ}，若您人在交大的話 
+         \url{ftp://ftp.csie.nctu.edu.tw/pub/Documents/FAQ}是從 CCCA mirror 
+來的 */
+
+此一 FAQ 是以"unix-faq/faq/part[1-7]" 為名。
+
+這些文章大約分成：
+\begin{quote}
+      1.*）一般性的問題
+
+      2.*）初學者可能會問的基本問題
+
+      3.*) 中級的問題
+
+      4.*) 自以為已經知道所有答案的人可能會問的高級問題
+
+      5.*) 關於各種 shell 的問題
+
+      6.*) 各式各樣的 Unix
+
+      7.*) An comparison of configuration management systems (RCS, SCCS).
+
+\end{quote}
+
+這篇文章回答了以下問題：
+\begin{description}
+      \item [1.1)] 誰幫助你將做出這個 faq 的?
+      \item [1.2)]  當有人提及'rn(1)' 或 'ctime(3)' 的時候，刮弧裡的數目意謂
+	    什麼呢？
+      \item [1.3)]  一些奇怪的 unix 指令名字的由來？
+      \item [1.4)]  "comp.unix.questions" 和 "info-unix" mailing list 之間的
+	    gateway 是如何運作的?
+      \item [1.5)]  請建議一些有用的 Unix, C 相關書籍.
+      \item [1.6)]  以前在這 FAQ 中的發音表到那去了？
+\end{description}
+若要找問題 1.5 的答案, 用 regular expression 往前找 "\^1.5)" 即可。
+
+因為這些都是正當合理的問題, 所以在 \url{comp.unix.questions} 或是 
+\url{comp.unix.shell} 中。每隔一陣子, 就會有這些問題與答案出現, 緊接著就會
+有人對同樣問題一再出現發牢騷。關於 UNIX 代表啥呢? 請參考每月 post 在 
+\url{news.announce.newusers} 中名為 "Answers to Frequently Asked Questions" 
+的文章。
+
+因為 Unix 有太多不同的種類了, 所以很難保證此文件所提供的答案必然會有
+用。在嘗試本文件提供的作法前, 請先讀讀你所使用系統的手冊。若你對答案
+有任何建議或更正, 請送 email 給 tmtaimar@isgtec.com.
+
+---------------------------------------------------------------------
+
+Subject: Who helped you put this list together? \\
+Date: Thu Mar 18 17:16:55 EST 1993
+
+1.1)  誰幫助你將做出這個 faq 的?
+
+	這個文件是最早的幾個 FAQ 之一, 編纂於 1989 年七月。整個編輯工作幾
+	乎都是 Steve Hayman 做的。 我只是接管這份文件的維護。
+
+	我們非常感謝 Usenet 讀者提出的問題，反應，更正和提議。
+
+	特別感謝 Maarten Litmaath, Guy Harris 和 Jonathan  Kamens，他們都
+	貢獻良多。
+
+	這個文件中的第 5 部份(shells)幾乎完全是 Matthew Wicks 
+	\url{<wicks@dcdmjw.fnal.gov>} 寫的。
+
+	這個文件中的第 6 部份(各種 Unix)幾乎完全是 Pierre (P.) Lewis 
+	\url{<lew@bnr.ca>}寫的
+
+	我儘可能的把每個問題的作者與最後更新的日期放在問題的開端。很不幸
+	地，因為我最近才開始這樣做, 許多的資訊已遺失。我也疏於保存為問題
+	補充最新資料者的名單。對那些有貢獻而沒有得到應有的榮譽者, 只能在
+        此致歉。
+
+	我將此文件轉為 *roff 格式(ms 與 mm 兩種 macro 都有)。Andrew 
+	Cromarty把它轉換成 Texinfo 格式。這些格式化的版本可由 anonymous 
+	ftp 於 \url{ftp.wg.omron.co.jp} 的 pub/unix-faq/docs 取得.
+
+------------------------------
+
+Subject: When someone refers to 'rn(1)' ... the number in parentheses mean?\\
+Date: Tue, 13 Dec 1994 16:37:26 -0500
+
+1.2)  當有人提及'rn(1)' 或 'ctime(3)' 的時候，刮弧裡的數目意謂什麼呢?
+
+	看起來像是 function call, 不過, 不是。 這些數目字是指 Unix 手冊中
+	文件所在的章節。當你打 "man 3 ctime" 時, 表示是要查閱在第 3 節中 
+	ctime 的內容。
+
+	傳統 Unix 手冊的分節法:
+
+	        1       User-level  commands
+	        2       System calls
+	        3       Library functions
+	        4       Devices and device drivers
+	        5       File formats
+	        6       Games
+	        7       Various miscellaneous stuff -  macro packages etc.
+	        8       System maintenance and operation commands
+
+	有一些 Unix 版本會使用非數字的章節名字。舉例來說﹐Xenix 的指令用
+	"C" 而函數用"S"。 一些比較新的 Unix 版本得用 "man -s\# title" 而非 
+	"man \# title"。 
+	
+	/* 
+             譯注: 如 Solaris 2.x   
+	*/
+      
+	每一節都會有一個簡介, 若以 \# 代表節數, "man \# intro" 就可以讀第 \# 
+	節的簡介。
+
+	有時為了區別指令和相同名字的常式或系統呼叫數字是必需的。 舉例來說
+	，你的系統可能有"time(1)", 有關 'time' 這個測量所費時間指令的說明
+	，也有 "time(3)", 關於 'time' 這個用來決定目前時間的副常式的說明。 
+
+	你可以用  "man 1 time" 或 "man 3 time" 來選擇要看哪一 "time" 的說
+	明。
+
+	或許你系統會有其它的章節或在細分的次章節(subsection),像 Ultrix 就
+	有 3m, 3n, 3x 與 3yp。
+ 
+------------------------------
+
+Subject: What does {some strange unix command name} stand for? \\
+Date: Thu Mar 18 17:16:55 EST 1993
+
+
+1.3)  一些奇怪的 unix 指令名字的由來
+
+    awk = "Aho Weinberger and Kernighan"
+
+	這個語言以作者 Al Aho, Peter Weinberger 和 Brian Kernighan 的
+	姓來命名。
+
+    grep = "Global Regular Expression Print"
+
+	grep 源自 ed。用來列印所有符合某 pattern 的指令
+
+	g/re/p
+
+	"re" 代表 regular expression
+
+    fgrep = "Fixed GREP".
+
+	fgrep 祇找固定的字串。"f" 不是代表 "fast" - 事實上, "fgrep 
+	foobar *.c" 通常比 "egrep foobar *.c" 來得慢(有點意外吧, 不信
+	的話, 自己試試嘍)。
+
+	儘管如此，Fgrep 仍然有可取之處，在檔案中搜尋字串的時候，Fgrep 
+	能處理的字串數目較 egrep 多。
+
+    egrep = "Extended GREP"
+
+	egrep 用比 grep 更 fancy 的 regular rexpression。許多人只用 egrep，
+        因為它用的 algorithm 比 grep 或 fgrep 用的要好一些， 而且通常是三個
+        程式中最快的。
+
+    cat = "CATenate"
+
+	catenate 是一個滿曖昧的字，在這裡的意思是"把它連成一串", 這就是
+	"cat" 這個指令對一個或多個檔案所做的處理。
+
+	請不要跟 C/A/T 混淆了，C/A/T 是指電腦輔助排版系統(Computer 
+	Aided Typesetter)。
+
+    gecos = "General Electric Comprehensive Operating Supervisor"
+
+	不過，通用電器 (GE) 的大型系統部門賣給 Honeywell 的後， 
+        Honeywell 就把 GECOS 的 E 拿掉了。
+
+	目前 Unix 的密碼檔裡面仍保有 "pw\_gecos" 這個欄位。這個名字是
+	從古早的年代沿用過來的。
+
+	Dennis Ritchie 曾經說過：
+
+	    "有時候我們會把印表輸出或整批工作丟到 GCOS 機器。密碼檔裡
+            面的 gcos 欄位是用來隱藏 \$IDENT 卡片上的資訊，這樣做不夠優雅"。
+
+	    /* 
+             譯注: 這句話不知是甚麼意思, 只好照字面翻譯之
+	    */
+
+    nroff = "New ROFF"
+    troff = "Typesetter new ROFF"
+
+	這些字都是從"roff"衍生的, roff 是重寫 Multics 上的 runoff 程式得來
+	的 (runoff 的意思就是"印出文件")。
+
+    tee = T
+
+	這是管線工人的術語，代表 T 型的管線分叉器。
+
+    bss = "Block Started by Symbol" (由符號啟始的區塊）
+
+	Dennis  Ritchie 曾說過：
+
+	    這個縮寫也許有其他說法，但事實上我們採用這個縮寫的本意是 
+            "Block Started by Symbol"。它是 FAP 上的虛擬指令，FAP 
+            (Fortran Assembly [-er?] Program) 是指 IBM 704-709-7090-7094 
+	    這種機型的組譯器。這個指令可定義自己的標號，並且預留一定數目
+	    的字組空間。還有另一個虛擬指令 BES，是 "Block Ended by 
+   	    Symbol"，跟 BSS 指令幾乎一樣，不同點在於標號是定義在預留字組
+	    空間尾端的位址 + 1 的地方。在這些機器上，Fortran 的陣列是以反
+	    方向儲存，而且陣列的索引是從 1 算起。
+
+	    這種用法是合理的，因為這跟 UNIX 上標準的程式載入器一樣，程式
+	    碼當中並非真的放入這一整塊預留空間，而是先用一個數目表示，在
+	    載入時才真的把所需的預留空間定出來。
+
+    biff = "BIFF"
+
+	這個指令是用來設定當您有新郵件進來時，是否要通知您。這是柏克
+	萊大學校園內一隻狗的名字。
+
+	    我可以確定這個名稱的起源，如果您有興趣的話，Biff 是 Heidi 
+	    Stettner 養的寵物，想當年 Heidi (還有我，跟 Bill Joy) 都還是 
+	    UCB 的研究生時，早期的 BSD 版本還在發展中。Biff 受到流連於 
+	    Evans Halls 這些人的喜愛，也因為它會對前來的郵差吠叫而聞名；因
+	    此就以 biff 當作指令的名稱。
+	    (這是卡內基美濃大學的 Eric Cooper 證實的）
+
+    rc (像是 ".cshrc" 或 "/etc/rc" 中的 rc 這兩個字母) = "RunCom"
+
+	"rc" 源自麻省理工學院在 1965 年發展的 CTSS系統中的 "runcom"。
+	Brian Kernighan 與 Dennis Ritchie 告訴 Vicki Brown 說: 
+
+	    相關文獻寫著這麼一段話: 'CTSS 具有從檔案中取出一系列命令
+	    來執行的功能；這功能稱為 "run commands" 又稱為 "runcom"，
+	    而這種檔案稱為一個 runcom (a runcom)。'
+
+	    Unix 中的 "rc" 就是這種用法的殘跡。
+
+	此外 "rc" 也是Plan 9 作業系統 shell 的名字。
+
+    Perl = "Practical Extraction and Report Language"
+    Perl = "Pathologically Eclectic Rubbish Lister"
+
+	Perl是 Larry Wall 所發展的一種相當受歡迎的語言， Perl 在處文字， 
+	process，與檔案時非常便利，可以說是兼得 shell 與 C 之長。想知道
+        更多關於Perl 的訊息，請看 Usenet  newsgroup  comp.lang.perl。
+
+    Don Libes 的 "Life with Unix" 一書裡有更多這類的珍聞軼事。
+
+------------------------------
+
+Subject: How does the gateway between "comp.unix.questions" ... work? \\
+Date: Thu Mar 18 17:16:55 EST 1993
+
+1.4)  "comp.unix.questions" 和 "info-unix" mailing list 之間的 
+      gateway 是如何運作的?
+
+      "info-unix" 與 "unix-wizards”分別是 \url{comp.unix.questions} 和 
+      \url{comp.unix.wizards} 的 mailing-list 版。Mailing list 與 
+      newsgroup 的內容應該是相同的
+
+      要加入或退出任一個 mailing list， 請送 email 給info-unix-quest@brl.mil 
+      或 unix-wizards-request@brl.mil。切記要加入或退出 mailing list 時是送
+      給 "*-request@brl.mil" 。也請您耐心等候因為不會馬上有回應。
+        
+      底下就是 mailing list 的維護者 Bob Reschly 所提供關於這些 mailing list 
+      的詳細細節。
+
+      ==== postings to info-UNIX and UNIX-wizards lists ====
+
+      我個人不對送到 mailing list 的內容作管制，任何送到這個 mailing 
+      list 的信件都會貼到相對應的 news group。BRL 只是單純的轉送。在
+      此 mailing list 上的 Internet 使用者，要送文章到 newgroup 上時
+      請送到 info-UNIX 或 UNIX-wizards, '-request' 是要的信是要送給 
+      mailing list 的維護者看的。
+
+      在此 mailing list 上的 Internet 使用者會收到兩類的訊息，一種是
+      單獨一篇的討論文章，另一種則是集結多篇討論精華的文摘。從 
+      Internet 或者 BITNET(透過 Bitnet ←→ Internet 轉換程式）寄往 
+      BRL 的訊息都會轉發一份給 mail list 當中的每一個使用者。
+
+
+      從 USENET 發出來的文章則以每天彙整一次的方式寄給 mailing list 
+      當中的所有成員。BITNET 的網路交通跟 Internet 的網路交通很像。
+      主要的不同點在於：對於 mailing list 內所有 BITNET 的收件人，我
+      只要維護一個電子郵件地址，讓這個地址所在的收件程式維護所有收件
+      人的資訊，並且自動轉寄所有文章給 mailing list 上的每一個訂閱者
+      即可。
+
+      在 USENET 上的訂閱者只會讀到各自獨立的訊息，所有發自 Internet 
+      的訊息則轉送至我們位於 USENET 上的機器，然後貼至合適的討論區。
+      很不幸地，這些透過轉換程式貼出去的文章，發件人會變成 news@brl-adm，
+      這是轉換軟體目前尚未解決的先天限制。
+
+      至於讀者群方面，USENET 是一個擁有廣大讀者群的地方，我估計約有數
+      千部主機與數萬名使用者參與 USETNET。BRL 所維護的主要 list 約有 
+      250 個，大約有百分之十是本地的轉送 list。我不太清楚 BITNET 方面的
+      轉送數目，不過如果要讓我猜的話，數目大約跟主要 list 一樣。平均一個 
+      list 在一個星期內要送出 150K 到 400K 的資料。
+
+
+------------------------------
+
+Subject: What are some useful Unix or C books? \\
+Date: Thu Mar 18 17:16:55 EST 1993
+
+1.5)  請建議一些有用的 Unix, C 相關書籍。
+
+	Mitch  Wright (mitch@cirrus.com) 維護一份 Unix 和 C 相關書籍一覽
+	表，裡面包含簡介與短評。目前在他的表上有 167 本書ftp.rahul.net 
+	(192.160.13.1) 的 "pub/mitch/YABL/yabl" 就是這份一覽表。 要加入新
+	的內容或提供建議送 email 給 mitch@cirrus.com。
+
+	Samuel Ko (kko@sfu.ca) 維護一份 Unix 相關書籍表。這個列表只包含推
+	薦書，因此比較短。 這份表是分類的列表， 如果你正在尋找特定條件類
+	型的書, 這份表無疑是較為合適的。rtfm.mit.edu 的
+	``\url{pub/usenet/news.answers/books/unix}''  就是此表。
+	要加入新的內容或提供建議送 email 給 kko@sfu.ca。
+
+	如果你不能使用 anonymouse ftp,  email 到 "ftpmail@decwrl.dec.com" 
+	信的內容就寫 "help"，然後你就會收到一份教你如何以 email 取得 
+	anonymous 的信件。
+
+------------------------------
+
+Subject: What happened to the pronunciation list ... ? \\
+Date: Thu Mar 18 17:16:55 EST 1993
+
+1.6)  以前在這 FAQ 中的發音表到那去了?
+
+	當 1989 本文件開使時, 它包含了一份 Carl Paukstis 
+	<carlp@frigg.isc-br.com> 原作，由 Maarten Litmaath 所維護的一份包
+	羅萬象的發音表。後來它功成身退了，因為發音與 "Unix questions" 這
+	個主題不是真的有關。
+
+	若你碰到一些不知該怎麼讀的字, 請參考 Eric S. Raymond
+	\url{<eric@snark.thyrsus.com>}所維護的 Jargon。
+
+        /* 譯注: ftp://ftp.csie.nctu.edu.tw/pub/unix/GNU/jarg400.txt.gz 是 
+                 普通文字版 Jargon */
+
+	若你還是堅持要以前那份發音表, ftp.wg.omron.co.jp (133.210.4.4) 的 
+	``\url{pub/unix-faq/docs/Pronunciation-Guide}'' 就是啦。
+
+------------------------
+unix / faq 第 1 部份結束
+
+\end{CJK}
+\end{document}
